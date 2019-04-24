@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+LICENSE
+.travis.yml
+appveyor.yml
+_pkgdown.yaml
+README.md
+docs
+logo.*

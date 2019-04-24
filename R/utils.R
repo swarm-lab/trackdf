@@ -1,0 +1,71 @@
+#' @title Access/Modify the Projection of a Track Table
+#'
+#' @description Functions to access or modify the projection of a data table.
+#'  Changing the projection will trigger automatically the conversion of the
+#'  locations in the new coordinate system.
+#'
+#' @param x A track table.
+#'
+#' @param value A character string or a \code{\link[sp:CRS]{sp::CRS}} object
+#'  representing the projection of the coordinates. \code{"+proj=longlat"} is
+#'  suitable for the outputs of most GPS trackers.
+#'
+#' @return A track table.
+#'
+#' @note It is not possible to modify the projection if missing coordinates
+#'  are present.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu}
+#'
+#' @examples
+#' # TODO
+#'
+#' @export
+projection <- function(x) {
+  if (!is_track_df(x))
+    stop("This is not a track_df object.")
+
+  attr(x, "proj")
+}
+
+
+#' @rdname projection
+#'
+#' @export
+`projection<-` <- function(x, value = "+proj=longlat") {
+  if (!is_track_df(x))
+    stop("This is not a track_df object.")
+
+  if (is.character(value)) {
+    value <- sp::CRS(value)
+  } else if (class(value) != "CRS") {
+    stop("value must be an object of class character or CRS")
+  }
+
+  if (!is.null(slotNames(attr(x, "proj")))) {
+    tmp <- x[, c("x", "y")]
+
+    if (sum(complete.cases(tmp)) < nrow(tmp))
+      stop("The projection cannot be modified when missing coordinates are present.")
+
+    sp::coordinates(tmp) <- c("x", "y")
+    sp::proj4string(tmp) <- attr(x, "proj")
+    tmp <- sp::spTransform(tmp, value)
+
+    x[, c("x", "y")] <- tibble::as_tibble(tmp)
+  }
+
+  attr(x, "proj") <- value
+  x
+}
+
+#' @rdname projection
+#'
+#' @export
+project <- function(x, value) {
+  if (!is_track_df(x))
+    stop("This is not a track_df object.")
+
+  projection(x) <- value
+  x
+}

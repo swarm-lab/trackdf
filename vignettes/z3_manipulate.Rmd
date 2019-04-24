@@ -1,0 +1,143 @@
+---
+author: "Simon Garnier"
+title: "3 - Manipulating a track table"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pkgdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 3.1 - Basic manipulations
+
+Under the hood, a `track_df` track table is just a [`tibble`]{https://tibble.tidyverse.org/} 
+with a few extra bells and whistles. This means that you can manipulate a track
+table with base R the same way you would a `tibble`, and by extension a `data.frame`. 
+
+```{r}
+library(trackdf)
+
+data("tracks")
+tracks
+```
+
+```{r}
+is_track_df(tracks)
+is_geo(tracks)
+```
+
+```{r}
+head(tracks$id)
+head(tracks[["t"]])
+```
+
+```{r}
+tracks[1]
+tracks[1, ]
+tracks[1, 1]
+head(tracks[, 1])
+```
+
+```{r}
+tracks$id[tracks$id == "1"] <- "0"
+tracks
+
+tracks[tracks[, 1] == "0", 1] <- "1"
+tracks
+```
+
+---
+
+## 3.4 - Accessing and modifying the coordinates' projection
+
+You can access the projection of a track table as follows. 
+
+```{r}
+projection(tracks)
+```
+
+You can modify in place the projection of a track table as follows. This will 
+automatically convert the coordinates in the appropriate projection system. 
+
+```{r}
+projection(tracks) <- "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"
+tracks
+
+projection(tracks) <- "+proj=longlat" 
+tracks
+```
+
+If you prefer not to modify the original object, you can create a new one with 
+the new projection as follows. 
+
+```{r}
+tracks_new_proj <- project(tracks, "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs")
+
+tracks_new_proj
+tracks
+```
+
+---
+
+## 3.3 - Tidyverse
+
+Track tables are mostly compatible with the functions from the 
+[tidyverse]{https://www.tidyverse.org/} (with one notable exception, see below).
+For instance, you can use all the [`dplyr`]{https://dplyr.tidyverse.org/} verbs 
+to filter, mutate, group, etc., a track table, the same way you would do with a
+`tibble` or a `data.frame`. 
+
+```{r}
+library(dplyr)
+
+tracks %>%
+  filter(., t < as.POSIXct("2015-09-10 07:01:00", tz = "Africa/Windhoek"))
+
+tracks %>%
+  group_by(., id) %>%
+  summarize(., x = mean(x),
+            y = mean(y))
+```
+
+`bind_rows` is a notable exception to the rule above. For technical reasons in 
+the implementation of `bind_rows`, it cannot retain all the attributes of objects
+that are not pure `tibble` or `data.frame` (e.g., `track_df` objects have an extra 
+attribute to store the projection of the coordinates, which is stripped by 
+`bind_rows`). For this reason, `trackdf` provides a special version of `bind_rows`
+calles `bind_track_df` to achieve the same purpose. Note that you can also use 
+the base `rbind` function as well to bind two track tables by row. 
+
+```{r}
+track1 <- filter(tracks, id == "1")
+track2 <- filter(tracks, id == "2")
+
+bind_track_df(track1, track2)
+rbind(track1, track2)
+```
+
+---
+
+## 3.4 - Plotting
+
+You can use any plotting method accepting a `tibble` or a `data.frame` to 
+represent the data in a track table. 
+
+With base R: 
+
+```{r}
+plot(y ~ x , data = track1, type = "l", col = "red", xlim = range(tracks$x), 
+     lwd = 2, asp = 1)
+lines(y ~ x , data = track2, type = "l", col = "blue",  lwd = 2)
+```
+
+
+
+With [`ggplot2`]{https://ggplot2.tidyverse.org/}
+
+```{r}
+library(ggplot2)
+
+ggplot(data = tracks, mapping = aes(x = x, y = y, color = id)) +
+  geom_path() +
+  coord_map()
+```
