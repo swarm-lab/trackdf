@@ -10,6 +10,9 @@ as_move(x, ...)
 
 \method{as_move}{track_df}(x, ...)
 }
+\arguments{
+\item{x}{A track table to convert.}
+}
 \value{
 The coordinates converted in the chosen format.
 }

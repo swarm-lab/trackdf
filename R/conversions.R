@@ -5,6 +5,8 @@
 #'
 #' @name conversions
 #'
+#' @param x A track table to convert.
+#'
 #' @return The coordinates converted in the chosen format.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
