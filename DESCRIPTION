@@ -21,7 +21,8 @@ Imports:
   rgdal,
   sp,
   lubridate,
-  methods
+  methods,
+  moveVis
 Suggests:
   readr,
   dplyr,
