@@ -5,20 +5,20 @@
 \alias{[<-.track_df}
 \title{Extract or Replace Parts of a Track Table}
 \usage{
-\method{[}{track_df}(x, i, j, ..., drop = TRUE)
+\method{[}{track_df}(x, i, j, drop = TRUE)
 
-\method{[}{track_df}(x, i, j, ...) <- value
+\method{[}{track_df}(x, i, j) <- value
 }
 \arguments{
 \item{x}{A track table.}
 
 \item{i, j}{Row and column indices. If \code{j} is omitted, \code{i} is used as
- column index.
-
-... Ignored}
+column index.}
 
 \item{drop}{Coerce to a vector if fetching one column via \code{track_df[, j]}.
 Default \code{FALSE}, ignored when accessing a column via \code{track_df[j]}.}
+
+\item{value}{A value to be assigned to x.}
 }
 \description{
 Accessing columns, rows, or cells via $, [[, or [ is mostly
@@ -35,7 +35,7 @@ Accessing columns, rows, or cells via $, [[, or [ is mostly
  documentation}
 }
 \examples{
-TODO
+# TODO
 
 }
 \seealso{

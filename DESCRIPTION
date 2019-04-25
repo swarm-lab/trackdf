@@ -14,15 +14,19 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Depends: 
+  R (>= 3.1.0)
 Imports:
   tibble,
   rgdal,
   sp,
-  lubridate
+  lubridate,
+  methods
 Suggests:
   readr,
   dplyr,
-  ggplot2
+  ggplot2,
+  knitr
 VignetteBuilder: knitr
 URL: https://swarm-lab.github.io/trackdf/, https://github.com/swarm-lab/trackdf
 BugReports: https://github.com/swarm-lab/trackdf/issues

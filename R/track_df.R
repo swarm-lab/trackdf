@@ -161,7 +161,7 @@ track_df <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
 #' @seealso \code{\link{track_df}}
 #'
 #' @examples
-#' TODO
+#' # TODO
 #'
 #' @export
 is_track_df <- function(x) {
@@ -189,7 +189,7 @@ is_geo <- function(x) {
   if (!is_track_df(x)) {
     stop("This is not a track_df object.")
   } else {
-    !is.null(slotNames(attr(x, "proj")))
+    !is.null(methods::slotNames(attr(x, "proj")))
   }
 }
 
@@ -242,22 +242,22 @@ print.track_df <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #' @param i,j Row and column indices. If \code{j} is omitted, \code{i} is used as
 #'  column index.
 #'
-#' ... Ignored
-#'
 #' @param drop Coerce to a vector if fetching one column via \code{track_df[, j]}.
 #'  Default \code{FALSE}, ignored when accessing a column via \code{track_df[j]}.
+#'
+#' @param value A value to be assigned to x.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @seealso \code{\link{track_df}}
 #'
 #' @examples
-#' TODO
+#' # TODO
 #'
 #' @export
-`[.track_df` <- function(x, i, j, ..., drop = TRUE) {
+`[.track_df` <- function(x, i, j, drop = TRUE) {
   class(x) <- class(x)[class(x) != "track_df"]
-  x <- x[i, j, ..., drop = drop]
+  x <- x[i, j, drop = drop]
 
   if (all(tibble::has_name(x, c("id", "t", "x", "y"))))
     class(x) <- c("track_df", class(x))
@@ -270,7 +270,7 @@ print.track_df <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
 #' @method [<- track_df
 #'
 #' @export
-`[<-.track_df` <- function(x, i, j, value, ...) {
+`[<-.track_df` <- function(x, i, j, value) {
   class(x) <- class(x)[class(x) != "track_df"]
   x[i, j] <- value
   class(x) <- c("track_df", class(x))

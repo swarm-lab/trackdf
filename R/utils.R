@@ -42,10 +42,10 @@ projection <- function(x) {
     stop("value must be an object of class character or CRS")
   }
 
-  if (!is.null(slotNames(attr(x, "proj")))) {
+  if (!is.null(methods::slotNames(attr(x, "proj")))) {
     tmp <- x[, c("x", "y")]
 
-    if (sum(complete.cases(tmp)) < nrow(tmp))
+    if (sum(stats::complete.cases(tmp)) < nrow(tmp))
       stop("The projection cannot be modified when missing coordinates are present.")
 
     sp::coordinates(tmp) <- c("x", "y")
