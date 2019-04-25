@@ -6,12 +6,17 @@
 \alias{as_move.track_df}
 \title{Convert a Track Table to Other Formats}
 \usage{
-as_move(x)
+as_move(x, ...)
 
 \method{as_move}{track_df}(x, ...)
 }
 \arguments{
 \item{x}{A track table to convert.}
+
+\item{...}{Other parameters to be passed to:
+\itemize{
+  \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if `as_move` is used.}
+}}
 }
 \value{
 The coordinates converted in the chosen format.
