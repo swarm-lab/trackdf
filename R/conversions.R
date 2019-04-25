@@ -15,7 +15,7 @@
 #' # TODO
 #'
 #' @export
-as_move <- function(x, ...) {
+as_move <- function(x) {
   UseMethod("as_move", x)
 }
 

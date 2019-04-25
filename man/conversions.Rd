@@ -6,7 +6,7 @@
 \alias{as_move.track_df}
 \title{Convert a Track Table to Other Formats}
 \usage{
-as_move(x, ...)
+as_move(x)
 
 \method{as_move}{track_df}(x, ...)
 }
