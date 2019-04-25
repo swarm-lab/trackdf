@@ -149,10 +149,10 @@ For more info, refer to tibble's subsetting
     </div>
 
     <pre class="usage"># S3 method for track_df
-[(x, i, j, ..., drop = TRUE)
+[(x, i, j, drop = TRUE)
 
 # S3 method for track_df
-[(x, i, j, ...) <- value</pre>
+[(x, i, j) <- value</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,13 +164,16 @@ For more info, refer to tibble's subsetting
     <tr>
       <th>i, j</th>
       <td><p>Row and column indices. If <code>j</code> is omitted, <code>i</code> is used as
- column index.</p>
-<p>... Ignored</p></td>
+column index.</p></td>
     </tr>
     <tr>
       <th>drop</th>
       <td><p>Coerce to a vector if fetching one column via <code>track_df[, j]</code>.
 Default <code>FALSE</code>, ignored when accessing a column via <code>track_df[j]</code>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>A value to be assigned to x.</p></td>
     </tr>
     </table>
     
@@ -180,7 +183,8 @@ Default <code>FALSE</code>, ignored when accessing a column via <code>track_df[j
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>TODO</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'TODO' not found</span></div><div class='input'>
+    <pre class="examples"><div class='input'># TODO
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
