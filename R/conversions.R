@@ -7,6 +7,11 @@
 #'
 #' @param x A track table to convert.
 #'
+#' @param ... Other parameters to be passed to:
+#' \itemize{
+#'   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if `as_move` is used.}
+#' }
+#'
 #' @return The coordinates converted in the chosen format.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
@@ -15,7 +20,7 @@
 #' # TODO
 #'
 #' @export
-as_move <- function(x) {
+as_move <- function(x, ...) {
   UseMethod("as_move", x)
 }
 
