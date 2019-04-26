@@ -20,6 +20,7 @@ before_install:
 
 apt_packages:
   - libgdal-dev
+  - libavformat-dev
   - libavfilter-dev
 
 after_success:
