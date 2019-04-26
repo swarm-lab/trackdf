@@ -20,6 +20,7 @@ before_install:
 
 apt_packages:
   - libgdal-dev
+  - libavfilter-dev
 
 after_success:
   - cat ${RCHECK_DIR}/00install.out
