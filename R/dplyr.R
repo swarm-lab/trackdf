@@ -157,6 +157,10 @@ do.track_df <- function(.data, ...) .reclass(.data, NextMethod())
 #' @export
 bind_track_df <- function(..., .id = NULL) {
   df <- list(...)
+
+  if (length(df) == 1)
+    df <- df[[1]]
+
   proj <- unique(lapply(df, attr, "proj"))
   cl <- unique(lapply(df, class))
 

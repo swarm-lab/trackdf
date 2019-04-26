@@ -2,10 +2,19 @@
 % Please edit documentation in R/conversions.R
 \name{conversions}
 \alias{conversions}
+\alias{as_track_df}
+\alias{as_track_df.MoveStack}
+\alias{as_track_df.Move}
 \alias{as_move}
 \alias{as_move.track_df}
 \title{Convert a Track Table to Other Formats}
 \usage{
+as_track_df(x, ...)
+
+\method{as_track_df}{MoveStack}(x, ...)
+
+\method{as_track_df}{Move}(x, id, ...)
+
 as_move(x, ...)
 
 \method{as_move}{track_df}(x, ...)
@@ -15,8 +24,12 @@ as_move(x, ...)
 
 \item{...}{Other parameters to be passed to:
 \itemize{
+  \item{\code{\link{track_df}} if `as_track_df` is used.}
   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if `as_move` is used.}
 }}
+
+\item{id}{A character vector representing the identity of the animal to which
+each location belong.}
 }
 \value{
 The coordinates converted in the chosen format.
