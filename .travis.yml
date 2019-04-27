@@ -17,11 +17,14 @@ r_packages:
 
 addons:
   apt:
+    sources:
+      - sourceline: "ppa:jonathonf/ffmpeg-3"
     packages:
     - libgdal-dev
     - libudunits2-dev
     - libssh2-1-dev
     - imagemagick
+    - ffmpeg
     - cargo
     - libavformat-dev
     - libavcodec-dev
