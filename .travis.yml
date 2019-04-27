@@ -28,6 +28,12 @@ apt_packages:
   - libavcodec-dev
   - libavfilter-dev
   - libmagick++-dev
+  - libgsl-dev
+
+addons:
+  homebrew:
+    packages:
+    - gsl
 
 after_success:
   - cat ${RCHECK_DIR}/00install.out
