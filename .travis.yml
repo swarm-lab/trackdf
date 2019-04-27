@@ -22,7 +22,9 @@ addons:
     - libavcodec-dev
     - libavfilter-dev
     - libmagick++-dev
-    - libgsl0-dev
+    - gsl-bin
+    - libgsl2
+    - libgsl-dev
   homebrew:
     packages:
     - gsl
