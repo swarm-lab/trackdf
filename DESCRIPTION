@@ -21,14 +21,17 @@ Imports:
   rgdal,
   sp,
   lubridate,
-  methods,
-  move,
-  moveVis
+  methods
 Suggests:
   readr,
   dplyr,
   ggplot2,
-  knitr
+  knitr,
+  adehabitatLT,
+  move,
+  moveVis,
+  ctmm,
+  moveHMM
 VignetteBuilder: knitr
 URL: https://swarm-lab.github.io/trackdf/, https://github.com/swarm-lab/trackdf
 BugReports: https://github.com/swarm-lab/trackdf/issues

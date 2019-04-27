@@ -119,7 +119,7 @@ track_df <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
       stop("proj must be an object of class character or CRS")
     }
   } else {
-    proj <- NA
+    proj <- sp::CRS()
   }
 
   if (!missing(z)) {
@@ -168,29 +168,6 @@ is_track_df <- function(x) {
   any(class(x) == "track_df") &
     all(tibble::has_name(x, c("id", "t", "x", "y"))) &
     !is.null(attr(x, "proj"))
-}
-
-#' @title Check if Track Table Uses Geographic Coordinates
-#'
-#' @description Track tables produced by \code{\link{track_df}} can use a
-#'  cartesian (x, y, z) or a geographic (latitude, longitude, altitude)
-#'  coordinate system. This function helps determine which is being used in a
-#'  particular table.
-#'
-#' @param x A track data table as produced by \code{\link{track_df}}.
-#'
-#' @author Simon Garnier, \email{garnier@@njit.edu}
-#'
-#' @examples
-#' # TODO
-#'
-#' @export
-is_geo <- function(x) {
-  if (!is_track_df(x)) {
-    stop("This is not a track_df object.")
-  } else {
-    !is.null(methods::slotNames(attr(x, "proj")))
-  }
 }
 
 

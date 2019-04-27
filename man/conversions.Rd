@@ -7,6 +7,14 @@
 \alias{as_track_df.Move}
 \alias{as_move}
 \alias{as_move.track_df}
+\alias{as_sp}
+\alias{as_sp.track_df}
+\alias{as_ltraj}
+\alias{as_ltraj.track_df}
+\alias{as_telemetry}
+\alias{as_telemetry.track_df}
+\alias{as_moveHMM}
+\alias{as_moveHMM.track_df}
 \title{Convert a Track Table to Other Formats}
 \usage{
 as_track_df(x, ...)
@@ -18,14 +26,37 @@ as_track_df(x, ...)
 as_move(x, ...)
 
 \method{as_move}{track_df}(x, ...)
+
+as_sp(x, ...)
+
+\method{as_sp}{track_df}(x, ...)
+
+as_ltraj(x, ...)
+
+\method{as_ltraj}{track_df}(x, ...)
+
+as_telemetry(x, ...)
+
+\method{as_telemetry}{track_df}(x, ...)
+
+as_moveHMM(x, ...)
+
+\method{as_moveHMM}{track_df}(x, ...)
 }
 \arguments{
 \item{x}{A track table to convert.}
 
 \item{...}{Other parameters to be passed to:
 \itemize{
-  \item{\code{\link{track_df}} if `as_track_df` is used.}
-  \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if `as_move` is used.}
+  \item{\code{\link{track_df}} if \code{as_track_df} is used.}
+  \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
+    used.}
+  \item{\code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame}}
+    if \code{as_sp} is used.}
+  \item{\code{\link[adehabitatLT:as.ltraj]{adehabitatLT::as.ltraj}} if
+    \code{as_ltraj} is used.}
+  \item{\code{\link[ctmm:as.telemetry]{ctmm::as.telemetry}} if
+    \code{as_telemetry} is used.}
 }}
 
 \item{id}{A character vector representing the identity of the animal to which

@@ -69,3 +69,79 @@ project <- function(x, value) {
   projection(x) <- value
   x
 }
+
+
+#' @title Check if Track Table Uses Geographic Coordinates
+#'
+#' @description Track tables produced by \code{\link{track_df}} can use a
+#'  cartesian (x, y, z) or a geographic (latitude, longitude, altitude)
+#'  coordinate system. This function helps determine which is being used in a
+#'  particular table.
+#'
+#' @param x A track data table as produced by \code{\link{track_df}}.
+#'
+#' @return A logical.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu}
+#'
+#' @examples
+#' # TODO
+#'
+#' @export
+is_geo <- function(x) {
+  if (!is_track_df(x)) {
+    stop("This is not a track_df object.")
+  } else {
+    !is.na(attr(x, "proj")@projargs)
+  }
+}
+
+
+#' @title Number of Spatial Dimensions of a Track Table
+#'
+#' @description Track tables produced by \code{\link{track_df}} can have 2 (x,y)
+#'  or 3 (x, y, z) spatial dimensions. This function returns the number of
+#'  spatial dimensions of a track table.
+#'
+#' @param x A track data table as produced by \code{\link{track_df}}.
+#'
+#' @return A numeric value.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu}
+#'
+#' @examples
+#' # TODO
+#'
+#' @export
+n_dims <- function(x) {
+  if (!is_track_df(x)) {
+    stop("This is not a track_df object.")
+  } else {
+    sum(c("x", "y", "z") %in% names(x))
+  }
+}
+
+
+#' @title Number of Tracks in a Track Table
+#'
+#' @description Track tables produced by \code{\link{track_df}} can contain
+#'  multiple tracks (e.g., from different animals). This function returns the
+#'  number of tracks in a track table.
+#'
+#' @param x A track data table as produced by \code{\link{track_df}}.
+#'
+#' @return A numeric value.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu}
+#'
+#' @examples
+#' # TODO
+#'
+#' @export
+n_tracks <- function(x) {
+  if (!is_track_df(x)) {
+    stop("This is not a track_df object.")
+  } else {
+    length(unique(x$id))
+  }
+}
