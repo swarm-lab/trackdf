@@ -10,6 +10,23 @@ os:
 r_build_args: "--no-manual --no-build-vignettes"
 r_check_args: "--as-cran --ignore-vignettes --no-examples --install-args=--build"
 
+addons:
+  apt:
+    packages:
+    - libgdal-dev
+    - libudunits2-dev
+    - libssh2-1-dev
+    - imagemagick
+    - cargo
+    - libavformat-dev
+    - libavcodec-dev
+    - libavfilter-dev
+    - libmagick++-dev
+    - libgsl-dev
+  homebrew:
+    packages:
+    - gsl
+
 before_install:
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
@@ -17,23 +34,6 @@ before_install:
   - cat DESCRIPTION
   - export PACKAGE_NAME=`package_name`
   - export RCHECK_DIR=${PACKAGE_NAME}.Rcheck
-
-apt_packages:
-  - libgdal-dev
-  - libudunits2-dev
-  - libssh2-1-dev
-  - imagemagick
-  - cargo
-  - libavformat-dev
-  - libavcodec-dev
-  - libavfilter-dev
-  - libmagick++-dev
-  - libgsl-dev
-
-addons:
-  homebrew:
-    packages:
-    - gsl
 
 after_success:
   - cat ${RCHECK_DIR}/00install.out
