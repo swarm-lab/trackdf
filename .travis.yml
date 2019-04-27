@@ -11,6 +11,10 @@ os:
 r_build_args: "--no-manual --no-build-vignettes"
 r_check_args: "--as-cran --ignore-vignettes --no-examples --install-args=--build"
 
+r_packages:
+  - devtools
+  - ade4
+
 addons:
   apt:
     packages:
