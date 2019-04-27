@@ -1,4 +1,4 @@
-#' @title Convert a Track Table to Other Formats
+#' @title Convert a Track Table to/from Other Formats
 #'
 #' @description The following methods will convert track tables to other
 #'  common formats used for processing tracking and spatial data.

@@ -15,7 +15,7 @@
 \alias{as_telemetry.track_df}
 \alias{as_moveHMM}
 \alias{as_moveHMM.track_df}
-\title{Convert a Track Table to Other Formats}
+\title{Convert a Track Table to/from Other Formats}
 \usage{
 as_track_df(x, ...)
 
