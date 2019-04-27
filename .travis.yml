@@ -18,7 +18,7 @@ r_packages:
 addons:
   apt:
     sources:
-      - sourceline: "ppa:jonathonf/ffmpeg-3"
+    - sourceline: "ppa:jonathonf/ffmpeg-3"
     packages:
     - libgdal-dev
     - libudunits2-dev

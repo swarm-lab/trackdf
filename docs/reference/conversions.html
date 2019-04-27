@@ -143,7 +143,27 @@
 <span class='fu'>as_move</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for track_df</span>
-<span class='fu'>as_move</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>as_move</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>as_sp</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for track_df</span>
+<span class='fu'>as_sp</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>as_ltraj</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for track_df</span>
+<span class='fu'>as_ltraj</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>as_telemetry</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for track_df</span>
+<span class='fu'>as_telemetry</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>as_moveHMM</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for track_df</span>
+<span class='fu'>as_moveHMM</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,8 +175,15 @@
     <tr>
       <th>...</th>
       <td><p>Other parameters to be passed to:</p><ul>
-<li><p><code><a href='track_df.html'>track_df</a></code> if `as_track_df` is used.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/moveVis/topics/df2move'>moveVis::df2move</a></code> if `as_move` is used.</p></li>
+<li><p><code><a href='track_df.html'>track_df</a></code> if <code>as_track_df</code> is used.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/moveVis/topics/df2move'>moveVis::df2move</a></code> if <code>as_move</code> is
+    used.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPoints'>sp::SpatialPointsDataFrame</a></code>
+    if <code>as_sp</code> is used.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/adehabitatLT/topics/as.ltraj'>adehabitatLT::as.ltraj</a></code> if
+    <code>as_ltraj</code> is used.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/ctmm/topics/as.telemetry'>ctmm::as.telemetry</a></code> if
+    <code>as_telemetry</code> is used.</p></li>
 </ul></td>
     </tr>
     <tr>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if Track Table Uses Geographic Coordinates — is_geo • trackdf</title>
+<title>Number of Spatial Dimensions of a Track Table — n_dims • trackdf</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,11 @@
 
 
 
-<meta property="og:title" content="Check if Track Table Uses Geographic Coordinates — is_geo" />
+<meta property="og:title" content="Number of Spatial Dimensions of a Track Table — n_dims" />
 
-<meta property="og:description" content="Track tables produced by track_df can use a
- cartesian (x, y, z) or a geographic (latitude, longitude, altitude)
- coordinate system. This function helps determine which is being used in a
- particular table." />
+<meta property="og:description" content="Track tables produced by track_df can have 2 (x,y)
+ or 3 (x, y, z) spatial dimensions. This function returns the number of
+ spatial dimensions of a track table." />
 
 <meta property="og:image" content="https://swarm-lab.github.io/trackdf/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -122,21 +121,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if Track Table Uses Geographic Coordinates</h1>
+    <h1>Number of Spatial Dimensions of a Track Table</h1>
     <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>is_geo.Rd</code></div>
+    <div class="hidden name"><code>n_dims.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Track tables produced by <code><a href='track_df.html'>track_df</a></code> can use a
- cartesian (x, y, z) or a geographic (latitude, longitude, altitude)
- coordinate system. This function helps determine which is being used in a
- particular table.</p>
+    <p>Track tables produced by <code><a href='track_df.html'>track_df</a></code> can have 2 (x,y)
+ or 3 (x, y, z) spatial dimensions. This function returns the number of
+ spatial dimensions of a track table.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is_geo</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>n_dims</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,7 +147,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical.</p>
+    <p>A numeric value.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
