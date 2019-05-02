@@ -7,12 +7,17 @@
 \alias{as_track_df.Move}
 \alias{as_move}
 \alias{as_move.track_df}
+\alias{as_track_df.SpatialPointsDataFrame}
 \alias{as_sp}
 \alias{as_sp.track_df}
+\alias{as_track_df.ltraj}
 \alias{as_ltraj}
 \alias{as_ltraj.track_df}
+\alias{as_track_df.telemetry}
+\alias{as_track_df.list}
 \alias{as_telemetry}
 \alias{as_telemetry.track_df}
+\alias{as_track_df.moveData}
 \alias{as_moveHMM}
 \alias{as_moveHMM.track_df}
 \title{Convert a Track Table to/from Other Formats}
@@ -27,17 +32,28 @@ as_move(x, ...)
 
 \method{as_move}{track_df}(x, ...)
 
+\method{as_track_df}{SpatialPointsDataFrame}(x, t = "t", id = "id",
+  ...)
+
 as_sp(x, ...)
 
 \method{as_sp}{track_df}(x, ...)
+
+\method{as_track_df}{ltraj}(x, ...)
 
 as_ltraj(x, ...)
 
 \method{as_ltraj}{track_df}(x, ...)
 
+\method{as_track_df}{telemetry}(x, ...)
+
+\method{as_track_df}{list}(x, ...)
+
 as_telemetry(x, ...)
 
 \method{as_telemetry}{track_df}(x, ...)
+
+\method{as_track_df}{moveData}(x, ...)
 
 as_moveHMM(x, ...)
 

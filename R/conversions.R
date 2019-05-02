@@ -37,6 +37,9 @@ as_track_df <- function(x, ...) {
   UseMethod("as_track_df", x)
 }
 
+
+### MOVE + MOVESTACK
+
 #' @rdname conversions
 #'
 #' @export
@@ -58,7 +61,6 @@ as_track_df.Move <- function(x, id, ...) {
            tz = lubridate::tz(x$time))
 }
 
-
 #' @rdname conversions
 #'
 #' @export
@@ -78,6 +80,34 @@ as_move.track_df <- function(x, ...) {
 }
 
 
+### SPATIALPOINTSDATAFRAME
+
+#' @rdname conversions
+#'
+#' @export
+as_track_df.SpatialPointsDataFrame <- function(x, t = "t", id = "id", ...) {
+  if (length(t) == 1) {
+    if (is.character(t)) {
+      if (t %in% names(x)) {
+        t <- x[[t]]
+      }
+    }
+  }
+
+  if (length(id) == 1) {
+    if (is.character(id)) {
+      if (id %in% names(x)) {
+        id <- x[[id]]
+      }
+    }
+  }
+
+  df <- sp::coordinates(x)
+
+  track_df(x = df[, 1], y = df[, 2], t = t, id = id, ..., proj = x@proj4string,
+           tz = lubridate::tz(x$t))
+}
+
 #' @rdname conversions
 #'
 #' @export
@@ -92,13 +122,27 @@ as_sp.track_df <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("sp objects are 2D only. The 3rd dimension will be stripped away.")
 
-  sp::SpatialPointsDataFrame(
-    coords = x[, c("x", "y")],
-    data = x[, c("id", "t")],
-    proj4string = attr(x, "proj", ...)
-  )
+  sp::SpatialPointsDataFrame(coords = x[, c("x", "y")], data = x[, c("id", "t")],
+                             proj4string = attr(x, "proj"), ...)
 }
 
+
+### LTRAJ
+
+#' @rdname conversions
+#'
+#' @export
+as_track_df.ltraj <- function(x, ...) {
+  l <- list()
+  bursts <- adehabitatLT::burst(x)
+
+  for (i in 1:length(bursts)) {
+    l[[i]] <- track_df(x = x[[i]]$x, y = x[[i]]$y, t = x[[i]]$date, id = bursts[i],
+                       ..., proj = attr(x, "proj4string"), tz = lubridate::tz(x[[i]]$date))
+  }
+
+  bind_track_df(l)
+}
 
 #' @rdname conversions
 #'
@@ -114,9 +158,38 @@ as_ltraj.track_df <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("ltraj objects are 2D only. The 3rd dimension will be stripped away.")
 
-  adehabitatLT::as.ltraj(xy = x[, c("x", "y")], date = x$t, id = x$id, typeII = TRUE, ...)
+  adehabitatLT::as.ltraj(xy = x[, c("x", "y")], date = x$t, id = x$id, typeII = TRUE,
+                         proj4string = projection(x), ...)
 }
 
+
+### TELEMETRY
+
+#' @rdname conversions
+#'
+#' @export
+as_track_df.telemetry <- function(x, ...) {
+  track_df(x = x$longitude, y = x$latitude, t = x$timestamp, id = x@info$identity,
+           ..., proj = "+proj=longlat", tz = x@info$timezone)
+}
+
+#' @rdname conversions
+#'
+#' @export
+as_track_df.list <- function(x, ...) {
+  if (!all(lapply(x, class) == "telemetry"))
+    stop("No applicable method for 'as_track_df' applied to an object of class 'list'.")
+
+  l <- list()
+
+  for (i in 1:length(x)) {
+    l[[i]] <- track_df(x = x[[i]]$longitude, y = x[[i]]$latitude, t = x[[i]]$timestamp,
+                       id = x[[i]]@info$identity, ..., proj = "+proj=longlat",
+                       tz = x[[i]]@info$timezone)
+  }
+
+  bind_track_df(l)
+}
 
 #' @rdname conversions
 #'
@@ -135,10 +208,26 @@ as_telemetry.track_df <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("telemetry objects are 2D only. The 3rd dimension will be stripped away.")
 
-  projection(x) <- "+init=epsg:4326"
-  ctmm::as.telemetry(data.frame(lon = x$x, lat = x$y, timestamp = x$t, id = x$id))
+  if (grepl("longlat", projection(x), fixed = TRUE) || grepl("latlong", projection(x), fixed = TRUE)) {
+    proj <- NULL
+  } else {
+    proj <- projection(x)
+  }
+
+  ctmm::as.telemetry(data.frame(lon = x$x, lat = x$y, timestamp = x$t, id = x$id),
+                     timezone = lubridate::tz(x$t), proj = proj)
 }
 
+
+### MOVEHMM
+
+#' @rdname conversions
+#'
+#' @export
+as_track_df.moveData <- function(x, ...) {
+  track_df(x = x$x, y = x$y, t = x$t, id = x$ID, ..., proj = "+proj=longlat",
+           tz = lubridate::tz(x$time))
+}
 
 #' @rdname conversions
 #'
