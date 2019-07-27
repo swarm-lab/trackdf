@@ -18,11 +18,9 @@ Track tables produced by \code{\link{track_df}} can have 2 (x,y)
  spatial dimensions of a track table.
 }
 \examples{
-library(trackdf)
-t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+data(tracks)
 
-n_dims(t_df)
+n_dims(tracks)
 
 }
 \author{

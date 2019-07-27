@@ -18,6 +18,8 @@ Test whether a variable contains a track table as produced
  by \code{\link{track_df}}, \code{\link{track_tbl}}, or \code{\link{track_dt}}.
 }
 \examples{
+data(tracks)
+
 is_track(tracks)
 
 }

@@ -21,12 +21,10 @@ A track table.
  different table classes are coerced to the same table class.
 }
 \examples{
-library(trackdf)
-t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+data(tracks)
 
-rbind_track(t_df, t_df)
-rbind_track(list(t_df, t_df))
+rbind_track(tracks, tracks)
+rbind_track(list(tracks, tracks))
 
 }
 \author{

@@ -32,15 +32,13 @@ It is not possible to modify the projection if missing coordinates
  are present.
 }
 \examples{
-library(trackdf)
-t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+data(tracks)
 
-projection(t_df)
-t_df_projected <- project(t_df, "+proj=somerc")
-projection(t_df_projected)
-projection(t_df_projected) <- "+proj=longlat"
-projection(t_df_projected)
+projection(tracks)
+tracks_projected <- project(tracks, "+proj=somerc")
+projection(tracks_projected)
+projection(tracks_projected) <- "+proj=longlat"
+projection(tracks_projected)
 
 }
 \author{

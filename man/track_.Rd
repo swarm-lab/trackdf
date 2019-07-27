@@ -78,7 +78,8 @@ A track table, which is a colloquial term for an object of class
  automatically trigger the appropriate conversion of the coordinates.
 }
 \examples{
-library(trackdf)
+data(tracks)
+
 t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
   proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
 

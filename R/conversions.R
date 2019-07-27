@@ -42,21 +42,21 @@
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' \dontrun{
+#' data(tracks)
 #'
-#' mv <- as_move(t_df)
-#' sp <- as_sp(t_df)
-#' lt <- as_ltraj(t_df)
-#' tl <- as_telemetry(t_df)
-#' hhm <- as_moveHMM(t_df, type = "LL")
+#' mv <- as_move(tracks)
+#' sp <- as_sp(tracks)
+#' lt <- as_ltraj(tracks)
+#' tl <- as_telemetry(tracks)
+#' hhm <- as_moveHMM(tracks, type = "LL")
 #'
 #' as_track(mv)
 #' as_track(sp)
 #' as_track(lt)
 #' as_track(tl)
 #' as_track(hhm)
+#' }
 #'
 #' @rdname conversions
 #'

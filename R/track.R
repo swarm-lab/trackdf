@@ -144,7 +144,8 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
+#' data(tracks)
+#'
 #' t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
 #'   proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
 #'
@@ -248,6 +249,8 @@ track_dt <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
+#' data(tracks)
+#'
 #' is_track(tracks)
 #'
 #' @export
@@ -317,9 +320,7 @@ print.track <- function(x, ...) {
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
 #' tracks[1]
 #' tracks[1, ]
@@ -372,12 +373,10 @@ print.track <- function(x, ...) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
-#' rbind_track(t_df, t_df)
-#' rbind_track(list(t_df, t_df))
+#' rbind_track(tracks, tracks)
+#' rbind_track(list(tracks, tracks))
 #'
 #' @export
 rbind_track <- function(...) {

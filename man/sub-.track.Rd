@@ -30,9 +30,7 @@ Accessing columns, rows, or cells via $, [[, or [ is mostly
  \code{\link[data.table]{data.table}}'s subsetting documentation.
 }
 \examples{
-library(trackdf)
-t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+data(tracks)
 
 tracks[1]
 tracks[1, ]

@@ -53,15 +53,13 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
-#' projection(t_df)
-#' t_df_projected <- project(t_df, "+proj=somerc")
-#' projection(t_df_projected)
-#' projection(t_df_projected) <- "+proj=longlat"
-#' projection(t_df_projected)
+#' projection(tracks)
+#' tracks_projected <- project(tracks, "+proj=somerc")
+#' projection(tracks_projected)
+#' projection(tracks_projected) <- "+proj=longlat"
+#' projection(tracks_projected)
 #'
 #' @export
 projection <- function(x) {
@@ -128,11 +126,9 @@ project <- function(x, value) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
-#' is_geo(t_df)
+#' is_geo(tracks)
 #'
 #' @export
 is_geo <- function(x) {
@@ -157,11 +153,9 @@ is_geo <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
-#' n_dims(t_df)
+#' n_dims(tracks)
 #'
 #' @export
 n_dims <- function(x) {
@@ -186,11 +180,9 @@ n_dims <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' library(trackdf)
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' data(tracks)
 #'
-#' n_tracks(t_df)
+#' n_tracks(tracks)
 #'
 #' @export
 n_tracks <- function(x) {
