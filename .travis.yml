@@ -31,7 +31,7 @@ addons:
     - libavfilter-dev
     - libmagick++-dev
     - gsl-bin
-    - libgsl2
+    - libgsl23
     - libgsl-dev
   homebrew:
     packages:
