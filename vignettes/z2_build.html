@@ -330,11 +330,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9     1  629.  882.  1148     2     1 FALSE            1
 ## 10     2 1056.  656.  1068     2     2 FALSE            2
 ## # … with 21,972 more rows</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vid_df &lt;-<span class="st"> </span><span class="kw">track_df</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                   <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                   <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                   <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">head</span>(vid_df)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vid_df &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;df&quot;</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">head</span>(vid_df)</a></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  6 
 ## Dimensions:  2D 
@@ -347,11 +346,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4  4 2019-03-24 12:55:23 1277.6466 373.7491
 ## 5  5 2019-03-24 12:55:23 1379.2844 343.0853
 ## 6  6 2019-03-24 12:55:23 1137.1378 174.5110</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vid_tbl &lt;-<span class="st"> </span><span class="kw">track_tbl</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">                     <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">                     <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">                     <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">print</span>(vid_tbl)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vid_tbl &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                 <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;tbl&quot;</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">print</span>(vid_tbl)</a></code></pre></div>
 <pre><code>## Track table [21982 observations]
 ## Number of tracks:  83 
 ## Dimensions:  2D 
@@ -371,11 +369,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9 1     2019-03-24 12:55:23  629.  882.
 ## 10 2     2019-03-24 12:55:23 1056.  656.
 ## # … with 21,972 more rows</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">vid_dt &lt;-<span class="st"> </span><span class="kw">track_dt</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                   <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>,</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                   <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">                   <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">vid_dt</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">vid_dt &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;dt&quot;</span>)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">vid_dt</a></code></pre></div>
 <pre><code>## Track table [21982 observations]
 ## Number of tracks:  83 
 ## Dimensions:  2D 
@@ -414,8 +411,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9 2015-09-10 07:00:11  15.8 -22.4
 ## 10 2015-09-10 07:00:12  15.8 -22.4
 ## # … with 3,585 more rows</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gps_df &lt;-<span class="st"> </span><span class="kw">track_df</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">                   <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gps_df &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;df&quot;</span>)</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">head</span>(gps_df)</a></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  1 
@@ -430,8 +427,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
 ## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
 ## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gps_tbl &lt;-<span class="st"> </span><span class="kw">track_tbl</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">                     <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gps_tbl &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">                 <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;tbl&quot;</span>)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">gps_tbl</a></code></pre></div>
 <pre><code>## Track table [3595 observations]
 ## Number of tracks:  1 
@@ -453,8 +450,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9 1     2015-09-10 07:00:11  15.8 -22.4
 ## 10 1     2015-09-10 07:00:12  15.8 -22.4
 ## # … with 3,585 more rows</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gps_dt &lt;-<span class="st"> </span><span class="kw">track_dt</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">                   <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gps_dt &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;dt&quot;</span>)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">gps_dt</a></code></pre></div>
 <pre><code>## Track table [3595 observations]
 ## Number of tracks:  1 

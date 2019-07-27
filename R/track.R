@@ -76,7 +76,7 @@
   out
 }
 
-#' @name track_
+#' @name track_de
 #' @aliases track_tbl
 #' @aliases track_dt
 #'
@@ -84,7 +84,7 @@
 #' @title Build a Track Table
 #'
 #' @description \code{track} constructs track tables based on \code{\link{data.frame}}
-#'  (the defaukt), \code{\link[tibble]{tibble}}, or \code{\link[data.table]{data.table}}.
+#'  (the default), \code{\link[tibble]{tibble}}, or \code{\link[data.table]{data.table}}.
 #'  \code{track} is a convenience function that executes \code{track_df},
 #'  \code{track_tbl}, or \code{track_dt} based on the value of the `table`
 #'  parameter. Track tables can be used like the data structure they are build
@@ -92,7 +92,7 @@
 #'  the projection of the track coordinates, and modifying the projection will
 #'  automatically trigger the appropriate conversion of the coordinates.
 #'
-#' @param x,y,z Numaric vectors representing the coordinates of the locations.
+#' @param x,y,z Numeric vectors representing the coordinates of the locations.
 #'  \code{x} and \code{y} are required. \code{z} can be ignored if the
 #'  trajectories are 2-dimensional. Note: if the vectors are not of the same
 #'  length, the shorter ones will be recycled to match the length of the longer

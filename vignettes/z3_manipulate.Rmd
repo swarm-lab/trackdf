@@ -15,12 +15,14 @@ data("tracks")
 
 ## 3.1 - Creating track tables
 
-Under the hood, a track table is just a simple data frame of class [`data.frame`](), 
-[`tibble`]() or [`data.table`]() with a few extra bells and whistles. This means 
-that you can manipulate a track table same way you would a data frame of any of 
-these three classes. 
+Under the hood, a track table is just a simple data frame of class 
+[`data.frame`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/data.frame.html), 
+[`tibble`](https://CRAN.R-project.org/package=tibble) or 
+[`data.table`](https://cran.r-project.org/package=data.table) with a few extra 
+bells and whistles. This means that you can manipulate a track table same way 
+you would a data frame of any of these three classes. 
 
-To create a track table based on [`data.frame`]()`, do: 
+To create a track table based on `data.frame`, do: 
 
 ```{r paged.print=FALSE}
 t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
@@ -28,7 +30,7 @@ t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
 head(t_df)
 ```
 
-To create a track table based on [`tibble`]()`, do: 
+To create a track table based on `tibble`, do: 
 
 ```{r paged.print=FALSE}
 t_tbl <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
@@ -36,7 +38,7 @@ t_tbl <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
 t_tbl 
 ```
 
-To create a track table based on [`data.table`]()`, do: 
+To create a track table based on `data.table`, do: 
 
 ```{r paged.print=FALSE}
 t_dt <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
@@ -154,8 +156,8 @@ head(t_df_new_proj)
 ## 3.5 - Tidyverse
 
 Track tables are mostly compatible with the functions from the 
-[tidyverse]{https://www.tidyverse.org/} (with one notable exception, see below).
-For instance, you can use all the [`dplyr`]{https://dplyr.tidyverse.org/} verbs 
+[tidyverse](https://www.tidyverse.org/) (with one notable exception, see below).
+For instance, you can use all the [`dplyr`](https://dplyr.tidyverse.org/) verbs 
 to filter, mutate, group, etc., a track table, the same way you would do with a
 `tibble` or a `data.frame`. 
 
@@ -179,11 +181,11 @@ the implementation of `bind_rows`, it cannot retain all the attributes of object
 that are not pure `tibble` or `data.frame` (e.g., track tables have an extra 
 attribute to store the projection of the coordinates, which is stripped by 
 `bind_rows`). For this reason, `trackdf` provides a special version of `bind_rows`
-calles `rbind_track` to achieve the same purpose. 
+called `rbind_track` to achieve the same purpose. 
 
 With `data.frame` based track tables:
 
-```{r}
+```{r eval=FALSE}
 t_df1 <- filter(t_df, id == "1")
 t_df2 <- filter(t_df, id == "2")
 
@@ -192,7 +194,7 @@ head(rbind_track(t_df1, t_df2))
 
 With `tibble` based track tables:
 
-```{r paged.print=FALSE}
+```{r paged.print=FALSE, eval=FALSE}
 t_tbl1 <- filter(t_tbl, id == "1")
 t_tbl2 <- filter(t_tbl, id == "2")
 
@@ -201,7 +203,7 @@ rbind_track(t_tbl1, t_tbl2)
 
 With `data.table` based track tables:
 
-```{r paged.print=FALSE}
+```{r paged.print=FALSE, eval=FALSE}
 t_dt1 <- filter(t_dt, id == "1")
 t_dt2 <- filter(t_dt, id == "2")
 
@@ -218,9 +220,9 @@ You can use any plotting method accepting a `data.frame`, a `tibble` or a
 With base R: 
 
 ```{r}
-plot(y ~ x , data = t_dt1, type = "l", col = "red", xlim = range(t_dt$x), 
-     lwd = 2, asp = 1)
-lines(y ~ x , data = t_dt2, type = "l", col = "blue",  lwd = 2)
+plot(y ~ x, data = t_dt[t_dt$id == "1"], type = "l", col = "red", 
+     xlim = range(t_dt$x), lwd = 2, asp = 1)
+lines(y ~ x , data = t_dt[t_dt$id == "2"], col = "blue",  lwd = 2)
 ```
 
 With [`ggplot2`]{https://ggplot2.tidyverse.org/}

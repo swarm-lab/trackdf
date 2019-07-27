@@ -8,7 +8,7 @@ Authors@R: c(
   )
 Maintainer: Simon Garnier <garnier@njit.edu>
 Description: Data frame class for storing collective movement data (e.g. fish
-    schools, ungulate herds, baboon troops) collected from GPS trackers or 
+    schools, ungulate herds, baboon troops) collected from GPS trackers or
     computer vision tracking software. 
 License: GPL-3
 Encoding: UTF-8
@@ -28,6 +28,7 @@ Suggests:
   dplyr,
   ggplot2,
   knitr,
+  rmarkdown,
   adehabitatLT,
   move,
   moveVis,

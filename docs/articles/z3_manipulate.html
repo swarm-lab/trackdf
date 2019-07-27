@@ -64,6 +64,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -100,8 +103,8 @@
 <div id="creating-track-tables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-track-tables" class="anchor"></a>3.1 - Creating track tables</h2>
-<p>Under the hood, a track table is just a simple data frame of class <a href=""><code>data.frame</code></a>, <a href=""><code>tibble</code></a> or <a href=""><code>data.table</code></a> with a few extra bells and whistles. This means that you can manipulate a track table same way you would a data frame of any of these three classes.</p>
-<p>To create a track table based on <a href=""><code>data.frame</code></a>`, do:</p>
+<p>Under the hood, a track table is just a simple data frame of class <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/data.frame.html"><code>data.frame</code></a>, <a href="https://CRAN.R-project.org/package=tibble"><code>tibble</code></a> or <a href="https://cran.r-project.org/package=data.table"><code>data.table</code></a> with a few extra bells and whistles. This means that you can manipulate a track table same way you would a data frame of any of these three classes.</p>
+<p>To create a track table based on <code>data.frame</code>, do:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">t_df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> tracks<span class="op">$</span>x, <span class="dt">y =</span> tracks<span class="op">$</span>y, <span class="dt">t =</span> tracks<span class="op">$</span>t, <span class="dt">id =</span> tracks<span class="op">$</span>id,</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"df"</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(t_df)</a></code></pre></div>
@@ -118,7 +121,7 @@
 ## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
 ## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
 ## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<p>To create a track table based on <a href=""><code>tibble</code></a>`, do:</p>
+<p>To create a track table based on <code>tibble</code>, do:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">t_tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> tracks<span class="op">$</span>x, <span class="dt">y =</span> tracks<span class="op">$</span>y, <span class="dt">t =</span> tracks<span class="op">$</span>t, <span class="dt">id =</span> tracks<span class="op">$</span>id,</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"tbl"</span>)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">t_tbl </a></code></pre></div>
@@ -142,7 +145,7 @@
 ##  9 1     2015-09-10 07:00:12  15.8 -22.4
 ## 10 1     2015-09-10 07:00:13  15.8 -22.4
 ## # … with 7,184 more rows</code></pre>
-<p>To create a track table based on <a href=""><code>data.table</code></a>`, do:</p>
+<p>To create a track table based on <code>data.table</code>, do:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">t_dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> tracks<span class="op">$</span>x, <span class="dt">y =</span> tracks<span class="op">$</span>y, <span class="dt">t =</span> tracks<span class="op">$</span>t, <span class="dt">id =</span> tracks<span class="op">$</span>id,</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"dt"</span>)</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">t_dt</a></code></pre></div>
@@ -371,7 +374,7 @@
 <div id="tidyverse" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidyverse" class="anchor"></a>3.5 - Tidyverse</h2>
-<p>Track tables are mostly compatible with the functions from the [tidyverse]{<a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>} (with one notable exception, see below). For instance, you can use all the [<code>dplyr</code>]{<a href="https://dplyr.tidyverse.org/" class="uri">https://dplyr.tidyverse.org/</a>} verbs to filter, mutate, group, etc., a track table, the same way you would do with a <code>tibble</code> or a <code>data.frame</code>.</p>
+<p>Track tables are mostly compatible with the functions from the <a href="https://www.tidyverse.org/">tidyverse</a> (with one notable exception, see below). For instance, you can use all the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> verbs to filter, mutate, group, etc., a track table, the same way you would do with a <code>tibble</code> or a <code>data.frame</code>.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
@@ -406,73 +409,22 @@
 ##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 1      15.8 -22.4
 ## 2 2      15.8 -22.4</code></pre>
-<p><code>bind_rows</code> is a notable exception to the rule above. For technical reasons in the implementation of <code>bind_rows</code>, it cannot retain all the attributes of objects that are not pure <code>tibble</code> or <code>data.frame</code> (e.g., track tables have an extra attribute to store the projection of the coordinates, which is stripped by <code>bind_rows</code>). For this reason, <code>trackdf</code> provides a special version of <code>bind_rows</code> calles <code>rbind_track</code> to achieve the same purpose.</p>
+<p><code>bind_rows</code> is a notable exception to the rule above. For technical reasons in the implementation of <code>bind_rows</code>, it cannot retain all the attributes of objects that are not pure <code>tibble</code> or <code>data.frame</code> (e.g., track tables have an extra attribute to store the projection of the coordinates, which is stripped by <code>bind_rows</code>). For this reason, <code>trackdf</code> provides a special version of <code>bind_rows</code> called <code>rbind_track</code> to achieve the same purpose.</p>
 <p>With <code>data.frame</code> based track tables:</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">t_df1 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_df, id <span class="op">==</span><span class="st"> "1"</span>)</a>
 <a class="sourceLine" id="cb70-2" data-line-number="2">t_df2 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_df, id <span class="op">==</span><span class="st"> "2"</span>)</a>
 <a class="sourceLine" id="cb70-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb70-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/rbind_track.html">rbind_track</a></span>(t_df1, t_df2))</a></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37958
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
 <p>With <code>tibble</code> based track tables:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">t_tbl1 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_tbl, id <span class="op">==</span><span class="st"> "1"</span>)</a>
-<a class="sourceLine" id="cb72-2" data-line-number="2">t_tbl2 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_tbl, id <span class="op">==</span><span class="st"> "2"</span>)</a>
-<a class="sourceLine" id="cb72-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="kw"><a href="../reference/rbind_track.html">rbind_track</a></span>(t_tbl1, t_tbl2)</a></code></pre></div>
-<pre><code>## Track table [7194 observations]
-## Number of tracks:  2 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
-## Table class:  tibble
-## # A tibble: 7,194 x 4
-##    id    t                       x     y
-##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
-##  1 1     2015-09-10 07:00:00  15.8 -22.4
-##  2 1     2015-09-10 07:00:01  15.8 -22.4
-##  3 1     2015-09-10 07:00:04  15.8 -22.4
-##  4 1     2015-09-10 07:00:05  15.8 -22.4
-##  5 1     2015-09-10 07:00:08  15.8 -22.4
-##  6 1     2015-09-10 07:00:09  15.8 -22.4
-##  7 1     2015-09-10 07:00:10  15.8 -22.4
-##  8 1     2015-09-10 07:00:11  15.8 -22.4
-##  9 1     2015-09-10 07:00:12  15.8 -22.4
-## 10 1     2015-09-10 07:00:13  15.8 -22.4
-## # … with 7,184 more rows</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">t_tbl1 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_tbl, id <span class="op">==</span><span class="st"> "1"</span>)</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">t_tbl2 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_tbl, id <span class="op">==</span><span class="st"> "2"</span>)</a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb71-4" data-line-number="4"><span class="kw"><a href="../reference/rbind_track.html">rbind_track</a></span>(t_tbl1, t_tbl2)</a></code></pre></div>
 <p>With <code>data.table</code> based track tables:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">t_dt1 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_dt, id <span class="op">==</span><span class="st"> "1"</span>)</a>
-<a class="sourceLine" id="cb74-2" data-line-number="2">t_dt2 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_dt, id <span class="op">==</span><span class="st"> "2"</span>)</a>
-<a class="sourceLine" id="cb74-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="kw"><a href="../reference/rbind_track.html">rbind_track</a></span>(t_dt1, t_dt2)</a></code></pre></div>
-<pre><code>## Track table [7194 observations]
-## Number of tracks:  2 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
-## Table class:  data table
-##       id                   t        x         y
-##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957
-##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957
-##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958
-##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958
-##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959
-##   ---                                          
-## 7190:  2 2015-09-10 07:59:55 15.76246 -22.37763
-## 7191:  2 2015-09-10 07:59:56 15.76245 -22.37763
-## 7192:  2 2015-09-10 07:59:57 15.76244 -22.37762
-## 7193:  2 2015-09-10 07:59:58 15.76243 -22.37762
-## 7194:  2 2015-09-10 07:59:59 15.76243 -22.37761</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">t_dt1 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_dt, id <span class="op">==</span><span class="st"> "1"</span>)</a>
+<a class="sourceLine" id="cb72-2" data-line-number="2">t_dt2 &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(t_dt, id <span class="op">==</span><span class="st"> "2"</span>)</a>
+<a class="sourceLine" id="cb72-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="kw"><a href="../reference/rbind_track.html">rbind_track</a></span>(t_dt1, t_dt2)</a></code></pre></div>
 <hr>
 </div>
 <div id="plotting" class="section level2">
@@ -480,16 +432,16 @@
 <a href="#plotting" class="anchor"></a>3.4 - Plotting</h2>
 <p>You can use any plotting method accepting a <code>data.frame</code>, a <code>tibble</code> or a <code>data.table</code> to represent the data in a track table.</p>
 <p>With base R:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(y <span class="op">~</span><span class="st"> </span>x , <span class="dt">data =</span> t_dt1, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">col =</span> <span class="st">"red"</span>, <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(t_dt<span class="op">$</span>x), </a>
-<a class="sourceLine" id="cb76-2" data-line-number="2">     <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(y <span class="op">~</span><span class="st"> </span>x , <span class="dt">data =</span> t_dt2, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">col =</span> <span class="st">"blue"</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> t_dt[t_dt<span class="op">$</span>id <span class="op">==</span><span class="st"> "1"</span>], <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">col =</span> <span class="st">"red"</span>, </a>
+<a class="sourceLine" id="cb73-2" data-line-number="2">     <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(t_dt<span class="op">$</span>x), <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">asp =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb73-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/lines">lines</a></span>(y <span class="op">~</span><span class="st"> </span>x , <span class="dt">data =</span> t_dt[t_dt<span class="op">$</span>id <span class="op">==</span><span class="st"> "2"</span>], <span class="dt">col =</span> <span class="st">"blue"</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="z3_manipulate_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 <p>With [<code>ggplot2</code>]{<a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a>}</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb77-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="dt">data =</span> t_dt, <span class="dt">mapping =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> id)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_path</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb77-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="dt">data =</span> t_dt, <span class="dt">mapping =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> id)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_path</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map</a></span>()</a></code></pre></div>
 <p><img src="z3_manipulate_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 </div>
   </div>

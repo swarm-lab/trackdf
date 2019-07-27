@@ -33,7 +33,7 @@
 <meta property="og:title" content="Build a Track Table — track_" />
 
 <meta property="og:description" content="track constructs track tables based on data.frame
- (the defaukt), tibble, or data.table.
+ (the default), tibble, or data.table.
  track is a convenience function that executes track_df,
  track_tbl, or track_dt based on the value of the `table`
  parameter. Track tables can be used like the data structure they are build
@@ -105,6 +105,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -134,7 +137,7 @@
     <div class="ref-description">
     
     <p><code>track</code> constructs track tables based on <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code>
- (the defaukt), <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>, or <code><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></code>.
+ (the default), <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>, or <code><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></code>.
  <code>track</code> is a convenience function that executes <code>track_df</code>,
  <code>track_tbl</code>, or <code>track_dt</code> based on the value of the `table`
  parameter. Track tables can be used like the data structure they are build
@@ -157,7 +160,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x, y, z</th>
-      <td><p>Numaric vectors representing the coordinates of the locations.
+      <td><p>Numeric vectors representing the coordinates of the locations.
 <code>x</code> and <code>y</code> are required. <code>z</code> can be ignored if the
 trajectories are 2-dimensional. Note: if the vectors are not of the same
 length, the shorter ones will be recycled to match the length of the longer
@@ -227,6 +230,19 @@ a <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a><
  <code>track</code>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>trackdf</span>)
+<span class='no'>t_df</span> <span class='kw'>&lt;-</span> <span class='fu'>track</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
+  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='st'>"df"</span>)
+
+<span class='no'>t_df</span> <span class='kw'>&lt;-</span> <span class='fu'>track_df</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
+  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)
+
+<span class='no'>t_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'>track_tbl</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
+  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)
+
+<span class='no'>t_dt</span> <span class='kw'>&lt;-</span> <span class='fu'>track_dt</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
+  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -234,7 +250,9 @@ a <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a><
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     <p>Simon Garnier, <a href='mailto:garnier@njit.edu'>garnier@njit.edu</a></p>
