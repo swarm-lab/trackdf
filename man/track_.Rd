@@ -77,6 +77,21 @@ A track table, which is a colloquial term for an object of class
  the projection of the track coordinates, and modifying the projection will
  automatically trigger the appropriate conversion of the coordinates.
 }
+\examples{
+library(trackdf)
+t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
+
+t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek")
+
+t_tbl <- track_tbl(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek")
+
+t_dt <- track_dt(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek")
+
+}
 \author{
 Simon Garnier, \email{garnier@njit.edu}
 }

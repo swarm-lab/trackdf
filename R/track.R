@@ -146,7 +146,7 @@
 #' @examples
 #' library(trackdf)
 #' t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df)
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
 #'
 #' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
 #'   proj = "+proj=longlat", tz = "Africa/Windhoek")
