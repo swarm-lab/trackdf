@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Number of Tracks in a Track Table — n_tracks • trackdf</title>
+<title>Dplyr Methods For Track Tables — dplyr_track • trackdf</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Number of Tracks in a Track Table — n_tracks" />
+<meta property="og:title" content="Dplyr Methods For Track Tables — dplyr_track" />
 
-<meta property="og:description" content="Track tables produced by track_df can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table." />
+<meta property="og:description" content="dplyr methods for track tables objects." />
 
 <meta property="og:image" content="https://swarm-lab.github.io/trackdf/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -121,55 +119,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Number of Tracks in a Track Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>n_tracks.Rd</code></div>
+    <h1>Dplyr Methods For Track Tables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/dplyr.R'><code>R/dplyr.R</code></a></small>
+    <div class="hidden name"><code>dplyr_track.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Track tables produced by <code><a href='track_.html'>track_df</a></code> can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table.</p>
+    <p><code><a href='https://dplyr.tidyverse.org/reference/dplyr-package.html'>dplyr</a></code> methods for track tables objects.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>n_tracks</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>select.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>rename.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>filter.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>arrange.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>mutate.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>transmute.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>summarise.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>summarize.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>group_by.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>ungroup.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>sample_n.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>sample_frac.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)
+
+<span class='fu'>do.track</span>(<span class='no'>.data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A track data table as produced by <code><a href='track_.html'>track_df</a></code>.</p></td>
+      <th>.data</th>
+      <td><p>A track table.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to be passed to the corresponding
+<code><a href='https://dplyr.tidyverse.org/reference/dplyr-package.html'>dplyr</a></code> method.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>A numeric value.</p>
+    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/select.html'>rename</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>transmute</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample_n</a></code>, <code><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample_frac</a></code>,
+ <code><a href='https://dplyr.tidyverse.org/reference/do.html'>do</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>trackdf</span>)
-<span class='no'>t_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track_.html'>track_df</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
-  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)
-
-<span class='fu'>n_tracks</span>(<span class='no'>t_df</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
-    <h2>Author</h2>
-    <p>Simon Garnier, <a href='mailto:garnier@njit.edu'>garnier@njit.edu</a></p>
   </div>
 </div>
 

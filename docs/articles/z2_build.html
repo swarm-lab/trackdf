@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">trackdf</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -120,16 +120,31 @@
 ##  9     1  629.  882.  1148     2     1 FALSE            1
 ## 10     2 1056.  656.  1068     2     2 FALSE            2
 ## # … with 21,972 more rows</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_df.html">track_df</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                   <span class="dt">origin =</span> <span class="st">"2019-03-24 12:55:23"</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                   <span class="dt">period =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span>(<span class="st">"1 second"</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                   <span class="dt">tz =</span> <span class="st">"America/New_York"</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">tracks</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vid_df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">"2019-03-24 12:55:23"</span>, <span class="dt">period =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span>(<span class="st">"1 second"</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">"America/New_York"</span>, <span class="dt">table =</span> <span class="st">"df"</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(vid_df)</a></code></pre></div>
+<pre><code>## Track table [6 observations]
+## Number of tracks:  6 
+## Dimensions:  2D 
+## Geographic:  FALSE 
+## Table class:  data frame
+##   id                   t         x        y
+## 1  1 2019-03-24 12:55:23  629.3839 882.4783
+## 2  2 2019-03-24 12:55:23 1056.1692 656.5207
+## 3  3 2019-03-24 12:55:23  508.0092 375.2451
+## 4  4 2019-03-24 12:55:23 1277.6466 373.7491
+## 5  5 2019-03-24 12:55:23 1379.2844 343.0853
+## 6  6 2019-03-24 12:55:23 1137.1378 174.5110</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vid_tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">origin =</span> <span class="st">"2019-03-24 12:55:23"</span>, <span class="dt">period =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span>(<span class="st">"1 second"</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                 <span class="dt">tz =</span> <span class="st">"America/New_York"</span>, <span class="dt">table =</span> <span class="st">"tbl"</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(vid_tbl)</a></code></pre></div>
 <pre><code>## Track table [21982 observations]
 ## Number of tracks:  83 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## 
+## Table class:  tibble
 ## # A tibble: 21,982 x 4
 ##    id    t                       x     y
 ##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
@@ -144,42 +159,74 @@
 ##  9 1     2019-03-24 12:55:23  629.  882.
 ## 10 2     2019-03-24 12:55:23 1056.  656.
 ## # … with 21,972 more rows</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">vid_dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">"2019-03-24 12:55:23"</span>, <span class="dt">period =</span> <span class="kw"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span>(<span class="st">"1 second"</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">"America/New_York"</span>, <span class="dt">table =</span> <span class="st">"dt"</span>)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">vid_dt</a></code></pre></div>
+<pre><code>## Track table [21982 observations]
+## Number of tracks:  83 
+## Dimensions:  2D 
+## Geographic:  FALSE 
+## Table class:  data table
+##        id                   t         x        y
+##     1:  1 2019-03-24 12:55:23  629.3839 882.4783
+##     2:  2 2019-03-24 12:55:23 1056.1692 656.5207
+##     3:  3 2019-03-24 12:55:23  508.0092 375.2451
+##     4:  4 2019-03-24 12:55:23 1277.6466 373.7491
+##     5:  5 2019-03-24 12:55:23 1379.2844 343.0853
+##    ---                                          
+## 21978: 82 2019-03-24 12:56:56  580.7614 587.2513
+## 21979: 34 2019-03-24 12:56:56  493.5477 529.5454
+## 21980: 47 2019-03-24 12:56:56  498.8001 432.5990
+## 21981: 58 2019-03-24 12:56:56  562.6123 266.9754
+## 21982: 67 2019-03-24 12:56:56 1046.3904 146.4723</code></pre>
 <hr>
 </div>
 <div id="using-gps-tracker-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-gps-tracker-data" class="anchor"></a>2.2 - Using GPS tracker data</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(readr)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(lubridate)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(trackdf)</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">raw &lt;-<span class="st"> </span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/gps/01.csv"</span>, <span class="dt">package =</span> <span class="st">"trackdf"</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>()</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">raw</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">raw &lt;-<span class="st"> </span><span class="kw"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/gps/01.csv"</span>, <span class="dt">package =</span> <span class="st">"trackdf"</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/na.fail">na.omit</a></span>()</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">raw</a></code></pre></div>
 <pre><code>## # A tibble: 3,595 x 4
-##    date       time     lon   lat
-##    &lt;date&gt;     &lt;time&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 2015-09-10 07:00   15.8 -22.4
-##  2 2015-09-10 07:00   15.8 -22.4
-##  3 2015-09-10 07:00   15.8 -22.4
-##  4 2015-09-10 07:00   15.8 -22.4
-##  5 2015-09-10 07:00   15.8 -22.4
-##  6 2015-09-10 07:00   15.8 -22.4
-##  7 2015-09-10 07:00   15.8 -22.4
-##  8 2015-09-10 07:00   15.8 -22.4
-##  9 2015-09-10 07:00   15.8 -22.4
-## 10 2015-09-10 07:00   15.8 -22.4
+##    date       time       lon   lat
+##    &lt;date&gt;     &lt;time&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 2015-09-10 07:00:00  15.8 -22.4
+##  2 2015-09-10 07:00:01  15.8 -22.4
+##  3 2015-09-10 07:00:04  15.8 -22.4
+##  4 2015-09-10 07:00:05  15.8 -22.4
+##  5 2015-09-10 07:00:08  15.8 -22.4
+##  6 2015-09-10 07:00:09  15.8 -22.4
+##  7 2015-09-10 07:00:09  15.8 -22.4
+##  8 2015-09-10 07:00:10  15.8 -22.4
+##  9 2015-09-10 07:00:11  15.8 -22.4
+## 10 2015-09-10 07:00:12  15.8 -22.4
 ## # … with 3,585 more rows</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">tracks &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_df.html">track_df</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                  <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">tracks</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gps_df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"df"</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(gps_df)</a></code></pre></div>
+<pre><code>## Track table [6 observations]
+## Number of tracks:  1 
+## Dimensions:  2D 
+## Geographic:  TRUE 
+## Projection:  +proj=longlat +ellps=WGS84 
+## Table class:  data frame
+##   id                   t        x         y
+## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
+## 2  1 2015-09-10 07:00:01 15.76468 -22.37957
+## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
+## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
+## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
+## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gps_tbl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">                 <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"tbl"</span>)</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">gps_tbl</a></code></pre></div>
 <pre><code>## Track table [3595 observations]
 ## Number of tracks:  1 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
 ## Projection:  +proj=longlat +ellps=WGS84 
-## 
+## Table class:  tibble
 ## # A tibble: 3,595 x 4
 ##    id    t                       x     y
 ##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
@@ -194,6 +241,27 @@
 ##  9 1     2015-09-10 07:00:11  15.8 -22.4
 ## 10 1     2015-09-10 07:00:12  15.8 -22.4
 ## # … with 3,585 more rows</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gps_dt &lt;-<span class="st"> </span><span class="kw"><a href="../reference/track_.html">track</a></span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">"+proj=longlat"</span>, <span class="dt">tz =</span> <span class="st">"Africa/Windhoek"</span>, <span class="dt">table =</span> <span class="st">"dt"</span>)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">gps_dt</a></code></pre></div>
+<pre><code>## Track table [3595 observations]
+## Number of tracks:  1 
+## Dimensions:  2D 
+## Geographic:  TRUE 
+## Projection:  +proj=longlat +ellps=WGS84 
+## Table class:  data table
+##       id                   t        x         y
+##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957
+##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957
+##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958
+##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958
+##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959
+##   ---                                          
+## 3591:  1 2015-09-10 07:59:55 15.76231 -22.37752
+## 3592:  1 2015-09-10 07:59:56 15.76230 -22.37752
+## 3593:  1 2015-09-10 07:59:57 15.76229 -22.37752
+## 3594:  1 2015-09-10 07:59:58 15.76229 -22.37751
+## 3595:  1 2015-09-10 07:59:59 15.76228 -22.37751</code></pre>
 </div>
   </div>
 

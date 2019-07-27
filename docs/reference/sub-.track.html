@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Number of Tracks in a Track Table — n_tracks • trackdf</title>
+<title>Extract or Replace Parts of a Track Table — [.track • trackdf</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,14 @@
 
 
 
-<meta property="og:title" content="Number of Tracks in a Track Table — n_tracks" />
+<meta property="og:title" content="Extract or Replace Parts of a Track Table — [.track" />
 
-<meta property="og:description" content="Track tables produced by track_df can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table." />
+<meta property="og:description" content="Accessing columns, rows, or cells via $, [[, or [ is mostly
+ similar to regular data frames.
+ However, the behavior is sometimes different for track tables based on
+ tibble and data.table. For
+ more info, refer to tibble's and
+ data.table's subsetting documentation." />
 
 <meta property="og:image" content="https://swarm-lab.github.io/trackdf/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -121,33 +124,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Number of Tracks in a Track Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>n_tracks.Rd</code></div>
+    <h1>Extract or Replace Parts of a Track Table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/track.R'><code>R/track.R</code></a></small>
+    <div class="hidden name"><code>sub-.track.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Track tables produced by <code><a href='track_.html'>track_df</a></code> can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table.</p>
+    <p>Accessing columns, rows, or cells via $, [[, or [ is mostly
+ similar to regular <code>data frames</code>.
+ However, the behavior is sometimes different for track tables based on
+ <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> and <code><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></code>. For
+ more info, refer to <a href='https://tibble.tidyverse.org/reference/subsetting.html'>tibble</a>'s and
+ <code><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></code>'s subsetting documentation.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>n_tracks</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"># S3 method for track
+[(x, ...)
+
+# S3 method for track
+[(x, ...) <- value</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A track data table as produced by <code><a href='track_.html'>track_df</a></code>.</p></td>
+      <td><p>A track table.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other parameters to be passed to the extracting/subsetting
+functions of <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code>, <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>, and
+<code><a href='https://www.rdocumentation.org/packages/data.table/topics/data.table'>data.table</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>A suitable replacement value: it will be repeated a whole number
+of times if necessary and it may be coerced: see the `Coercion` section in
+<code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code>. If `NULL`, deletes the column if a single column
+is selected.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>A numeric value.</p>
+    <div class='dont-index'><p><code><a href='track_.html'>track_df</a></code>, <code><a href='track_.html'>track_tbl</a></code>, <code><a href='track_.html'>track_dt</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -155,15 +178,34 @@
 <span class='no'>t_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track_.html'>track_df</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
   <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)
 
-<span class='fu'>n_tracks</span>(<span class='no'>t_df</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-</div></pre>
+<span class='no'>tracks</span>[<span class='fl'>1</span>]</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7,194 x 1</span><span>
+#&gt;    id   
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 2</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 3</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 4</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 5</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 6</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 7</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 8</span><span> 1    
+#&gt; </span><span style='color: #555555;'> 9</span><span> 1    
+#&gt; </span><span style='color: #555555;'>10</span><span> 1    
+#&gt; </span><span style='color: #555555;'># … with 7,184 more rows</span><span></div><div class='input'><span class='no'>tracks</span>[<span class='fl'>1</span>, ]</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 4</span><span>
+#&gt;   id    t                       x     y
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1     2015-09-10 </span><span style='color: #555555;'>07:00:00</span><span>  15.8 -</span><span style='color: #BB0000;'>22.4</span><span></div><div class='input'><span class='no'>tracks</span>[<span class='fl'>1</span>, <span class='fl'>1</span>]</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 1</span><span>
+#&gt;   id   
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> 1    </div><div class='input'><span class='no'>tracks</span>$<span class='no'>id</span>[<span class='no'>tracks</span>$<span class='no'>id</span> <span class='kw'>==</span> <span class='st'>"1"</span>] <span class='kw'>&lt;-</span> <span class='st'>"0"</span>
+<span class='no'>tracks</span>[<span class='no'>tracks</span>[, <span class='fl'>1</span>] <span class='kw'>==</span> <span class='st'>"0"</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='st'>"1"</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

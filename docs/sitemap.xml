@@ -4,22 +4,19 @@
     <loc>https://swarm-lab.github.io/trackdf//index.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf//reference/bind_track_df.html</loc>
-  </url>
-  <url>
     <loc>https://swarm-lab.github.io/trackdf//reference/conversions.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf//reference/dot-reclass.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf//reference/dplyr_track_df.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf//reference/dplyr_track.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf//reference/is_geo.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf//reference/is_track_df.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf//reference/is_track.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf//reference/n_dims.html</loc>
@@ -31,10 +28,13 @@
     <loc>https://swarm-lab.github.io/trackdf//reference/projection.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf//reference/sub-.track_df.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf//reference/rbind_track.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf//reference/track_df.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf//reference/sub-.track.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf//reference/track_.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf//reference/tracks.html</loc>

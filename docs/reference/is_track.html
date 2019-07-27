@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Number of Tracks in a Track Table — n_tracks • trackdf</title>
+<title>Check Validity of Track Table — is_track • trackdf</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,10 @@
 
 
 
-<meta property="og:title" content="Number of Tracks in a Track Table — n_tracks" />
+<meta property="og:title" content="Check Validity of Track Table — is_track" />
 
-<meta property="og:description" content="Track tables produced by track_df can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table." />
+<meta property="og:description" content="Test whether a variable contains a track table as produced
+ by track_df, track_tbl, or track_dt." />
 
 <meta property="og:image" content="https://swarm-lab.github.io/trackdf/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -121,41 +120,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Number of Tracks in a Track Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>n_tracks.Rd</code></div>
+    <h1>Check Validity of Track Table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/swarm-lab/trackdf/blob/master/R/track.R'><code>R/track.R</code></a></small>
+    <div class="hidden name"><code>is_track.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Track tables produced by <code><a href='track_.html'>track_df</a></code> can contain
- multiple tracks (e.g., from different animals). This function returns the
- number of tracks in a track table.</p>
+    <p>Test whether a variable contains a track table as produced
+ by <code><a href='track_.html'>track_df</a></code>, <code><a href='track_.html'>track_tbl</a></code>, or <code><a href='track_.html'>track_dt</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>n_tracks</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>is_track</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A track data table as produced by <code><a href='track_.html'>track_df</a></code>.</p></td>
+      <td><p>An object to test.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric value.</p>
+    <p>A logical indicating whether the variable contains a track table
+ (<code>TRUE</code>) or not (<code>FALSE</code>).</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='track_.html'>track_df</a></code>, <code><a href='track_.html'>track_tbl</a></code>, <code><a href='track_.html'>track_dt</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>trackdf</span>)
-<span class='no'>t_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='track_.html'>track_df</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>y</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>t</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>tracks</span>$<span class='no'>id</span>,
-  <span class='kw'>proj</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat"</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"Africa/Windhoek"</span>)
-
-<span class='fu'>n_tracks</span>(<span class='no'>t_df</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>is_track</span>(<span class='no'>tracks</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -164,6 +163,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
