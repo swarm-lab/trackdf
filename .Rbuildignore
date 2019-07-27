@@ -5,7 +5,6 @@ LICENSE
 appveyor.yml
 _pkgdown.yaml
 README.md
-NEWS.md
 docs
 logo.*
 cran-comments.md
