@@ -19,7 +19,11 @@ Track tables produced by \code{\link{track_df}} can use a
  particular table.
 }
 \examples{
-# TODO
+library(trackdf)
+t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek")
+
+is_geo(t_df)
 
 }
 \author{

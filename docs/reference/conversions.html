@@ -186,7 +186,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A track table to convert.</p></td>
+      <td><p>An object to convert.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -204,8 +204,17 @@
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A character vector representing the identity of the animal to which
-each location belong.</p></td>
+      <td><p>If <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPoints'>sp::SpatialPointsDataFrame</a></code>
+object, the name of the column containing the track identity information.
+If <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/move/topics/move'>move::Move</a></code> object, a character
+vector representing the identity of the animal to which each location belong.
+Ignored otherwise.</p></td>
+    </tr>
+    <tr>
+      <th>t</th>
+      <td><p>If <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPoints'>sp::SpatialPointsDataFrame</a></code>
+object, the name of the column containing the date-time information. Ignored
+otherwise.</p></td>
     </tr>
     </table>
     

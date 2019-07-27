@@ -2,69 +2,75 @@
 % Please edit documentation in R/conversions.R
 \name{conversions}
 \alias{conversions}
-\alias{as_track_df}
-\alias{as_track_df.MoveStack}
-\alias{as_track_df.Move}
+\alias{as_track}
+\alias{as_track.MoveStack}
+\alias{as_track.Move}
 \alias{as_move}
-\alias{as_move.track_df}
-\alias{as_track_df.SpatialPointsDataFrame}
+\alias{as_move.track}
+\alias{as_track.SpatialPointsDataFrame}
 \alias{as_sp}
-\alias{as_sp.track_df}
-\alias{as_track_df.ltraj}
+\alias{as_sp.track}
+\alias{as_track.ltraj}
 \alias{as_ltraj}
-\alias{as_ltraj.track_df}
-\alias{as_track_df.telemetry}
-\alias{as_track_df.list}
+\alias{as_ltraj.track}
+\alias{as_track.telemetry}
+\alias{as_track.list}
 \alias{as_telemetry}
-\alias{as_telemetry.track_df}
-\alias{as_track_df.moveData}
+\alias{as_telemetry.track}
+\alias{as_track.moveData}
 \alias{as_moveHMM}
-\alias{as_moveHMM.track_df}
+\alias{as_moveHMM.track}
 \title{Convert a Track Table to/from Other Formats}
 \usage{
-as_track_df(x, ...)
+as_track(x, table = "df", ...)
 
-\method{as_track_df}{MoveStack}(x, ...)
+\method{as_track}{MoveStack}(x, table = "df", ...)
 
-\method{as_track_df}{Move}(x, id, ...)
+\method{as_track}{Move}(x, table = "df", ...)
 
 as_move(x, ...)
 
-\method{as_move}{track_df}(x, ...)
+\method{as_move}{track}(x, ...)
 
-\method{as_track_df}{SpatialPointsDataFrame}(x, t = "t", id = "id",
-  ...)
+\method{as_track}{SpatialPointsDataFrame}(x, table = "df", ...)
 
 as_sp(x, ...)
 
-\method{as_sp}{track_df}(x, ...)
+\method{as_sp}{track}(x, ...)
 
-\method{as_track_df}{ltraj}(x, ...)
+\method{as_track}{ltraj}(x, table = "df", ...)
 
 as_ltraj(x, ...)
 
-\method{as_ltraj}{track_df}(x, ...)
+\method{as_ltraj}{track}(x, ...)
 
-\method{as_track_df}{telemetry}(x, ...)
+\method{as_track}{telemetry}(x, table = "df", ...)
 
-\method{as_track_df}{list}(x, ...)
+\method{as_track}{list}(x, table = "df", ...)
 
 as_telemetry(x, ...)
 
-\method{as_telemetry}{track_df}(x, ...)
+\method{as_telemetry}{track}(x, ...)
 
-\method{as_track_df}{moveData}(x, ...)
+\method{as_track}{moveData}(x, table = "df", type = c("LL", "UTM"),
+  ...)
 
 as_moveHMM(x, ...)
 
-\method{as_moveHMM}{track_df}(x, ...)
+\method{as_moveHMM}{track}(x, ...)
 }
 \arguments{
-\item{x}{A track table to convert.}
+\item{x}{An object to convert.}
+
+\item{table}{A string indicating the class of the table on which the track
+table should be built. It can be a \code{\link{data.frame}} ("df", the default),
+a \code{\link[tibble]{tibble}} ("tbl"), or a \code{\link[data.table]{data.table}}
+("dt").}
 
 \item{...}{Other parameters to be passed to:
 \itemize{
-  \item{\code{\link{track_df}} if \code{as_track_df} is used.}
+  \item{\code{\link{track_df}}, \code{\link{track_tbl}} or \code{\link{track_dt}}
+    if \code{as_track} is used.}
   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
     used.}
   \item{\code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame}}
@@ -73,21 +79,42 @@ as_moveHMM(x, ...)
     \code{as_ltraj} is used.}
   \item{\code{\link[ctmm:as.telemetry]{ctmm::as.telemetry}} if
     \code{as_telemetry} is used.}
+  \item{\code{\link[moveHMM:prepData]{moveHMM::prepData}} if
+    \code{as_moveHMM} is used.}
 }}
 
-\item{id}{A character vector representing the identity of the animal to which
-each location belong.}
+\item{type}{For converting \code{\link[moveHMM:moveData]{moveHMM::moveData}}
+to track table only, a character string indicating the type of coordinates
+stored in the \code{\link[moveHMM:moveData]{moveHMM::moveData}} object: "LL"
+if longitude/latitude (default), "UTM" if easting/northing.}
 }
 \value{
 The coordinates converted in the chosen format.
 }
 \description{
-The following methods will convert track tables to other
+The following methods will convert track tables to and from other
  common formats used for processing tracking and spatial data.
 }
 \examples{
-# TODO
+library(trackdf)
+t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek")
 
+mv <- as_move(t_df)
+sp <- as_sp(t_df)
+lt <- as_ltraj(t_df)
+tl <- as_telemetry(t_df)
+hhm <- as_moveHMM(t_df, type = "LL")
+
+as_track(mv)
+as_track(sp)
+as_track(lt)
+as_track(tl)
+as_track(hhm)
+
+}
+\seealso{
+\code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 }
 \author{
 Simon Garnier, \email{garnier@njit.edu}

@@ -1,3 +1,38 @@
+#' @title Maintain Class After Modification
+#'
+#' @description Copy class and attributes from the original version of an object
+#'  to a modified version.
+#'
+#' @param x The original object, which has a class/attributes to copy
+#'
+#' @param result The modified object, which is / might be missing the class/attributes.
+#'
+#' @return \code{result}, now with class/attributes restored.
+#'
+#' @author Simon Garnier, \email{garnier@@njit.edu}
+.reclass <- function(x, result) {
+  UseMethod('.reclass')
+}
+
+.reclass.default <- function(x, result) {
+  if (inherits(x, "data.table") & !inherits(result, "data.table")) {
+    result <- data.table::as.data.table(result)
+  }
+
+  class(result) <- unique(c(class(x)[[1]], class(result)))
+  attr(result, class(x)[[1]]) <- attr(x, class(x)[[1]])
+  attr(result, "proj") <- attr(x, "proj")
+
+  if (is_track(result)) {
+    result
+  } else {
+    class(result) <- class(result)[2:length(class(result))]
+    attr(result, "proj") <- NULL
+    result
+  }
+}
+
+
 #' @title Access/Modify the Projection of a Track Table
 #'
 #' @description Functions to access or modify the projection of a data table.
@@ -18,11 +53,19 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' # TODO
+#' library(trackdf)
+#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#'
+#' projection(t_df)
+#' t_df_projected <- project(t_df, "+proj=somerc")
+#' projection(t_df_projected)
+#' projection(t_df_projected) <- "+proj=longlat"
+#' projection(t_df_projected)
 #'
 #' @export
 projection <- function(x) {
-  if (!is_track_df(x))
+  if (!is_track(x))
     stop("This is not a track_df object.")
 
   attr(x, "proj")
@@ -33,7 +76,7 @@ projection <- function(x) {
 #'
 #' @export
 `projection<-` <- function(x, value = "+proj=longlat") {
-  if (!is_track_df(x))
+  if (!is_track(x))
     stop("This is not a track_df object.")
 
   if (is.character(value)) {
@@ -63,7 +106,7 @@ projection <- function(x) {
 #'
 #' @export
 project <- function(x, value) {
-  if (!is_track_df(x))
+  if (!is_track(x))
     stop("This is not a track_df object.")
 
   projection(x) <- value
@@ -85,11 +128,15 @@ project <- function(x, value) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' # TODO
+#' library(trackdf)
+#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#'
+#' is_geo(t_df)
 #'
 #' @export
 is_geo <- function(x) {
-  if (!is_track_df(x)) {
+  if (!is_track(x)) {
     stop("This is not a track_df object.")
   } else {
     !is.na(attr(x, "proj")@projargs)
@@ -110,11 +157,15 @@ is_geo <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' # TODO
+#' library(trackdf)
+#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#'
+#' n_dims(t_df)
 #'
 #' @export
 n_dims <- function(x) {
-  if (!is_track_df(x)) {
+  if (!is_track(x)) {
     stop("This is not a track_df object.")
   } else {
     sum(c("x", "y", "z") %in% names(x))
@@ -135,11 +186,15 @@ n_dims <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' # TODO
+#' library(trackdf)
+#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#'
+#' n_tracks(t_df)
 #'
 #' @export
 n_tracks <- function(x) {
-  if (!is_track_df(x)) {
+  if (!is_track(x)) {
     stop("This is not a track_df object.")
   } else {
     length(unique(x$id))

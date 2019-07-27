@@ -8,42 +8,113 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## 3.1 - Basic manipulations
-
-Under the hood, a `track_df` track table is just a [`tibble`]{https://tibble.tidyverse.org/} 
-with a few extra bells and whistles. This means that you can manipulate a track
-table with base R the same way you would a `tibble`, and by extension a `data.frame`. 
-
-```{r}
+```{r paged.print=FALSE}
 library(trackdf)
-
 data("tracks")
-tracks
+```
+
+## 3.1 - Creating track tables
+
+Under the hood, a track table is just a simple data frame of class [`data.frame`](), 
+[`tibble`]() or [`data.table`]() with a few extra bells and whistles. This means 
+that you can manipulate a track table same way you would a data frame of any of 
+these three classes. 
+
+To create a track table based on [`data.frame`]()`, do: 
+
+```{r paged.print=FALSE}
+t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
+head(t_df)
+```
+
+To create a track table based on [`tibble`]()`, do: 
+
+```{r paged.print=FALSE}
+t_tbl <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek", table = "tbl")
+t_tbl 
+```
+
+To create a track table based on [`data.table`]()`, do: 
+
+```{r paged.print=FALSE}
+t_dt <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+  proj = "+proj=longlat", tz = "Africa/Windhoek", table = "dt")
+t_dt
+```
+
+---
+
+## 3.2 - Basic manipulations
+
+You can check whether an object is a track table as follows:
+
+```{r}
+is_track(t_df)
+is_track(t_tbl)
+is_track(t_dt)
+```
+
+You can check whether a track table contains geographic coordinates or not as 
+follows:
+
+```{r}
+is_geo(t_df)
+is_geo(t_tbl)
+is_geo(t_dt)
+```
+
+---
+
+## 3.3 - Accessing data
+
+You can access the different parts (rows, columns, elements) of a track table as 
+follows:
+
+```{r paged.print=FALSE}
+head(t_df$id)
+head(t_tbl$id)
+head(t_dt$id)
+```
+
+```{r paged.print=FALSE}
+head(t_df[["t"]])
+head(t_tbl[["t"]])
+head(t_dt[["t"]])
+```
+
+```{r paged.print=FALSE}
+head(t_df[1])
+t_tbl[1]
+t_dt[1]
+```
+
+```{r paged.print=FALSE}
+t_df[1, ]
+t_tbl[1, ]
+t_dt[1, ]
+```
+
+```{r paged.print=FALSE}
+t_df[1, 1]
+t_tbl[1, 1]
+t_dt[1, 1]
+```
+
+Note that the results varies depending on the underling data frame class.  
+
+By combining the commands above with the `<-` operator, you can easily modify 
+the content of a track table. For example:
+
+```{r}
+t_df$id[t_df$id == "1"] <- "0"
+head(t_df)
 ```
 
 ```{r}
-is_track_df(tracks)
-is_geo(tracks)
-```
-
-```{r}
-head(tracks$id)
-head(tracks[["t"]])
-```
-
-```{r}
-tracks[1]
-tracks[1, ]
-tracks[1, 1]
-head(tracks[, 1])
-```
-
-```{r}
-tracks$id[tracks$id == "1"] <- "0"
-tracks
-
-tracks[tracks[, 1] == "0", 1] <- "1"
-tracks
+t_df[t_df[, 1] == "0", 1] <- "1"
+head(t_df)
 ```
 
 ---
@@ -53,33 +124,34 @@ tracks
 You can access the projection of a track table as follows. 
 
 ```{r}
-projection(tracks)
+projection(t_df)
 ```
 
 You can modify in place the projection of a track table as follows. This will 
 automatically convert the coordinates in the appropriate projection system. 
 
 ```{r}
-projection(tracks) <- "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"
-tracks
+projection(t_df) <- "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"
+head(t_df)
+```
 
-projection(tracks) <- "+proj=longlat" 
-tracks
+```{r}
+projection(t_df) <- "+proj=longlat" 
+head(t_df)
 ```
 
 If you prefer not to modify the original object, you can create a new one with 
 the new projection as follows. 
 
 ```{r}
-tracks_new_proj <- project(tracks, "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs")
+t_df_new_proj <- project(t_df, "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs")
 
-tracks_new_proj
-tracks
+head(t_df_new_proj)
 ```
 
 ---
 
-## 3.3 - Tidyverse
+## 3.5 - Tidyverse
 
 Track tables are mostly compatible with the functions from the 
 [tidyverse]{https://www.tidyverse.org/} (with one notable exception, see below).
@@ -90,10 +162,13 @@ to filter, mutate, group, etc., a track table, the same way you would do with a
 ```{r}
 library(dplyr)
 
-tracks %>%
-  filter(., t < as.POSIXct("2015-09-10 07:01:00", tz = "Africa/Windhoek"))
+t_df %>%
+  filter(., t < as.POSIXct("2015-09-10 07:01:00", tz = "Africa/Windhoek")) %>%
+  head(.)
+```
 
-tracks %>%
+```{r}
+t_df %>%
   group_by(., id) %>%
   summarize(., x = mean(x),
             y = mean(y))
@@ -101,43 +176,59 @@ tracks %>%
 
 `bind_rows` is a notable exception to the rule above. For technical reasons in 
 the implementation of `bind_rows`, it cannot retain all the attributes of objects
-that are not pure `tibble` or `data.frame` (e.g., `track_df` objects have an extra 
+that are not pure `tibble` or `data.frame` (e.g., track tables have an extra 
 attribute to store the projection of the coordinates, which is stripped by 
 `bind_rows`). For this reason, `trackdf` provides a special version of `bind_rows`
-calles `bind_track_df` to achieve the same purpose. Note that you can also use 
-the base `rbind` function as well to bind two track tables by row. 
+calles `rbind_track` to achieve the same purpose. 
+
+With `data.frame` based track tables:
 
 ```{r}
-track1 <- filter(tracks, id == "1")
-track2 <- filter(tracks, id == "2")
+t_df1 <- filter(t_df, id == "1")
+t_df2 <- filter(t_df, id == "2")
 
-bind_track_df(track1, track2)
-rbind(track1, track2)
+head(rbind_track(t_df1, t_df2))
+```
+
+With `tibble` based track tables:
+
+```{r paged.print=FALSE}
+t_tbl1 <- filter(t_tbl, id == "1")
+t_tbl2 <- filter(t_tbl, id == "2")
+
+rbind_track(t_tbl1, t_tbl2)
+```
+
+With `data.table` based track tables:
+
+```{r paged.print=FALSE}
+t_dt1 <- filter(t_dt, id == "1")
+t_dt2 <- filter(t_dt, id == "2")
+
+rbind_track(t_dt1, t_dt2)
 ```
 
 ---
 
 ## 3.4 - Plotting
 
-You can use any plotting method accepting a `tibble` or a `data.frame` to 
-represent the data in a track table. 
+You can use any plotting method accepting a `data.frame`, a `tibble` or a 
+`data.table` to represent the data in a track table. 
 
 With base R: 
 
 ```{r}
-plot(y ~ x , data = track1, type = "l", col = "red", xlim = range(tracks$x), 
+plot(y ~ x , data = t_dt1, type = "l", col = "red", xlim = range(t_dt$x), 
      lwd = 2, asp = 1)
-lines(y ~ x , data = track2, type = "l", col = "blue",  lwd = 2)
+lines(y ~ x , data = t_dt2, type = "l", col = "blue",  lwd = 2)
 ```
-
-
 
 With [`ggplot2`]{https://ggplot2.tidyverse.org/}
 
 ```{r}
 library(ggplot2)
 
-ggplot(data = tracks, mapping = aes(x = x, y = y, color = id)) +
+ggplot(data = t_dt, mapping = aes(x = x, y = y, color = id)) +
   geom_path() +
   coord_map()
 ```

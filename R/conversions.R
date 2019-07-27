@@ -1,18 +1,28 @@
+#' @importFrom methods as
+#'
 #' @title Convert a Track Table to/from Other Formats
 #'
-#' @description The following methods will convert track tables to other
+#' @description The following methods will convert track tables to and from other
 #'  common formats used for processing tracking and spatial data.
 #'
 #' @name conversions
 #'
-#' @param x A track table to convert.
+#' @param x An object to convert.
 #'
-#' @param id A character vector representing the identity of the animal to which
-#'  each location belong.
+#' @param table A string indicating the class of the table on which the track
+#'  table should be built. It can be a \code{\link{data.frame}} ("df", the default),
+#'  a \code{\link[tibble]{tibble}} ("tbl"), or a \code{\link[data.table]{data.table}}
+#'  ("dt").
+#'
+#' @param type For converting \code{\link[moveHMM:moveData]{moveHMM::moveData}}
+#'  to track table only, a character string indicating the type of coordinates
+#'  stored in the \code{\link[moveHMM:moveData]{moveHMM::moveData}} object: "LL"
+#'  if longitude/latitude (default), "UTM" if easting/northing.
 #'
 #' @param ... Other parameters to be passed to:
 #' \itemize{
-#'   \item{\code{\link{track_df}} if \code{as_track_df} is used.}
+#'   \item{\code{\link{track_df}}, \code{\link{track_tbl}} or \code{\link{track_dt}}
+#'     if \code{as_track} is used.}
 #'   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
 #'     used.}
 #'   \item{\code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame}}
@@ -21,20 +31,38 @@
 #'     \code{as_ltraj} is used.}
 #'   \item{\code{\link[ctmm:as.telemetry]{ctmm::as.telemetry}} if
 #'     \code{as_telemetry} is used.}
+#'   \item{\code{\link[moveHMM:prepData]{moveHMM::prepData}} if
+#'     \code{as_moveHMM} is used.}
 #' }
 #'
 #' @return The coordinates converted in the chosen format.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
+#' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
+#'
 #' @examples
-#' # TODO
+#' library(trackdf)
+#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
+#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#'
+#' mv <- as_move(t_df)
+#' sp <- as_sp(t_df)
+#' lt <- as_ltraj(t_df)
+#' tl <- as_telemetry(t_df)
+#' hhm <- as_moveHMM(t_df, type = "LL")
+#'
+#' as_track(mv)
+#' as_track(sp)
+#' as_track(lt)
+#' as_track(tl)
+#' as_track(hhm)
 #'
 #' @rdname conversions
 #'
 #' @export
-as_track_df <- function(x, ...) {
-  UseMethod("as_track_df", x)
+as_track <- function(x, table = "df", ...) {
+  UseMethod("as_track", x)
 }
 
 
@@ -43,22 +71,41 @@ as_track_df <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_track_df.MoveStack <- function(x, ...) {
-  l <- list()
+as_track.MoveStack <- function(x, table = "df", ...) {
+  x_df <- as(x, "data.frame")
 
-  for (i in 1:move::n.indiv(x)) {
-    l[[i]] <- as_track_df(x[[i]], id = i)
+  if (table == "df") {
+    track_df(x = x_df$x, y = x_df$y, t = x_df$time, id = x_df$trackId, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else if (table == "tbl") {
+    track_tbl(x = x_df$x, y = x_df$y, t = x_df$time, id = x_df$trackId, ...,
+              proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else if (table == "dt") {
+    track_dt(x = x_df$x, y = x_df$y, t = x_df$time, id = x_df$trackId, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else {
+    stop("Invalid table type.")
   }
-
-  bind_track_df(l)
 }
 
 #' @rdname conversions
 #'
 #' @export
-as_track_df.Move <- function(x, id, ...) {
-  track_df(x = x$x, y = x$y, t = x$time, id = id, ..., proj = x@proj4string,
-           tz = lubridate::tz(x$time))
+as_track.Move <- function(x, table = "df", ...) {
+  x_df <- as(x, "data.frame")
+
+  if (table == "df") {
+    track_df(x = x_df$x, y = x_df$y, t = x_df$time, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else if (table == "tbl") {
+    track_tbl(x = x_df$x, y = x_df$y, t = x_df$time, ...,
+              proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else if (table == "dt") {
+    track_dt(x = x_df$x, y = x_df$y, t = x_df$time, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$time))
+  } else {
+    stop("Invalid table type.")
+  }
 }
 
 #' @rdname conversions
@@ -71,7 +118,7 @@ as_move <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_move.track_df <- function(x, ...) {
+as_move.track <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("move objects are 2D only. The 3rd dimension will be stripped away.")
 
@@ -85,27 +132,21 @@ as_move.track_df <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_track_df.SpatialPointsDataFrame <- function(x, t = "t", id = "id", ...) {
-  if (length(t) == 1) {
-    if (is.character(t)) {
-      if (t %in% names(x)) {
-        t <- x[[t]]
-      }
-    }
+as_track.SpatialPointsDataFrame <- function(x, table = "df", ...) {
+  x_df <- as(x, "data.frame")
+
+  if (table == "df") {
+    track_df(x = x_df$x, y = x_df$y, t = x_df$t, id = x_df$id, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$t))
+  } else if (table == "tbl") {
+    track_tbl(x = x_df$x, y = x_df$y, t = x_df$t, id = x_df$id, ...,
+              proj = x@proj4string, tz = lubridate::tz(x_df$t))
+  } else if (table == "dt") {
+    track_dt(x = x_df$x, y = x_df$y, t = x_df$t, id = x_df$id, ...,
+             proj = x@proj4string, tz = lubridate::tz(x_df$t))
+  } else {
+    stop("Invalid table type.")
   }
-
-  if (length(id) == 1) {
-    if (is.character(id)) {
-      if (id %in% names(x)) {
-        id <- x[[id]]
-      }
-    }
-  }
-
-  df <- sp::coordinates(x)
-
-  track_df(x = df[, 1], y = df[, 2], t = t, id = id, ..., proj = x@proj4string,
-           tz = lubridate::tz(x$t))
 }
 
 #' @rdname conversions
@@ -118,7 +159,7 @@ as_sp <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_sp.track_df <- function(x, ...) {
+as_sp.track <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("sp objects are 2D only. The 3rd dimension will be stripped away.")
 
@@ -132,16 +173,22 @@ as_sp.track_df <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_track_df.ltraj <- function(x, ...) {
-  l <- list()
-  bursts <- adehabitatLT::burst(x)
+as_track.ltraj <- function(x, table = "df", ...) {
+  names(x) <- adehabitatLT::burst(x)
+  x_df <- data.table::rbindlist(x, idcol = "id")
 
-  for (i in 1:length(bursts)) {
-    l[[i]] <- track_df(x = x[[i]]$x, y = x[[i]]$y, t = x[[i]]$date, id = bursts[i],
-                       ..., proj = attr(x, "proj4string"), tz = lubridate::tz(x[[i]]$date))
+  if (table == "df") {
+    track_df(x = x_df$x, y = x_df$y, t = x_df$date, id = x_df$id, ...,
+             proj = attr(x, "proj4string"), tz = lubridate::tz(x_df$date))
+  } else if (table == "tbl") {
+    track_tbl(x = x_df$x, y = x_df$y, t = x_df$date, id = x_df$id, ...,
+              proj = attr(x, "proj4string"), tz = lubridate::tz(x_df$date))
+  } else if (table == "dt") {
+    track_dt(x = x_df$x, y = x_df$y, t = x_df$date, id = x_df$id, ...,
+             proj = attr(x, "proj4string"), tz = lubridate::tz(x_df$date))
+  } else {
+    stop("Invalid table type.")
   }
-
-  bind_track_df(l)
 }
 
 #' @rdname conversions
@@ -154,7 +201,7 @@ as_ltraj <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_ltraj.track_df <- function(x, ...) {
+as_ltraj.track <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("ltraj objects are 2D only. The 3rd dimension will be stripped away.")
 
@@ -168,27 +215,29 @@ as_ltraj.track_df <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_track_df.telemetry <- function(x, ...) {
-  track_df(x = x$longitude, y = x$latitude, t = x$timestamp, id = x@info$identity,
-           ..., proj = "+proj=longlat", tz = x@info$timezone)
+as_track.telemetry <- function(x, table = "df", ...) {
+  if (table == "df") {
+    track_df(x = x$longitude, y = x$latitude, t = x$timestamp, id = x@info$identity,
+             ..., proj = x@info$projection, tz = x@info$timezone)
+  } else if (table == "tbl") {
+    track_tbl(x = x$longitude, y = x$latitude, t = x$timestamp, id = x@info$identity,
+              ..., proj = x@info$projection, tz = x@info$timezone)
+  } else if (table == "dt") {
+    track_dt(x = x$longitude, y = x$latitude, t = x$timestamp, id = x@info$identity,
+             ..., proj = x@info$projection, tz = x@info$timezone)
+  } else {
+    stop("Invalid table type.")
+  }
 }
 
 #' @rdname conversions
 #'
 #' @export
-as_track_df.list <- function(x, ...) {
-  if (!all(lapply(x, class) == "telemetry"))
-    stop("No applicable method for 'as_track_df' applied to an object of class 'list'.")
+as_track.list <- function(x, table = "df", ...) {
+  if (!all(sapply(x, inherits, what = "telemetry")))
+    stop("No applicable method for 'as_track' applied to an object of class 'list'.")
 
-  l <- list()
-
-  for (i in 1:length(x)) {
-    l[[i]] <- track_df(x = x[[i]]$longitude, y = x[[i]]$latitude, t = x[[i]]$timestamp,
-                       id = x[[i]]@info$identity, ..., proj = "+proj=longlat",
-                       tz = x[[i]]@info$timezone)
-  }
-
-  bind_track_df(l)
+  rbind_track(lapply(x, as_track, table = table, ...))
 }
 
 #' @rdname conversions
@@ -201,21 +250,21 @@ as_telemetry <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_telemetry.track_df <- function(x, ...) {
+as_telemetry.track <- function(x, ...) {
   if (!is_geo(x))
-    stop("Only geographic track_df objects can be converted to telemetry objects.")
+    stop("Only geographic track objects can be converted to telemetry objects.")
 
   if (n_dims(x) > 2)
     warning("telemetry objects are 2D only. The 3rd dimension will be stripped away.")
 
-  if (grepl("longlat", projection(x), fixed = TRUE) || grepl("latlong", projection(x), fixed = TRUE)) {
+  proj <- projection(x)@projargs
+
+  if (grepl("longlat", proj, fixed = TRUE) || grepl("latlong", proj, fixed = TRUE)) {
     proj <- NULL
-  } else {
-    proj <- projection(x)
   }
 
   ctmm::as.telemetry(data.frame(lon = x$x, lat = x$y, timestamp = x$t, id = x$id),
-                     timezone = lubridate::tz(x$t), proj = proj)
+                     timezone = lubridate::tz(x$t), projection = proj, ...)
 }
 
 
@@ -224,9 +273,33 @@ as_telemetry.track_df <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_track_df.moveData <- function(x, ...) {
-  track_df(x = x$x, y = x$y, t = x$t, id = x$ID, ..., proj = "+proj=longlat",
-           tz = lubridate::tz(x$time))
+as_track.moveData <- function(x, table = "df", type = c("LL", "UTM"), ...) {
+  if (type[1] == "LL") {
+    if (table == "df") {
+      track_df(x = x$x, y = x$y, t = x$t, id = x$ID, ..., proj = "+proj=longlat",
+               tz = lubridate::tz(x$t))
+    } else if (table == "tbl") {
+      track_tbl(x = x$x, y = x$y, t = x$t, id = x$ID, ..., proj = "+proj=longlat",
+                tz = lubridate::tz(x$t))
+    } else if (table == "dt") {
+      track_dt(x = x$x, y = x$y, t = x$t, id = x$ID, ..., proj = "+proj=longlat",
+               tz = lubridate::tz(x$t))
+    } else {
+      stop("Invalid table type.")
+    }
+  } else if (type[1] == "UTM") {
+    if (table == "df") {
+      track_df(x = x$x, y = x$y, t = x$t, id = x$ID, ..., tz = lubridate::tz(x$t))
+    } else if (table == "tbl") {
+      track_tbl(x = x$x, y = x$y, t = x$t, id = x$ID, ..., tz = lubridate::tz(x$t))
+    } else if (table == "dt") {
+      track_dt(x = x$x, y = x$y, t = x$t, id = x$ID, ..., tz = lubridate::tz(x$t))
+    } else {
+      stop("Invalid table type.")
+    }
+  } else {
+    stop("Invalid type.")
+  }
 }
 
 #' @rdname conversions
@@ -239,14 +312,16 @@ as_moveHMM  <- function(x, ...) {
 #' @rdname conversions
 #'
 #' @export
-as_moveHMM.track_df <- function(x, ...) {
-  if (!is_geo(x))
-    stop("Only geographic track_df objects can be converted to telemetry objects.")
-
+as_moveHMM.track <- function(x, ...) {
   if (n_dims(x) > 2)
     warning("telemetry objects are 2D only. The 3rd dimension will be stripped away.")
 
-  projection(x) <- "+proj=longlat"
-  colnames(x)[colnames(x) == "id"] <- "ID"
-  moveHMM::prepData(x, type = "LL")
+  if (is.na(projection(x)@projargs)) {
+    colnames(x)[colnames(x) == "id"] <- "ID"
+    moveHMM::prepData(as.data.frame(x), type = "UTM", LLangle = FALSE)
+  } else {
+    projection(x) <- "+proj=longlat"
+    colnames(x)[colnames(x) == "id"] <- "ID"
+    moveHMM::prepData(as.data.frame(x), type = "LL", LLangle = TRUE)
+  }
 }
