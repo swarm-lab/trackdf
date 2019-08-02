@@ -42,21 +42,19 @@
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
-#' \dontrun{
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' mv <- as_move(tracks)
-#' sp <- as_sp(tracks)
-#' lt <- as_ltraj(tracks)
-#' tl <- as_telemetry(tracks)
-#' hhm <- as_moveHMM(tracks, type = "LL")
+#' mv <- as_move(short_tracks)
+#' sp <- as_sp(short_tracks)
+#' lt <- as_ltraj(short_tracks)
+#' tl <- as_telemetry(short_tracks)
+#' hhm <- as_moveHMM(short_tracks, type = "LL")
 #'
 #' as_track(mv)
 #' as_track(sp)
 #' as_track(lt)
 #' as_track(tl)
 #' as_track(hhm)
-#' }
 #'
 #' @rdname conversions
 #'

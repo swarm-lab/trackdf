@@ -76,7 +76,7 @@
   out
 }
 
-#' @name track_de
+#' @name track_
 #' @aliases track_tbl
 #' @aliases track_dt
 #'
@@ -314,6 +314,9 @@ print.track <- function(x, ...) {
 #'  of times if necessary and it may be coerced: see the `Coercion` section in
 #'  \code{\link{data.frame}}. If `NULL`, deletes the column if a single column
 #'  is selected.
+#'
+#' @return A subset of the track table is \code{[} is called, or a modified version
+#'  of the track table if \code{[<-} is called.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
