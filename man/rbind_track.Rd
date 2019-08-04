@@ -21,10 +21,10 @@ A track table.
  different table classes are coerced to the same table class.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-rbind_track(tracks, tracks)
-rbind_track(list(tracks, tracks))
+rbind_track(short_tracks, short_tracks)
+rbind_track(list(short_tracks, short_tracks))
 
 }
 \author{

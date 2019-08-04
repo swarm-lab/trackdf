@@ -144,19 +144,19 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
+#' t_df <- track(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+#'   id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
 #'
-#' t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' t_df <- track_df(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+#'   id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 #'
-#' t_tbl <- track_tbl(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' t_tbl <- track_tbl(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+#' id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 #'
-#' t_dt <- track_dt(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-#'   proj = "+proj=longlat", tz = "Africa/Windhoek")
+#' t_dt <- track_dt(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+#'   id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 #'
 #' @rdname track_
 #'
@@ -249,9 +249,9 @@ track_dt <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' is_track(tracks)
+#' is_track(short_tracks)
 #'
 #' @export
 is_track <- function(x) {
@@ -323,13 +323,13 @@ print.track <- function(x, ...) {
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' tracks[1]
-#' tracks[1, ]
-#' tracks[1, 1]
-#' tracks$id[tracks$id == "1"] <- "0"
-#' tracks[tracks[, 1] == "0", 1] <- "1"
+#' short_tracks[1]
+#' short_tracks[1, ]
+#' short_tracks[1, 1]
+#' short_tracks$id[short_tracks$id == "1"] <- "0"
+#' short_tracks[short_tracks[, 1] == "0", 1] <- "1"
 #'
 #' @export
 `[.track` <- function(x, ...) {
@@ -376,10 +376,10 @@ print.track <- function(x, ...) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' rbind_track(tracks, tracks)
-#' rbind_track(list(tracks, tracks))
+#' rbind_track(short_tracks, short_tracks)
+#' rbind_track(list(short_tracks, short_tracks))
 #'
 #' @export
 rbind_track <- function(...) {

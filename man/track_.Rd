@@ -78,19 +78,19 @@ A track table, which is a colloquial term for an object of class
  automatically trigger the appropriate conversion of the coordinates.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-t_df <- track(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
+t_df <- track(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+  id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek", table = "df")
 
-t_df <- track_df(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+t_df <- track_df(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+  id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 
-t_tbl <- track_tbl(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+t_tbl <- track_tbl(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 
-t_dt <- track_dt(x = tracks$x, y = tracks$y, t = tracks$t, id = tracks$id,
-  proj = "+proj=longlat", tz = "Africa/Windhoek")
+t_dt <- track_dt(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
+  id = short_tracks$id, proj = "+proj=longlat", tz = "Africa/Windhoek")
 
 }
 \author{

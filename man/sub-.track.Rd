@@ -34,13 +34,13 @@ Accessing columns, rows, or cells via $, [[, or [ is mostly
  \code{\link[data.table]{data.table}}'s subsetting documentation.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-tracks[1]
-tracks[1, ]
-tracks[1, 1]
-tracks$id[tracks$id == "1"] <- "0"
-tracks[tracks[, 1] == "0", 1] <- "1"
+short_tracks[1]
+short_tracks[1, ]
+short_tracks[1, 1]
+short_tracks$id[short_tracks$id == "1"] <- "0"
+short_tracks[short_tracks[, 1] == "0", 1] <- "1"
 
 }
 \seealso{
