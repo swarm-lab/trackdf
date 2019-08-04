@@ -11,14 +11,15 @@ vignette: >
 ## 1.1 - Development version
 
 ```r
-if (!require(remotes)) 
-  install.package("remotes")
-
-remotes::install_github("swarm-lab/trackdf")
+if (requireNamespace("remotes", quietly = TRUE)) {
+  remotes::install_github("swarm-lab/trackdf")
+}
 ```
 
 ---
 
 ## 1.2 - CRAN version
 
-`trackdf` is not yet available on CRAN. 
+```r
+install.packages("trackdf")
+```

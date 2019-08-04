@@ -1,11 +1,17 @@
 ## ----message=FALSE, warning=FALSE----------------------------------------
-library(readr)
-library(dplyr)
-library(lubridate)
 library(trackdf)
+library(lubridate)
 
-raw <- read_csv(system.file("extdata/video/01.csv", package = "trackdf")) %>%
-  filter(., !ignore)
+if (requireNamespace("readr", quietly = TRUE) & requireNamespace("dplyr", quietly = TRUE)) {
+  library(readr)
+  library(dplyr)
+  raw <- read_csv(system.file("extdata/video/01.csv", package = "trackdf")) %>%
+    filter(., !ignore)
+} else {
+  raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
+  raw <- raw[raw$ignore, ]
+}
+
 raw
 
 ## ----paged.print=FALSE---------------------------------------------------
@@ -27,8 +33,14 @@ vid_dt <- track(x = raw$x, y = raw$y, t = raw$frame, id = raw$track,
 vid_dt
 
 ## ----message=FALSE, warning=FALSE----------------------------------------
-raw <- read_csv(system.file("extdata/gps/01.csv", package = "trackdf")) %>%
-  na.omit()
+if (requireNamespace("readr", quietly = TRUE) & requireNamespace("dplyr", quietly = TRUE)) {
+  raw <- read_csv(system.file("extdata/gps/01.csv", package = "trackdf")) %>%
+    na.omit()
+} else {
+  raw <- read.csv(system.file("extdata/gps/01.csv", package = "trackdf"))
+  raw <- raw[complete.cases(raw), ]
+}
+
 raw
 
 ## ----paged.print=FALSE---------------------------------------------------

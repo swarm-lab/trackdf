@@ -77,33 +77,54 @@ t_df_new_proj <- project(t_df, "+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333
 head(t_df_new_proj)
 
 ## ------------------------------------------------------------------------
-library(dplyr)
-
-t_df %>%
-  filter(., t < as.POSIXct("2015-09-10 07:01:00", tz = "Africa/Windhoek")) %>%
-  head(.)
+if (requireNamespace("dplyr", quietly = TRUE)) {
+  library(dplyr)
+  
+  t_df %>%
+    filter(., t < as.POSIXct("2015-09-10 07:01:00", tz = "Africa/Windhoek")) %>%
+    head(.)
+}
 
 ## ------------------------------------------------------------------------
-t_df %>%
-  group_by(., id) %>%
-  summarize(., x = mean(x),
-            y = mean(y))
+if (requireNamespace("dplyr", quietly = TRUE)) {
+  library(dplyr)
+  
+  t_df %>%
+    group_by(., id) %>%
+    summarize(., x = mean(x),
+              y = mean(y))
+}
 
 ## ----eval=FALSE----------------------------------------------------------
-#  t_df1 <- filter(t_df, id == "1")
-#  t_df2 <- filter(t_df, id == "2")
+#  if (requireNamespace("dplyr", quietly = TRUE)) {
+#    t_df1 <- dplyr::filter(t_df, id == "1")
+#    t_df2 <- dplyr::filter(t_df, id == "2")
+#  } else {
+#    t_df1 <- t_df[t_df$id == "1", ]
+#    t_df2 <- t_df[t_df$id == "2", ]
+#  }
 #  
 #  head(rbind_track(t_df1, t_df2))
 
 ## ----paged.print=FALSE, eval=FALSE---------------------------------------
-#  t_tbl1 <- filter(t_tbl, id == "1")
-#  t_tbl2 <- filter(t_tbl, id == "2")
+#  if (requireNamespace("dplyr", quietly = TRUE)) {
+#    t_tbl1 <- dplyr::filter(t_tbl, id == "1")
+#    t_tbl2 <- dplyr::filter(t_tbl, id == "2")
+#  } else {
+#    t_tbl1 <- t_tbl[t_tbl$id == "1", ]
+#    t_tbl2 <- t_tbl[t_tbl$id == "2", ]
+#  }
 #  
 #  rbind_track(t_tbl1, t_tbl2)
 
 ## ----paged.print=FALSE, eval=FALSE---------------------------------------
-#  t_dt1 <- filter(t_dt, id == "1")
-#  t_dt2 <- filter(t_dt, id == "2")
+#  if (requireNamespace("dplyr", quietly = TRUE)) {
+#    t_dt1 <- dplyr::filter(t_dt, id == "1")
+#    t_dt2 <- dplyr::filter(t_dt, id == "2")
+#  } else {
+#    t_dt1 <- t_dt[t_dt$id == "1", ]
+#    t_dt2 <- t_dt[t_dt$id == "2", ]
+#  }
 #  
 #  rbind_track(t_dt1, t_dt2)
 
@@ -113,9 +134,9 @@ plot(y ~ x, data = t_dt[t_dt$id == "1"], type = "l", col = "red",
 lines(y ~ x , data = t_dt[t_dt$id == "2"], col = "blue",  lwd = 2)
 
 ## ------------------------------------------------------------------------
-library(ggplot2)
-
-ggplot(data = t_dt, mapping = aes(x = x, y = y, color = id)) +
-  geom_path() +
-  coord_map()
+if (requireNamespace("ggplot2", quietly = TRUE)) {
+  ggplot2::ggplot(data = t_dt, mapping = ggplot2::aes(x = x, y = y, color = id)) +
+    ggplot2::geom_path() +
+    ggplot2::coord_map()
+} 
 

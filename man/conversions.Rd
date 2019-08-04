@@ -98,17 +98,30 @@ The following methods will convert track tables to and from other
 \examples{
 data(short_tracks)
 
-mv <- as_move(short_tracks)
-sp <- as_sp(short_tracks)
-lt <- as_ltraj(short_tracks)
-tl <- as_telemetry(short_tracks)
-hhm <- as_moveHMM(short_tracks, type = "LL")
+if (requireNamespace("moveVis", quietly = TRUE)) {
+  mv <- as_move(short_tracks)
+  as_track(mv)
+}
 
-as_track(mv)
-as_track(sp)
-as_track(lt)
-as_track(tl)
-as_track(hhm)
+if (requireNamespace("sp", quietly = TRUE)) {
+  sp <- as_sp(short_tracks)
+  as_track(sp)
+}
+
+if (requireNamespace("adehabitatLT", quietly = TRUE)) {
+  lt <- as_ltraj(short_tracks)
+  as_track(lt)
+}
+
+if (requireNamespace("ctmm", quietly = TRUE)) {
+  tl <- as_telemetry(short_tracks)
+  as_track(tl)
+}
+
+if (requireNamespace("moveHMM", quietly = TRUE)) {
+  hhm <- as_moveHMM(short_tracks, type = "LL")
+  as_track(hhm)
+}
 
 }
 \seealso{

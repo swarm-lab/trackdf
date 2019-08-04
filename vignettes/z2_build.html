@@ -308,14 +308,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <div id="using-video-tracking-data" class="section level2">
 <h2>2.1 - Using video tracking data</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(trackdf)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">filter</span>(., <span class="op">!</span>ignore)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">raw</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(trackdf)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">  raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">    </span><span class="kw">filter</span>(., <span class="op">!</span>ignore)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">} <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  raw &lt;-<span class="st"> </span>raw[raw<span class="op">$</span>ignore, ]</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">raw</a></code></pre></div>
 <pre><code>## # A tibble: 21,982 x 8
 ##       id     x     y  size frame track ignore track_fixed
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;        &lt;dbl&gt;
@@ -394,9 +400,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="using-gps-tracker-data" class="section level2">
 <h2>2.2 - Using GPS tracker data</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">na.omit</span>()</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">raw</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">    </span><span class="kw">na.omit</span>()</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">} <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>))</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">  raw &lt;-<span class="st"> </span>raw[<span class="kw">complete.cases</span>(raw), ]</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9">raw</a></code></pre></div>
 <pre><code>## # A tibble: 3,595 x 4
 ##    date       time       lon   lat
 ##    &lt;date&gt;     &lt;time&gt;   &lt;dbl&gt; &lt;dbl&gt;

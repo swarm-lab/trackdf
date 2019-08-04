@@ -308,15 +308,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <div id="development-version" class="section level2">
 <h2>1.1 - Development version</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(remotes)) </a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">install.package</span>(<span class="st">&quot;remotes&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;swarm-lab/trackdf&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;remotes&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;swarm-lab/trackdf&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">}</a></code></pre></div>
 <hr />
 </div>
 <div id="cran-version" class="section level2">
 <h2>1.2 - CRAN version</h2>
-<p><code>trackdf</code> is not yet available on CRAN.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;trackdf&quot;</span>)</a></code></pre></div>
 </div>
 
 

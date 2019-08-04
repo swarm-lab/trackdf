@@ -19,17 +19,7 @@ There are currently no downstream dependencies for this package.
 
 ## CRAN team comments
 
-"\dontrun{} should be only used if the example really cannot be executed 
-(e.g. because of missing additional software, missing API keys, ...) by 
-the user. That's why wrapping examples in \dontrun{} adds the comment 
-("# Not run:") as a warning for the user.
-Please unwrap the examples if they are executable in < 5 sec, or create 
-additionally small toy examples to allow automatic testing (then replace 
-\dontrun with \donttest)."
+"You have not used the Suggests packages conditionally as required in 
+§1.1.3.1 of the manual."
 
-\dontrun{} calls were eliminated. New examples were created that run < 5 sec. 
-
-"Please add \value to .Rd files and explain the functions results in the 
-documentation. f.i.: sub-.track.Rd"
-
-Fixed
+Examples and vignettes were modified as required in §1.1.3.1 of the manual. 
