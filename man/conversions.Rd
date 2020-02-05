@@ -52,8 +52,7 @@ as_telemetry(x, ...)
 
 \method{as_telemetry}{track}(x, ...)
 
-\method{as_track}{moveData}(x, table = "df", type = c("LL", "UTM"),
-  ...)
+\method{as_track}{moveData}(x, table = "df", type = c("LL", "UTM"), ...)
 
 as_moveHMM(x, ...)
 

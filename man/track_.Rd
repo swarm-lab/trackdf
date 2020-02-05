@@ -4,8 +4,8 @@
 \alias{track_}
 \alias{track}
 \alias{track_tbl}
-\alias{track_df}
 \alias{track_dt}
+\alias{track_df}
 \title{Build a Track Table}
 \usage{
 track(x, y, z, t, id, ..., proj, origin, period, tz, table = "df")

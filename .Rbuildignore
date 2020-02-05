@@ -4,6 +4,7 @@ LICENSE
 .travis.yml
 appveyor.yml
 _pkgdown.yaml
+pkgdown
 README.md
 docs
 logo.*

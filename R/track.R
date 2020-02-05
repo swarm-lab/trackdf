@@ -183,7 +183,7 @@ track_df <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
   args <- list(...)
   if (length(args) > 0) {
     var <- names(args)
-    for (i in length(var)) {
+    for (i in 1:length(var)) {
       out[[var[[i]]]] <- args[[var[[i]]]]
     }
   }
@@ -203,7 +203,7 @@ track_tbl <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
   args <- list(...)
   if (length(args) > 0) {
     var <- names(args)
-    for (i in length(var)) {
+    for (i in 1:length(var)) {
       out[[var[[i]]]] <- args[[var[[i]]]]
     }
   }
@@ -223,7 +223,7 @@ track_dt <- function(x, y, z, t, id, ..., proj, origin, period, tz) {
   args <- list(...)
   if (length(args) > 0) {
     var <- names(args)
-    for (i in length(var)) {
+    for (i in 1:length(var)) {
       out[[var[[i]]]] <- args[[var[[i]]]]
     }
   }
