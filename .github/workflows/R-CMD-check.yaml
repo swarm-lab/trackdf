@@ -64,9 +64,9 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
-      - name: Install av
+      - name: Install missing libraries
         if: runner.os == 'Linux'
-        run: sudo apt-get install libavfilter-dev
+        run: sudo apt-get install libavfilter-dev libmpfr-dev
 
       - name: Install dependencies
         run: |
