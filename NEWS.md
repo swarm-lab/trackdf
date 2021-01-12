@@ -8,6 +8,7 @@ N/A
 
 * Fixes issue preventing from adding more than 1 extra column during the creation
 of a track. 
+* Adds possibility to provide date formatting when creating a track. 
 
 ---
 

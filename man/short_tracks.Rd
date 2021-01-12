@@ -4,13 +4,15 @@
 \name{short_tracks}
 \alias{short_tracks}
 \title{Trajectories of Two Goats Through the Namibian Desert (short version)}
-\format{A track table with 18 rows and 4 variables:
+\format{
+A track table with 18 rows and 4 variables:
 \describe{
   \item{id}{Identity of the goat}
   \item{t}{Time of the observation}
   \item{x}{Longitude}
   \item{y}{Latitude}
-}}
+}
+}
 \usage{
 short_tracks
 }

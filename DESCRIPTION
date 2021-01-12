@@ -13,7 +13,7 @@ Description: Data frame class for storing collective movement data (e.g. fish
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Depends: 
   R (>= 3.5.0)
 Imports:

@@ -1,7 +1,6 @@
 # trackdf - A data frame class for tracking data
 
-[![Travis-CI Build Status](https://travis-ci.org/swarm-lab/trackdf.svg?branch=master)](https://travis-ci.org/swarm-lab/trackdf)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/swarm-lab/trackdf?branch=master&svg=true)](https://ci.appveyor.com/project/swarm-lab/trackdf)
+[![R-CMD-check](https://github.com/swarm-lab/trackdf/workflows/R-CMD-check/badge.svg)](https://github.com/swarm-lab/trackdf/actions)
 
 **Please submit all suggestions and bug reports 
 [here](https://github.com/swarm-lab/trackdf/issues). Thanks!**

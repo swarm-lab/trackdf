@@ -1,8 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 LICENSE
-.travis.yml
-appveyor.yml
 _pkgdown.yaml
 pkgdown
 README.md
@@ -10,3 +8,4 @@ docs
 logo.*
 cran-comments.md
 ^CRAN-RELEASE$
+^\.github$
