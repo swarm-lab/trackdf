@@ -19,7 +19,6 @@ Depends:
 Imports:
   tibble,
   data.table,
-  rgdal,
   sp,
   lubridate,
   methods
