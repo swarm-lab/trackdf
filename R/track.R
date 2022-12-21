@@ -70,7 +70,7 @@
   if (!missing(proj)) {
     if (is.character(proj)) {
       proj <- sp::CRS(proj)
-    } else if (class(proj) != "CRS") {
+    } else if (!inherits(proj, "CRS")) {
       stop("proj must be an object of class character or CRS")
     }
   } else {
@@ -381,7 +381,7 @@ print.track <- function(x, ...) {
 
 #' @title Bind Multiple Track Tables by Row
 #'
-#' @description {rbind_track} uses \code{\link[data.table:rbindlist]{data.table::rbindlist}}
+#' @description {bind_tracks} uses \code{\link[data.table:rbindlist]{data.table::rbindlist}}
 #'  to combine track tables by rows, but makes sure that you cannot bind together
 #'  two tables with different projections, that the projection attribute is
 #'  inherited by the resulting track table, and that track tables based on
@@ -397,11 +397,11 @@ print.track <- function(x, ...) {
 #' @examples
 #' data(short_tracks)
 #'
-#' rbind_track(short_tracks, short_tracks)
-#' rbind_track(list(short_tracks, short_tracks))
+#' bind_tracks(short_tracks, short_tracks)
+#' bind_tracks(list(short_tracks, short_tracks))
 #'
 #' @export
-rbind_track <- function(...) {
+bind_tracks <- function(...) {
   df_list <- list(...)
 
   if (length(df_list) == 1 & inherits(df_list[[1]], "list"))

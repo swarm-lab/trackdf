@@ -3,7 +3,7 @@ author: "Simon Garnier"
 title: "2 - Building a track table"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{build}
+  %\VignetteIndexEntry{2 - Building a track table}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

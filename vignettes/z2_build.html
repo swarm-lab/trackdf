@@ -1,87 +1,117 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Simon Garnier" />
 
 
 <title>2 - Building a track table</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {  }
+{ }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -90,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -104,6 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -117,9 +155,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +323,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -308,21 +344,21 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <div id="using-video-tracking-data" class="section level2">
 <h2>2.1 - Using video tracking data</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(trackdf)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">    </span><span class="kw">filter</span>(., <span class="op">!</span>ignore)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">  raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>))</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  raw &lt;-<span class="st"> </span>raw[raw<span class="op">$</span>ignore, ]</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">}</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">raw</a></code></pre></div>
-<pre><code>## # A tibble: 21,982 x 8
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(trackdf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(., <span class="sc">!</span>ignore)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> raw[raw<span class="sc">$</span>ignore, ]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>raw</span></code></pre></div>
+<pre><code>## # A tibble: 21,982 × 8
 ##       id     x     y  size frame track ignore track_fixed
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;        &lt;dbl&gt;
 ##  1     1  629.  882.  1154     1     1 FALSE            1
@@ -336,10 +372,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9     1  629.  882.  1148     2     1 FALSE            1
 ## 10     2 1056.  656.  1068     2     2 FALSE            2
 ## # … with 21,972 more rows</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">vid_df &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;df&quot;</span>)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">head</span>(vid_df)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vid_df <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>x, <span class="at">y =</span> raw<span class="sc">$</span>y, <span class="at">t =</span> raw<span class="sc">$</span>frame, <span class="at">id =</span> raw<span class="sc">$</span>track, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="at">period =</span> <span class="fu">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="sc">/</span> <span class="dv">30</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="at">table =</span> <span class="st">&quot;df&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vid_df)</span></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  6 
 ## Dimensions:  2D 
@@ -352,16 +388,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4  4 2019-03-24 12:55:23 1277.6466 373.7491
 ## 5  5 2019-03-24 12:55:23 1379.2844 343.0853
 ## 6  6 2019-03-24 12:55:23 1137.1378 174.5110</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">vid_tbl &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">                 <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">                 <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;tbl&quot;</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">print</span>(vid_tbl)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>vid_tbl <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>x, <span class="at">y =</span> raw<span class="sc">$</span>y, <span class="at">t =</span> raw<span class="sc">$</span>frame, <span class="at">id =</span> raw<span class="sc">$</span>track, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="at">period =</span> <span class="fu">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="sc">/</span> <span class="dv">30</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="at">table =</span> <span class="st">&quot;tbl&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vid_tbl)</span></code></pre></div>
 <pre><code>## Track table [21982 observations]
 ## Number of tracks:  83 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
 ## Table class:  tibble
-## # A tibble: 21,982 x 4
+## # A tibble: 21,982 × 4
 ##    id    t                       x     y
 ##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
 ##  1 1     2019-03-24 12:55:23  629.  882.
@@ -375,10 +411,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9 1     2019-03-24 12:55:23  629.  882.
 ## 10 2     2019-03-24 12:55:23 1056.  656.
 ## # … with 21,972 more rows</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">vid_dt &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>x, <span class="dt">y =</span> raw<span class="op">$</span>y, <span class="dt">t =</span> raw<span class="op">$</span>frame, <span class="dt">id =</span> raw<span class="op">$</span>track, </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                <span class="dt">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="dt">period =</span> <span class="kw">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="dv">30</span>, </a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                <span class="dt">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;dt&quot;</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">vid_dt</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>vid_dt <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>x, <span class="at">y =</span> raw<span class="sc">$</span>y, <span class="at">t =</span> raw<span class="sc">$</span>frame, <span class="at">id =</span> raw<span class="sc">$</span>track, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="at">period =</span> <span class="fu">period</span>(<span class="st">&quot;1 second&quot;</span>) <span class="sc">/</span> <span class="dv">30</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>, <span class="at">table =</span> <span class="st">&quot;dt&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>vid_dt</span></code></pre></div>
 <pre><code>## Track table [21982 observations]
 ## Number of tracks:  83 
 ## Dimensions:  2D 
@@ -400,16 +436,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="using-gps-tracker-data" class="section level2">
 <h2>2.2 - Using GPS tracker data</h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">  raw &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">    </span><span class="kw">na.omit</span>()</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  raw &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;trackdf&quot;</span>))</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">  raw &lt;-<span class="st"> </span>raw[<span class="kw">complete.cases</span>(raw), ]</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">raw</a></code></pre></div>
-<pre><code>## # A tibble: 3,595 x 4
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;readr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.omit</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/gps/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  raw <span class="ot">&lt;-</span> raw[<span class="fu">complete.cases</span>(raw), ]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>raw</span></code></pre></div>
+<pre><code>## # A tibble: 3,596 × 4
 ##    date       time       lon   lat
 ##    &lt;date&gt;     &lt;time&gt;   &lt;dbl&gt; &lt;dbl&gt;
 ##  1 2015-09-10 07:00:00  15.8 -22.4
@@ -422,15 +458,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  8 2015-09-10 07:00:10  15.8 -22.4
 ##  9 2015-09-10 07:00:11  15.8 -22.4
 ## 10 2015-09-10 07:00:12  15.8 -22.4
-## # … with 3,585 more rows</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gps_df &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;df&quot;</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">head</span>(gps_df)</a></code></pre></div>
+## # … with 3,586 more rows</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gps_df <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>lon, <span class="at">y =</span> raw<span class="sc">$</span>lat, <span class="at">t =</span> <span class="fu">paste</span>(raw<span class="sc">$</span>date, raw<span class="sc">$</span>time), <span class="at">id =</span> <span class="dv">1</span>,  </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;df&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: 1 failed to parse.</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gps_df)</span></code></pre></div>
 <pre><code>## Track table [6 observations]
 ## Number of tracks:  1 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
+## Projection:  +proj=longlat +datum=WGS84 +no_defs 
 ## Table class:  data frame
 ##   id                   t        x         y
 ## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
@@ -439,16 +476,17 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
 ## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
 ## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gps_tbl &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">                 <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;tbl&quot;</span>)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">gps_tbl</a></code></pre></div>
-<pre><code>## Track table [3595 observations]
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gps_tbl <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>lon, <span class="at">y =</span> raw<span class="sc">$</span>lat, <span class="at">t =</span> <span class="fu">paste</span>(raw<span class="sc">$</span>date, raw<span class="sc">$</span>time), <span class="at">id =</span> <span class="dv">1</span>,  </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;tbl&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: 1 failed to parse.</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gps_tbl</span></code></pre></div>
+<pre><code>## Track table [3596 observations]
 ## Number of tracks:  1 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
+## Projection:  +proj=longlat +datum=WGS84 +no_defs 
 ## Table class:  tibble
-## # A tibble: 3,595 x 4
+## # A tibble: 3,596 × 4
 ##    id    t                       x     y
 ##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
 ##  1 1     2015-09-10 07:00:00  15.8 -22.4
@@ -461,15 +499,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  8 1     2015-09-10 07:00:10  15.8 -22.4
 ##  9 1     2015-09-10 07:00:11  15.8 -22.4
 ## 10 1     2015-09-10 07:00:12  15.8 -22.4
-## # … with 3,585 more rows</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gps_dt &lt;-<span class="st"> </span><span class="kw">track</span>(<span class="dt">x =</span> raw<span class="op">$</span>lon, <span class="dt">y =</span> raw<span class="op">$</span>lat, <span class="dt">t =</span> <span class="kw">paste</span>(raw<span class="op">$</span>date, raw<span class="op">$</span>time), <span class="dt">id =</span> <span class="dv">1</span>,  </a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">                <span class="dt">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="dt">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="dt">table =</span> <span class="st">&quot;dt&quot;</span>)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">gps_dt</a></code></pre></div>
-<pre><code>## Track table [3595 observations]
+## # … with 3,586 more rows</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gps_dt <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw<span class="sc">$</span>lon, <span class="at">y =</span> raw<span class="sc">$</span>lat, <span class="at">t =</span> <span class="fu">paste</span>(raw<span class="sc">$</span>date, raw<span class="sc">$</span>time), <span class="at">id =</span> <span class="dv">1</span>,  </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;dt&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: 1 failed to parse.</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gps_dt</span></code></pre></div>
+<pre><code>## Track table [3596 observations]
 ## Number of tracks:  1 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +ellps=WGS84 
+## Projection:  +proj=longlat +datum=WGS84 +no_defs 
 ## Table class:  data table
 ##       id                   t        x         y
 ##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957
@@ -478,11 +517,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958
 ##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959
 ##   ---                                          
-## 3591:  1 2015-09-10 07:59:55 15.76231 -22.37752
-## 3592:  1 2015-09-10 07:59:56 15.76230 -22.37752
-## 3593:  1 2015-09-10 07:59:57 15.76229 -22.37752
-## 3594:  1 2015-09-10 07:59:58 15.76229 -22.37751
-## 3595:  1 2015-09-10 07:59:59 15.76228 -22.37751</code></pre>
+## 3592:  1 2015-09-10 07:59:55 15.76231 -22.37752
+## 3593:  1 2015-09-10 07:59:56 15.76230 -22.37752
+## 3594:  1 2015-09-10 07:59:57 15.76229 -22.37752
+## 3595:  1 2015-09-10 07:59:58 15.76229 -22.37751
+## 3596:  1 2015-09-10 07:59:59 15.76228 -22.37751</code></pre>
 </div>
 
 

@@ -248,7 +248,7 @@ as_track.list <- function(x, table = "df", ...) {
   if (!all(sapply(x, inherits, what = "telemetry")))
     stop("No applicable method for 'as_track' applied to an object of class 'list'.")
 
-  rbind_track(lapply(x, as_track, table = table, ...))
+  bind_tracks(lapply(x, as_track, table = table, ...))
 }
 
 #' @rdname conversions

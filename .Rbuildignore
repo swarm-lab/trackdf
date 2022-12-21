@@ -9,3 +9,4 @@ logo.*
 cran-comments.md
 ^CRAN-RELEASE$
 ^\.github$
+deprecated

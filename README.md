@@ -1,13 +1,10 @@
-# trackdf - A data frame class for tracking data
+# trackdf - A data frame class for tracking data  <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![R-CMD-check](https://github.com/swarm-lab/trackdf/workflows/R-CMD-check/badge.svg)](https://github.com/swarm-lab/trackdf/actions)
+![CRAN](https://www.r-pkg.org/badges/version/trackdf)
+![CRANLOGS](https://cranlogs.r-pkg.org/badges/trackdf)
 
-**Please submit all suggestions and bug reports 
-[here](https://github.com/swarm-lab/trackdf/issues). Thanks!**
-
----
-
-## 1 - Description <img src="reference/figures/logo.png" align="right" alt="" width="120" />
+## Description
 
 [`trackdf`](https://swarm-lab.github.io/trackdf/) is a R package that aims to 
 standardize and accelerate the processing of data describing animal trajectories 
@@ -24,7 +21,7 @@ developed.
 
 ---
 
-## 2 - Quick start guides
+## Quick start guides
 
 + [1 - Installing `trackdf`](https://swarm-lab.github.io/trackdf/articles/z1_install.html)
 + [2 - Building a track table](https://swarm-lab.github.io/trackdf/articles/z2_build.html)
@@ -32,7 +29,7 @@ developed.
 
 ---
 
-## 3 - FAQ
+## FAQ
 
 **How can I help?**
 

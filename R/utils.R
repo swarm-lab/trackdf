@@ -1,38 +1,3 @@
-#' @title Maintain Class After Modification
-#'
-#' @description Copy class and attributes from the original version of an object
-#'  to a modified version.
-#'
-#' @param x The original object, which has a class/attributes to copy
-#'
-#' @param result The modified object, which is / might be missing the class/attributes.
-#'
-#' @return \code{result}, now with class/attributes restored.
-#'
-#' @author Simon Garnier, \email{garnier@@njit.edu}
-.reclass <- function(x, result) {
-  UseMethod('.reclass')
-}
-
-.reclass.default <- function(x, result) {
-  if (inherits(x, "data.table") & !inherits(result, "data.table")) {
-    result <- data.table::as.data.table(result)
-  }
-
-  class(result) <- unique(c(class(x)[[1]], class(result)))
-  attr(result, class(x)[[1]]) <- attr(x, class(x)[[1]])
-  attr(result, "proj") <- attr(x, "proj")
-
-  if (is_track(result)) {
-    result
-  } else {
-    class(result) <- class(result)[2:length(class(result))]
-    attr(result, "proj") <- NULL
-    result
-  }
-}
-
-
 #' @title Access/Modify the Projection of a Track Table
 #'
 #' @description Functions to access or modify the projection of a data table.
@@ -79,7 +44,7 @@ projection <- function(x) {
 
   if (is.character(value)) {
     value <- sp::CRS(value)
-  } else if (class(value) != "CRS") {
+  } else if (!inherits(value, "CRS")) {
     stop("value must be an object of class character or CRS")
   }
 

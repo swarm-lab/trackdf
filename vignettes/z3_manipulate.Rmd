@@ -3,7 +3,7 @@ author: "Simon Garnier"
 title: "3 - Manipulating a track table"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{manipulate}
+  %\VignetteIndexEntry{3 - Manipulating a track table}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -104,7 +104,7 @@ t_tbl[1, 1]
 t_dt[1, 1]
 ```
 
-Note that the results varies depending on the underling data frame class.  
+Note that the results varies depending on the underlying data frame class.  
 
 By combining the commands above with the `<-` operator, you can easily modify 
 the content of a track table. For example:
@@ -155,11 +155,9 @@ head(t_df_new_proj)
 
 ## 3.5 - Tidyverse
 
-Track tables are mostly compatible with the functions from the 
-[tidyverse](https://www.tidyverse.org/) (with one notable exception, see below).
-For instance, you can use all the [`dplyr`](https://dplyr.tidyverse.org/) verbs 
-to filter, mutate, group, etc., a track table, the same way you would do with a
-`tibble` or a `data.frame`. 
+Track tables are compatible with the functions from the [tidyverse](https://www.tidyverse.org/) 
+(with one notable exception, see below). For instance, you can use all the [`dplyr`](https://dplyr.tidyverse.org/) verbs to filter, mutate, group, etc., a 
+track table, the same way you would do with a `tibble` or a `data.frame`. 
 
 ```{r}
 if (requireNamespace("dplyr", quietly = TRUE)) {
@@ -182,12 +180,14 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
 }
 ```
 
-`bind_rows` is a notable exception to the rule above. For technical reasons in 
-the implementation of `bind_rows`, it cannot retain all the attributes of objects
-that are not pure `tibble` or `data.frame` (e.g., track tables have an extra 
-attribute to store the projection of the coordinates, which is stripped by 
-`bind_rows`). For this reason, `trackdf` provides a special version of `bind_rows`
-called `rbind_track` to achieve the same purpose. 
+`bind_rows` is a notable exception to the rule above. Indeed, when combining two
+data frames, only the attributes of the first data frame passed to `bind_rows`
+are retained in the output data frame. As a result, combining with `bind_rows` 
+two track tables with different projections will ignore the projection of the 
+second track table and assume it is the same as the first one. To avoid this 
+issue, `trackdf` provides a special version of `bind_rows` called `bind_tracks` 
+that checks first that the dimensions, geographic status, and projections of the
+input track tables are compatible with each other. 
 
 With `data.frame` based track tables:
 
@@ -200,7 +200,7 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
   t_df2 <- t_df[t_df$id == "2", ]
 }
 
-head(rbind_track(t_df1, t_df2))
+head(bind_tracks(t_df1, t_df2))
 ```
 
 With `tibble` based track tables:
@@ -214,7 +214,7 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
   t_tbl2 <- t_tbl[t_tbl$id == "2", ]
 }
 
-rbind_track(t_tbl1, t_tbl2)
+bind_tracks(t_tbl1, t_tbl2)
 ```
 
 With `data.table` based track tables:
@@ -228,7 +228,7 @@ if (requireNamespace("dplyr", quietly = TRUE)) {
   t_dt2 <- t_dt[t_dt$id == "2", ]
 }
 
-rbind_track(t_dt1, t_dt2)
+bind_tracks(t_dt1, t_dt2)
 ```
 
 ---
@@ -250,7 +250,8 @@ With [`ggplot2`]{https://ggplot2.tidyverse.org/}
 
 ```{r}
 if (requireNamespace("ggplot2", quietly = TRUE)) {
-  ggplot2::ggplot(data = t_dt, mapping = ggplot2::aes(x = x, y = y, color = id)) +
+  ggplot2::ggplot(data = t_dt) +
+    ggplot2::aes(x = x, y = y, color = id) + 
     ggplot2::geom_path() +
     ggplot2::coord_map()
 } 

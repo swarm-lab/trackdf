@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="trackdf">
 <title>2 - Building a track table • trackdf</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -12,12 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="2 - Building a track table">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="2 - Building a track table">
 <meta property="og:description" content="trackdf">
 <meta property="og:image" content="https://swarm-lab.github.io/trackdf/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -25,306 +25,288 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">trackdf</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.2</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">trackdf</a>
+
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.3.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/z1_install.html">1 - Installing trackdf</a>
-    </li>
-    <li>
-      <a href="../articles/z2_build.html">2 - Building a track table</a>
-    </li>
-    <li>
-      <a href="../articles/z3_manipulate.html">3 - Manipulating a track table</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/swarm-lab/trackdf/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/z1_install.html">1 - Installing trackdf</a>
+    <a class="dropdown-item" href="../articles/z2_build.html">2 - Building a track table</a>
+    <a class="dropdown-item" href="../articles/z3_manipulate.html">3 - Manipulating a track table</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/swarm-lab/trackdf/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="z2_build_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>2 - Building a track table</h1>
-                        <h4 class="author">Simon Garnier</h4>
+
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="../logo.svg" class="logo" alt=""><h1>2 - Building a track table</h1>
+                        <h4 data-toc-skip class="author">Simon
+Garnier</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/swarm-lab/trackdf/blob/master/vignettes/z2_build.Rmd"><code>vignettes/z2_build.Rmd</code></a></small>
-      <div class="hidden name"><code>z2_build.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/swarm-lab/trackdf/blob/HEAD/vignettes/z2_build.Rmd" class="external-link"><code>vignettes/z2_build.Rmd</code></a></small>
+      <div class="d-none name"><code>z2_build.Rmd</code></div>
     </div>
 
     
     
-<div id="using-video-tracking-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-video-tracking-data" class="anchor"></a>2.1 - Using video tracking data</h2>
+<div class="section level2">
+<h2 id="using-video-tracking-data">2.1 - Using video tracking data<a class="anchor" aria-label="anchor" href="#using-video-tracking-data"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://swarm-lab.github.io/trackdf/">trackdf</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
-
-<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"readr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="op">!</span><span class="va">ignore</span><span class="op">)</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="va">raw</span><span class="op">$</span><span class="va">ignore</span>, <span class="op">]</span>
-<span class="op">}</span>
-
-<span class="va">raw</span></code></pre></div>
-<pre><code>## # A tibble: 21,982 x 8
-##       id     x     y  size frame track ignore track_fixed
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;        &lt;dbl&gt;
-##  1     1  629.  882.  1154     1     1 FALSE            1
-##  2     2 1056.  657.  1064     1     2 FALSE            2
-##  3     3  508.  375.  1624     1     3 FALSE            3
-##  4     4 1278.  374.  1443     1     4 FALSE            4
-##  5     5 1379.  343.  1431     1     5 FALSE            5
-##  6     6 1137.  175.  1321     1     6 FALSE            6
-##  7     7  737.  116.  1419     1     7 FALSE            7
-##  8     8  922.  103.  1237     1     8 FALSE            8
-##  9     1  629.  882.  1148     2     1 FALSE            1
-## 10     2 1056.  656.  1068     2     2 FALSE            2
-## # … with 21,972 more rows</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://swarm-lab.github.io/trackdf/">trackdf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"readr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org" class="external-link">readr</a></span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="op">!</span><span class="va">ignore</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="va">raw</span><span class="op">$</span><span class="va">ignore</span>, <span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">raw</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 21,982 × 8</span></span></span>
+<span><span class="co">##       id     x     y  size frame track ignore track_fixed</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>     1  629.  882.  <span style="text-decoration: underline;">1</span>154     1     1 FALSE            1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>     2 <span style="text-decoration: underline;">1</span>056.  657.  <span style="text-decoration: underline;">1</span>064     1     2 FALSE            2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>     3  508.  375.  <span style="text-decoration: underline;">1</span>624     1     3 FALSE            3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>     4 <span style="text-decoration: underline;">1</span>278.  374.  <span style="text-decoration: underline;">1</span>443     1     4 FALSE            4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>     5 <span style="text-decoration: underline;">1</span>379.  343.  <span style="text-decoration: underline;">1</span>431     1     5 FALSE            5</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>     6 <span style="text-decoration: underline;">1</span>137.  175.  <span style="text-decoration: underline;">1</span>321     1     6 FALSE            6</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>     7  737.  116.  <span style="text-decoration: underline;">1</span>419     1     7 FALSE            7</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>     8  922.  103.  <span style="text-decoration: underline;">1</span>237     1     8 FALSE            8</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     1  629.  882.  <span style="text-decoration: underline;">1</span>148     2     1 FALSE            1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>     2 <span style="text-decoration: underline;">1</span>056.  656.  <span style="text-decoration: underline;">1</span>068     2     2 FALSE            2</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 21,972 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vid_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, 
-                origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, 
-                tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"df"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">vid_df</span><span class="op">)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  6 
-## Dimensions:  2D 
-## Geographic:  FALSE 
-## Table class:  data frame
-##   id                   t         x        y
-## 1  1 2019-03-24 12:55:23  629.3839 882.4783
-## 2  2 2019-03-24 12:55:23 1056.1692 656.5207
-## 3  3 2019-03-24 12:55:23  508.0092 375.2451
-## 4  4 2019-03-24 12:55:23 1277.6466 373.7491
-## 5  5 2019-03-24 12:55:23 1379.2844 343.0853
-## 6  6 2019-03-24 12:55:23 1137.1378 174.5110</code></pre>
+<code class="sourceCode R"><span><span class="va">vid_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, </span>
+<span>                origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, </span>
+<span>                tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"df"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">vid_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [6 observations]</span></span>
+<span><span class="co">## Number of tracks:  6 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  FALSE </span></span>
+<span><span class="co">## Table class:  data frame</span></span>
+<span><span class="co">##   id                   t         x        y</span></span>
+<span><span class="co">## 1  1 2019-03-24 12:55:23  629.3839 882.4783</span></span>
+<span><span class="co">## 2  2 2019-03-24 12:55:23 1056.1692 656.5207</span></span>
+<span><span class="co">## 3  3 2019-03-24 12:55:23  508.0092 375.2451</span></span>
+<span><span class="co">## 4  4 2019-03-24 12:55:23 1277.6466 373.7491</span></span>
+<span><span class="co">## 5  5 2019-03-24 12:55:23 1379.2844 343.0853</span></span>
+<span><span class="co">## 6  6 2019-03-24 12:55:23 1137.1378 174.5110</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vid_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, 
-                 origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, 
-                 tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vid_tbl</span><span class="op">)</span></code></pre></div>
-<pre><code>## Track table [21982 observations]
-## Number of tracks:  83 
-## Dimensions:  2D 
-## Geographic:  FALSE 
-## Table class:  tibble
-## # A tibble: 21,982 x 4
-##    id    t                       x     y
-##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
-##  1 1     2019-03-24 12:55:23  629.  882.
-##  2 2     2019-03-24 12:55:23 1056.  657.
-##  3 3     2019-03-24 12:55:23  508.  375.
-##  4 4     2019-03-24 12:55:23 1278.  374.
-##  5 5     2019-03-24 12:55:23 1379.  343.
-##  6 6     2019-03-24 12:55:23 1137.  175.
-##  7 7     2019-03-24 12:55:23  737.  116.
-##  8 8     2019-03-24 12:55:23  922.  103.
-##  9 1     2019-03-24 12:55:23  629.  882.
-## 10 2     2019-03-24 12:55:23 1056.  656.
-## # … with 21,972 more rows</code></pre>
+<code class="sourceCode R"><span><span class="va">vid_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, </span>
+<span>                 origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, </span>
+<span>                 tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">vid_tbl</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [21982 observations]</span></span>
+<span><span class="co">## Number of tracks:  83 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  FALSE </span></span>
+<span><span class="co">## Table class:  tibble</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 21,982 × 4</span></span></span>
+<span><span class="co">##    id    t                       x     y</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1     2019-03-24 <span style="color: #949494;">12:55:23</span>  629.  882.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2     2019-03-24 <span style="color: #949494;">12:55:23</span> <span style="text-decoration: underline;">1</span>056.  657.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 3     2019-03-24 <span style="color: #949494;">12:55:23</span>  508.  375.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 4     2019-03-24 <span style="color: #949494;">12:55:23</span> <span style="text-decoration: underline;">1</span>278.  374.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 5     2019-03-24 <span style="color: #949494;">12:55:23</span> <span style="text-decoration: underline;">1</span>379.  343.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 6     2019-03-24 <span style="color: #949494;">12:55:23</span> <span style="text-decoration: underline;">1</span>137.  175.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 7     2019-03-24 <span style="color: #949494;">12:55:23</span>  737.  116.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 8     2019-03-24 <span style="color: #949494;">12:55:23</span>  922.  103.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1     2019-03-24 <span style="color: #949494;">12:55:23</span>  629.  882.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2     2019-03-24 <span style="color: #949494;">12:55:23</span> <span style="text-decoration: underline;">1</span>056.  656.</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 21,972 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vid_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, 
-                origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/period.html">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, 
-                tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span>
-<span class="va">vid_dt</span></code></pre></div>
-<pre><code>## Track table [21982 observations]
-## Number of tracks:  83 
-## Dimensions:  2D 
-## Geographic:  FALSE 
-## Table class:  data table
-##        id                   t         x        y
-##     1:  1 2019-03-24 12:55:23  629.3839 882.4783
-##     2:  2 2019-03-24 12:55:23 1056.1692 656.5207
-##     3:  3 2019-03-24 12:55:23  508.0092 375.2451
-##     4:  4 2019-03-24 12:55:23 1277.6466 373.7491
-##     5:  5 2019-03-24 12:55:23 1379.2844 343.0853
-##    ---                                          
-## 21978: 82 2019-03-24 12:56:56  580.7614 587.2513
-## 21979: 34 2019-03-24 12:56:56  493.5477 529.5454
-## 21980: 47 2019-03-24 12:56:56  498.8001 432.5990
-## 21981: 58 2019-03-24 12:56:56  562.6123 266.9754
-## 21982: 67 2019-03-24 12:56:56 1046.3904 146.4723</code></pre>
+<code class="sourceCode R"><span><span class="va">vid_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">track</span>, </span>
+<span>                origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">period</a></span><span class="op">(</span><span class="st">"1 second"</span><span class="op">)</span> <span class="op">/</span> <span class="fl">30</span>, </span>
+<span>                tz <span class="op">=</span> <span class="st">"America/New_York"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span></span>
+<span><span class="va">vid_dt</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [21982 observations]</span></span>
+<span><span class="co">## Number of tracks:  83 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  FALSE </span></span>
+<span><span class="co">## Table class:  data table</span></span>
+<span><span class="co">##        id                   t         x        y</span></span>
+<span><span class="co">##     1:  1 2019-03-24 12:55:23  629.3839 882.4783</span></span>
+<span><span class="co">##     2:  2 2019-03-24 12:55:23 1056.1692 656.5207</span></span>
+<span><span class="co">##     3:  3 2019-03-24 12:55:23  508.0092 375.2451</span></span>
+<span><span class="co">##     4:  4 2019-03-24 12:55:23 1277.6466 373.7491</span></span>
+<span><span class="co">##     5:  5 2019-03-24 12:55:23 1379.2844 343.0853</span></span>
+<span><span class="co">##    ---                                          </span></span>
+<span><span class="co">## 21978: 82 2019-03-24 12:56:56  580.7614 587.2513</span></span>
+<span><span class="co">## 21979: 34 2019-03-24 12:56:56  493.5477 529.5454</span></span>
+<span><span class="co">## 21980: 47 2019-03-24 12:56:56  498.8001 432.5990</span></span>
+<span><span class="co">## 21981: 58 2019-03-24 12:56:56  562.6123 266.9754</span></span>
+<span><span class="co">## 21982: 67 2019-03-24 12:56:56 1046.3904 146.4723</span></span></code></pre>
 <hr>
 </div>
-<div id="using-gps-tracker-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-gps-tracker-data" class="anchor"></a>2.2 - Using GPS tracker data</h2>
+<div class="section level2">
+<h2 id="using-gps-tracker-data">2.2 - Using GPS tracker data<a class="anchor" aria-label="anchor" href="#using-gps-tracker-data"></a>
+</h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"readr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html">complete.cases</a></span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="op">]</span>
-<span class="op">}</span>
-
-<span class="va">raw</span></code></pre></div>
-<pre><code>## # A tibble: 3,596 x 4
-##    date       time       lon   lat
-##    &lt;date&gt;     &lt;time&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1 2015-09-10 07:00:00  15.8 -22.4
-##  2 2015-09-10 07:00:01  15.8 -22.4
-##  3 2015-09-10 07:00:04  15.8 -22.4
-##  4 2015-09-10 07:00:05  15.8 -22.4
-##  5 2015-09-10 07:00:08  15.8 -22.4
-##  6 2015-09-10 07:00:09  15.8 -22.4
-##  7 2015-09-10 07:00:09  15.8 -22.4
-##  8 2015-09-10 07:00:10  15.8 -22.4
-##  9 2015-09-10 07:00:11  15.8 -22.4
-## 10 2015-09-10 07:00:12  15.8 -22.4
-## # … with 3,586 more rows</code></pre>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"readr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/stats/complete.cases.html" class="external-link">complete.cases</a></span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">raw</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 3,596 × 4</span></span></span>
+<span><span class="co">##    date       time       lon   lat</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;time&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>00  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>01  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>04  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>05  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>08  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>09  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>09  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>10  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>11  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 2015-09-10 07<span style="color: #949494;">:</span>00<span style="color: #949494;">:</span>12  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 3,586 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gps_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  
-                proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"df"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: 1 failed to parse.</code></pre>
+<code class="sourceCode R"><span><span class="va">gps_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  </span>
+<span>                proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"df"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: 1 failed to parse.</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">gps_df</span><span class="op">)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37957
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gps_df</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [6 observations]</span></span>
+<span><span class="co">## Number of tracks:  1 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  TRUE </span></span>
+<span><span class="co">## Projection:  +proj=longlat +datum=WGS84 +no_defs </span></span>
+<span><span class="co">## Table class:  data frame</span></span>
+<span><span class="co">##   id                   t        x         y</span></span>
+<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
+<span><span class="co">## 2  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
+<span><span class="co">## 3  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
+<span><span class="co">## 4  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
+<span><span class="co">## 5  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
+<span><span class="co">## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gps_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  
-                 proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: 1 failed to parse.</code></pre>
+<code class="sourceCode R"><span><span class="va">gps_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  </span>
+<span>                 proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: 1 failed to parse.</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gps_tbl</span></code></pre></div>
-<pre><code>## Track table [3596 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  tibble
-## # A tibble: 3,596 x 4
-##    id    t                       x     y
-##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
-##  1 1     2015-09-10 07:00:00  15.8 -22.4
-##  2 1     2015-09-10 07:00:01  15.8 -22.4
-##  3 1     2015-09-10 07:00:04  15.8 -22.4
-##  4 1     2015-09-10 07:00:05  15.8 -22.4
-##  5 1     2015-09-10 07:00:08  15.8 -22.4
-##  6 1     2015-09-10 07:00:09  15.8 -22.4
-##  7 1     2015-09-10 07:00:09  15.8 -22.4
-##  8 1     2015-09-10 07:00:10  15.8 -22.4
-##  9 1     2015-09-10 07:00:11  15.8 -22.4
-## 10 1     2015-09-10 07:00:12  15.8 -22.4
-## # … with 3,586 more rows</code></pre>
+<code class="sourceCode R"><span><span class="va">gps_tbl</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [3596 observations]</span></span>
+<span><span class="co">## Number of tracks:  1 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  TRUE </span></span>
+<span><span class="co">## Projection:  +proj=longlat +datum=WGS84 +no_defs </span></span>
+<span><span class="co">## Table class:  tibble</span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 3,596 × 4</span></span></span>
+<span><span class="co">##    id    t                       x     y</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1     2015-09-10 <span style="color: #949494;">07:00:00</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 1     2015-09-10 <span style="color: #949494;">07:00:01</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 1     2015-09-10 <span style="color: #949494;">07:00:04</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 1     2015-09-10 <span style="color: #949494;">07:00:05</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 1     2015-09-10 <span style="color: #949494;">07:00:08</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1     2015-09-10 <span style="color: #949494;">07:00:10</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1     2015-09-10 <span style="color: #949494;">07:00:11</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1     2015-09-10 <span style="color: #949494;">07:00:12</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 3,586 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gps_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  
-                proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: 1 failed to parse.</code></pre>
+<code class="sourceCode R"><span><span class="va">gps_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">raw</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, id <span class="op">=</span> <span class="fl">1</span>,  </span>
+<span>                proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: 1 failed to parse.</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gps_dt</span></code></pre></div>
-<pre><code>## Track table [3596 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data table
-##       id                   t        x         y
-##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957
-##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957
-##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958
-##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958
-##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959
-##   ---                                          
-## 3592:  1 2015-09-10 07:59:55 15.76231 -22.37752
-## 3593:  1 2015-09-10 07:59:56 15.76230 -22.37752
-## 3594:  1 2015-09-10 07:59:57 15.76229 -22.37752
-## 3595:  1 2015-09-10 07:59:58 15.76229 -22.37751
-## 3596:  1 2015-09-10 07:59:59 15.76228 -22.37751</code></pre>
+<code class="sourceCode R"><span><span class="va">gps_dt</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [3596 observations]</span></span>
+<span><span class="co">## Number of tracks:  1 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  TRUE </span></span>
+<span><span class="co">## Projection:  +proj=longlat +datum=WGS84 +no_defs </span></span>
+<span><span class="co">## Table class:  data table</span></span>
+<span><span class="co">##       id                   t        x         y</span></span>
+<span><span class="co">##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
+<span><span class="co">##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
+<span><span class="co">##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
+<span><span class="co">##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
+<span><span class="co">##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
+<span><span class="co">##   ---                                          </span></span>
+<span><span class="co">## 3592:  1 2015-09-10 07:59:55 15.76231 -22.37752</span></span>
+<span><span class="co">## 3593:  1 2015-09-10 07:59:56 15.76230 -22.37752</span></span>
+<span><span class="co">## 3594:  1 2015-09-10 07:59:57 15.76229 -22.37752</span></span>
+<span><span class="co">## 3595:  1 2015-09-10 07:59:58 15.76229 -22.37751</span></span>
+<span><span class="co">## 3596:  1 2015-09-10 07:59:59 15.76228 -22.37751</span></span></code></pre>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="http://www.theswarmlab.com">Simon Garnier</a>.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="http://www.theswarmlab.com" class="external-link">Simon Garnier</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

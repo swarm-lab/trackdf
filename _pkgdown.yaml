@@ -1,11 +1,8 @@
 url: https://swarm-lab.github.io/trackdf/
 
 template:
-  params:
-    bootswatch: yeti
-#    docsearch:
-#      api_key:
-#      index_name: swarm-lab
+  bootstrap: 5
+  bootswatch: simplex
 
 authors:
   Simon Garnier:
