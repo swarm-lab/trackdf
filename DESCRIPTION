@@ -35,5 +35,6 @@ Suggests:
   ctmm,
   moveHMM
 VignetteBuilder: knitr
-URL: https://swarm-lab.github.io/trackdf/, https://github.com/swarm-lab/trackdf
+URL: https://swarm-lab.github.io/trackdf/,
+    https://github.com/swarm-lab/trackdf
 BugReports: https://github.com/swarm-lab/trackdf/issues
