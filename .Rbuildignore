@@ -10,3 +10,7 @@ cran-comments.md
 ^CRAN-RELEASE$
 ^\.github$
 deprecated
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^codecov\.yml$

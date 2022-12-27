@@ -1,11 +1,11 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   z1_install: z1_install.html
   z2_build: z2_build.html
   z3_manipulate: z3_manipulate.html
-last_built: 2022-12-13T02:20Z
+last_built: 2022-12-27T13:47Z
 urls:
   reference: https://swarm-lab.github.io/trackdf/reference
   article: https://swarm-lab.github.io/trackdf/articles
