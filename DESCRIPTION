@@ -24,16 +24,17 @@ Imports:
   lubridate,
   methods
 Suggests:
-  readr,
-  dplyr,
-  ggplot2,
-  knitr,
-  rmarkdown,
-  adehabitatLT,
-  move,
-  moveVis,
-  ctmm,
-  moveHMM
+    readr,
+    dplyr,
+    ggplot2,
+    knitr,
+    rmarkdown,
+    adehabitatLT,
+    move,
+    moveVis,
+    ctmm,
+    moveHMM,
+    covr
 VignetteBuilder: knitr
 URL: https://swarm-lab.github.io/trackdf/,
     https://github.com/swarm-lab/trackdf

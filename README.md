@@ -1,6 +1,7 @@
 # trackdf - A data frame class for tracking data  <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![R-CMD-check](https://github.com/swarm-lab/trackdf/workflows/R-CMD-check/badge.svg)](https://github.com/swarm-lab/trackdf/actions)
+[![Codecov test coverage](https://codecov.io/gh/swarm-lab/trackdf/branch/master/graph/badge.svg)](https://app.codecov.io/gh/swarm-lab/trackdf?branch=master)
 ![CRAN](https://www.r-pkg.org/badges/version/trackdf)
 ![CRANLOGS](https://cranlogs.r-pkg.org/badges/trackdf)
 
