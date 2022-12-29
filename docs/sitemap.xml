@@ -40,7 +40,13 @@
     <loc>https://swarm-lab.github.io/trackdf/reference/dot-updateError.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/duplicates.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_t.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_xyt.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/inconsistent_xy.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/index.html</loc>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/missing_t.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/missing_xy.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/n_dims.html</loc>
@@ -70,15 +79,9 @@
     <loc>https://swarm-lab.github.io/trackdf/reference/sub-.track.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/t_duplicates.html</loc>
-  </url>
-  <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/track_.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/tracks.html</loc>
-  </url>
-  <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/xy_errors.html</loc>
   </url>
 </urlset>

@@ -8,8 +8,7 @@ missing_t(x, begin = NULL, end = NULL, step = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{track}} table as produced by the \code{\link{track}}
-function. The table should only contain the observations for a single
-individual. See the examples below to handle multiple individuals.}
+function.}
 
 \item{begin}{A full timestamp (date+time) in \code{\link{POSIXct}} format
 corresponding to the time from which the missing data should be looked for.
@@ -24,8 +23,9 @@ between two consecutive locations of the trajectory. If not set, it is set
 to the most common time difference between successive locations in \code{x}.}
 }
 \value{
-A vector of timestamps missing from \code{x}. If no missing data are
- detected, the function returns an empty vector.
+A data frame/table/tibble with the missing timestamps for each
+ individual track in \code{x}. If no missing data are detected, the function
+ returns \code{NULL}.
 }
 \description{
 This function attempts to automatically detect missing data (for
@@ -39,15 +39,12 @@ t_df <- track(x = short_tracks$x, y = short_tracks$y, t = short_tracks$t,
               tz = "Africa/Windhoek", table = "df")
 t_df <- t_df[-c(10, 100), ]
 
-# Find missing data for one individual
-missing_one <- missing_t(t_df[t_df$id == 1, ])
-
-# Find missing data for all individuals
-missing_all <- lapply(split(t_df, t_df$id), missing_t)
+# Find missing data
+missing <- missing_t(t_df)
 
 }
 \seealso{
-\code{\link{track}}, \code{\link{fix_missing_t}}
+\code{\link{track}}
 }
 \author{
 Simon Garnier, \email{garnier@njit.edu}
