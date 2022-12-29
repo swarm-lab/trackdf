@@ -34,6 +34,21 @@
     <loc>https://swarm-lab.github.io/trackdf/reference/conversions.html</loc>
   </url>
   <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/dot-Mode.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/dot-updateError.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_t.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_xyt.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/inconsistent_xy.html</loc>
+  </url>
+  <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/index.html</loc>
   </url>
   <url>
@@ -41,6 +56,12 @@
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/is_track.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/missing_t.html</loc>
+  </url>
+  <url>
+    <loc>https://swarm-lab.github.io/trackdf/reference/missing_xy.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/n_dims.html</loc>
