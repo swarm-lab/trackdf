@@ -9,34 +9,36 @@ Authors@R: c(
   )
 Maintainer: Simon Garnier <garnier@njit.edu>
 Description: Data frame class for storing collective movement data (e.g. fish
-  schools, ungulate herds, baboon troops) collected from GPS trackers or 
-  computer vision tracking software. 
+    schools, ungulate herds, baboon troops) collected from GPS trackers or 
+    computer vision tracking software. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Depends: 
-  R (>= 3.5.0)
+    R (>= 3.5.0)
 Imports:
-  tibble,
-  data.table,
-  sp,
-  lubridate,
-  methods
+    tibble,
+    data.table,
+    sp,
+    lubridate,
+    methods
 Suggests:
-  readr,
-  dplyr,
-  ggplot2,
-  mapproj,
-  knitr,
-  rmarkdown,
-  adehabitatLT,
-  move,
-  moveVis,
-  ctmm,
-  moveHMM,
-  covr
+    readr,
+    dplyr,
+    ggplot2,
+    mapproj,
+    knitr,
+    rmarkdown,
+    adehabitatLT,
+    move,
+    moveVis,
+    ctmm,
+    moveHMM,
+    covr,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://swarm-lab.github.io/trackdf/,
-  https://github.com/swarm-lab/trackdf
+    https://github.com/swarm-lab/trackdf
 BugReports: https://github.com/swarm-lab/trackdf/issues
+Config/testthat/edition: 3
