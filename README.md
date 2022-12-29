@@ -3,8 +3,8 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/swarm-lab/trackdf/workflows/R-CMD-check/badge.svg)](https://github.com/swarm-lab/trackdf/actions)
 [![Codecov test coverage](https://codecov.io/gh/swarm-lab/trackdf/branch/master/graph/badge.svg)](https://app.codecov.io/gh/swarm-lab/trackdf?branch=master)
-![CRAN](https://www.r-pkg.org/badges/version/trackdf)
-![CRANLOGS](https://cranlogs.r-pkg.org/badges/trackdf)
+[![CRAN status](https://www.r-pkg.org/badges/version/trackdf)](https://CRAN.R-project.org/package=trackdf)
+[![CRANLOGS downloads](https://cranlogs.r-pkg.org/badges/trackdf)](https://cran.r-project.org/package=trackdf)
 <!-- badges: end -->
 
 ## Description
