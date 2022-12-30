@@ -105,7 +105,7 @@ Garnier</h4>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="op">!</span><span class="va">ignore</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="va">raw</span><span class="op">$</span><span class="va">ignore</span>, <span class="op">]</span></span>
+<span>  <span class="va">raw</span> <span class="op">&lt;-</span> <span class="va">raw</span><span class="op">[</span><span class="op">!</span><span class="va">raw</span><span class="op">$</span><span class="va">ignore</span>, <span class="op">]</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">raw</span></span></code></pre></div>
