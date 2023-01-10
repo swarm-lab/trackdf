@@ -1,8 +1,21 @@
+# trackdf 0.3.0
+
+## New features
+
+* Adds error detection functions.
+* Removes dplyr dependency (not necessary anymore). 
+
+## Minor improvements and fixes
+
+* Cleans up functions and documentation. 
+
+---
+
 # trackdf 0.2.2
 
 ## New features
 
-N/A
+* N/A
 
 ## Minor improvements and fixes
 
@@ -16,7 +29,7 @@ of a track.
 
 ## New features
 
-N/A
+* N/A
 
 ## Minor improvements and fixes
 
@@ -33,4 +46,4 @@ the system.
 
 ## Minor improvements and fixes
 
-N/A
+* N/A

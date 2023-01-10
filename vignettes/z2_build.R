@@ -9,7 +9,7 @@ if (requireNamespace("readr", quietly = TRUE) & requireNamespace("dplyr", quietl
     filter(., !ignore)
 } else {
   raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))
-  raw <- raw[raw$ignore, ]
+  raw <- raw[!raw$ignore, ]
 }
 
 raw
