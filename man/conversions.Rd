@@ -95,6 +95,7 @@ The following methods will convert track tables to and from other
  common formats used for processing tracking and spatial data.
 }
 \examples{
+\dontrun{
 data(short_tracks)
 
 if (requireNamespace("moveVis", quietly = TRUE)) {
@@ -120,6 +121,7 @@ if (requireNamespace("ctmm", quietly = TRUE)) {
 if (requireNamespace("moveHMM", quietly = TRUE)) {
   hhm <- as_moveHMM(short_tracks, type = "LL")
   as_track(hhm)
+}
 }
 
 }
