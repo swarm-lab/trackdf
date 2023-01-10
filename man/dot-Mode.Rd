@@ -19,9 +19,6 @@ A vector of values corresponding to the mode(s) of x.
 This is an internal utility function to compute the mode(s) of
  a discrete distribution.
 }
-\examples{
-# TODO
-}
 \author{
 Simon Garnier, \email{garnier@njit.edu}
 }
