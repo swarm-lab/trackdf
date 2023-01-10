@@ -4,6 +4,7 @@
 
 * Adds error detection functions.
 * Removes dplyr dependency (not necessary anymore). 
+* Replaces sp with sf for handling projections. 
 
 ## Minor improvements and fixes
 

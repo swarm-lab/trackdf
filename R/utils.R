@@ -1,3 +1,6 @@
+#' @importFrom sf st_crs
+#' @importFrom sf sf_project
+#'
 #' @title Access/Modify the Projection of a Track Table
 #'
 #' @description Functions to access or modify the projection of a data table.
@@ -6,9 +9,9 @@
 #'
 #' @param x A track table.
 #'
-#' @param value A character string or a \code{\link[sp:CRS]{sp::CRS}} object
-#'  representing the projection of the coordinates. \code{"+proj=longlat"} is
-#'  suitable for the outputs of most GPS trackers.
+#' @param value A character string or a \code{\link[terra:crs]{terra::crs}}
+#'  object representing the projection of the coordinates.
+#'  \code{"+proj=longlat"} is suitable for the outputs of most GPS trackers.
 #'
 #' @return A track table.
 #'
@@ -18,10 +21,10 @@
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' projection(tracks)
-#' tracks_projected <- project(tracks, "+proj=somerc")
+#' projection(short_tracks)
+#' tracks_projected <- project(short_tracks, "+proj=somerc")
 #' projection(tracks_projected)
 #' projection(tracks_projected) <- "+proj=longlat"
 #' projection(tracks_projected)
@@ -43,9 +46,9 @@ projection <- function(x) {
     stop("This is not a track_df object.")
 
   if (is.character(value)) {
-    value <- sp::CRS(value)
-  } else if (!inherits(value, "CRS")) {
-    stop("value must be an object of class character or CRS")
+    value <- sf::st_crs(value)
+  } else if (!inherits(value, "crs")) {
+    stop("value must be an object of class character or crs")
   }
 
   if (!is.null(methods::slotNames(attr(x, "proj")))) {
@@ -54,11 +57,8 @@ projection <- function(x) {
     if (sum(stats::complete.cases(tmp)) < nrow(tmp))
       stop("The projection cannot be modified when missing coordinates are present.")
 
-    sp::coordinates(tmp) <- c("x", "y")
-    sp::proj4string(tmp) <- attr(x, "proj")
-    tmp <- sp::spTransform(tmp, value)
-
-    x[, c("x", "y")] <- tibble::as_tibble(tmp)
+    tmp <- sf::sf_project(sf::st_crs(attr(x, "proj")), value, tmp)
+    x[, c("x", "y")] <- tmp
   }
 
   attr(x, "proj") <- value
@@ -91,16 +91,16 @@ project <- function(x, value) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' is_geo(tracks)
+#' is_geo(short_tracks)
 #'
 #' @export
 is_geo <- function(x) {
   if (!is_track(x)) {
     stop("This is not a track_df object.")
   } else {
-    !is.na(attr(x, "proj")@projargs)
+    !is.na(attr(x, "proj")$wkt)
   }
 }
 
@@ -118,9 +118,9 @@ is_geo <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' n_dims(tracks)
+#' n_dims(short_tracks)
 #'
 #' @export
 n_dims <- function(x) {
@@ -145,9 +145,9 @@ n_dims <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' n_tracks(tracks)
+#' n_tracks(short_tracks)
 #'
 #' @export
 n_tracks <- function(x) {
@@ -172,9 +172,6 @@ n_tracks <- function(x) {
 #' @return A vector of values corresponding to the mode(s) of x.
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
-#'
-#' @examples
-#' # TODO
 .Mode <- function(x, na.rm = TRUE) {
   if (na.rm) {
     x <- x[!is.na(x)]
@@ -182,27 +179,4 @@ n_tracks <- function(x) {
   ux <- unique(x)
   tab <- tabulate(match(x, ux))
   ux[tab == max(tab)]
-}
-
-
-#' @title Update Error Description In Trajectory Tables
-#'
-#' @description This is an internal utility function to update the description
-#'  of errors in trajectory tables detected by the automated error detections
-#'  and correction functions of the package.
-#'
-#' @param error A character vector of error descriptions.
-#'
-#' @param update A character string of the same length as \code{error} of the
-#'  error descriptions to be appended to the current error descriptions.
-#'
-#' @author Simon Garnier, \email{garnier@@njit.edu}
-#'
-#' @examples
-#' # TODO
-.updateError <- function(error, update) {
-  idxOK <- error == "OK"
-  error[idxOK] <- update[idxOK]
-  error[!idxOK] <- paste(error[!idxOK], update[!idxOK], sep = "+")
-  error
 }

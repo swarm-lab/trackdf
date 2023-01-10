@@ -39,8 +39,8 @@ processed with \code{\link[rlang:quotation]{rlang::quos()}} and support
 unquote via \code{!!} and unquote-splice via \code{!!!}. Use \code{:=} to
 create columns that start with a dot.}
 
-\item{proj}{A character string or a \code{\link[sp:CRS]{sp::CRS}} object
-representing the projection of the coordinates. Leave empty if the
+\item{proj}{A character string or a \code{\link[terra:crs]{terra::crs}}
+object representing the projection of the coordinates. Leave empty if the
 coordinates are not projected (e.g., output of video tracking).
 \code{"+proj=longlat"} is suitable for the output of most GPS trackers.}
 

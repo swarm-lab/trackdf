@@ -19,9 +19,9 @@ Track tables produced by \code{\link{track_df}} can use a
  particular table.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-is_geo(tracks)
+is_geo(short_tracks)
 
 }
 \author{

@@ -15,9 +15,9 @@ project(x, value)
 \arguments{
 \item{x}{A track table.}
 
-\item{value}{A character string or a \code{\link[sp:CRS]{sp::CRS}} object
-representing the projection of the coordinates. \code{"+proj=longlat"} is
-suitable for the outputs of most GPS trackers.}
+\item{value}{A character string or a \code{\link[terra:crs]{terra::crs}}
+object representing the projection of the coordinates.
+\code{"+proj=longlat"} is suitable for the outputs of most GPS trackers.}
 }
 \value{
 A track table.
@@ -32,10 +32,10 @@ It is not possible to modify the projection if missing coordinates
  are present.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-projection(tracks)
-tracks_projected <- project(tracks, "+proj=somerc")
+projection(short_tracks)
+tracks_projected <- project(short_tracks, "+proj=somerc")
 projection(tracks_projected)
 projection(tracks_projected) <- "+proj=longlat"
 projection(tracks_projected)

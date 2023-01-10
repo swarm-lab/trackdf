@@ -79,9 +79,9 @@
 
 
 <dt>value</dt>
-<dd><p>A character string or a <code><a href="https://rdrr.io/pkg/sp/man/CRS-class.html" class="external-link">sp::CRS</a></code> object
-representing the projection of the coordinates. <code>"+proj=longlat"</code> is
-suitable for the outputs of most GPS trackers.</p></dd>
+<dd><p>A character string or a <code><a href="https://rdrr.io/pkg/terra/man/crs.html" class="external-link">terra::crs</a></code>
+object representing the projection of the coordinates.
+<code>"+proj=longlat"</code> is suitable for the outputs of most GPS trackers.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,19 +102,34 @@ suitable for the outputs of most GPS trackers.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">short_tracks</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">short_tracks</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Deprecated Proj.4 representation: +proj=longlat +ellps=WGS84 </span>
-<span class="r-in"><span><span class="va">tracks_projected</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">tracks</span>, <span class="st">"+proj=somerc"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NULL source CRS comment, falling back to PROJ string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=longlat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GEOGCRS["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     DATUM["World Geodetic System 1984",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ELLIPSOID["WGS 84",6378137,298.257223563,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",6326]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PRIMEM["Greenwich",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",8901]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CS[ellipsoidal,2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["longitude",east,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["latitude",north,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]]]</span>
+<span class="r-in"><span><span class="va">tracks_projected</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">short_tracks</span>, <span class="st">"+proj=somerc"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Deprecated Proj.4 representation:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  +proj=somerc +lat_0=0 +lon_0=0 +k_0=1 +x_0=0 +y_0=0 +datum=WGS84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> +units=m +no_defs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WKT2 2019 representation:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=somerc </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PROJCRS["unknown",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BASEGEOGCRS["unknown",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         DATUM["World Geodetic System 1984",</span>
@@ -156,13 +171,12 @@ suitable for the outputs of most GPS trackers.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["(N)",north,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9001]]]] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9001]]]]</span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=longlat"</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WKT2 2019 representation:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=longlat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GEOGCRS["unknown",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     DATUM["World Geodetic System 1984",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         ELLIPSOID["WGS 84",6378137,298.257223563,</span>
@@ -179,7 +193,7 @@ suitable for the outputs of most GPS trackers.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["latitude",north,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]]] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]]]</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

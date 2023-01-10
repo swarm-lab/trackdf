@@ -1,3 +1,4 @@
+#' @importFrom sf st_crs
 .track <- function(x, y, z, t, id, proj, origin, period, tz, format) {
   if (!is.numeric(x))
     stop("x must be an object of class numeric.")
@@ -69,12 +70,12 @@
 
   if (!missing(proj)) {
     if (is.character(proj)) {
-      proj <- sp::CRS(proj)
-    } else if (!inherits(proj, "CRS")) {
-      stop("proj must be an object of class character or CRS")
+      proj <- sf::st_crs(proj)
+    } else if (!inherits(proj, "crs")) {
+      stop("proj must be an object of class character or crs")
     }
   } else {
-    proj <- sp::CRS()
+    proj <- sf::st_crs()
   }
 
   if (!missing(z)) {
@@ -128,8 +129,8 @@
 #'  unquote via \code{!!} and unquote-splice via \code{!!!}. Use \code{:=} to
 #'  create columns that start with a dot.
 #'
-#' @param proj A character string or a \code{\link[sp:CRS]{sp::CRS}} object
-#'  representing the projection of the coordinates. Leave empty if the
+#' @param proj A character string or a \code{\link[terra:crs]{terra::crs}}
+#'  object representing the projection of the coordinates. Leave empty if the
 #'  coordinates are not projected (e.g., output of video tracking).
 #'  \code{"+proj=longlat"} is suitable for the output of most GPS trackers.
 #'
@@ -296,7 +297,7 @@ print.track <- function(x, ...) {
     cat("Dimensions: ", n_dims, "\n")
     cat("Geographic: ", geo, "\n")
     if (geo)
-      cat("Projection: ", attr(x, "proj")@projargs, "\n")
+      cat("Projection: ", attr(x, "proj")$input, "\n")
     cat("Table class: ", ifelse("data.table" %in% class(x), "data table",
                                 ifelse("tbl" %in% class(x), "tibble", "data frame")))
     cat("\n")
