@@ -18,9 +18,9 @@ Track tables produced by \code{\link{track_df}} can contain
  number of tracks in a track table.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-n_tracks(tracks)
+n_tracks(short_tracks)
 
 }
 \author{

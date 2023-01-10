@@ -18,9 +18,9 @@ Track tables produced by \code{\link{track_df}} can have 2 (x,y)
  spatial dimensions of a track table.
 }
 \examples{
-data(tracks)
+data(short_tracks)
 
-n_dims(tracks)
+n_dims(short_tracks)
 
 }
 \author{

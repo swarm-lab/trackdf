@@ -91,9 +91,9 @@ project <- function(x, value) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' is_geo(tracks)
+#' is_geo(short_tracks)
 #'
 #' @export
 is_geo <- function(x) {
@@ -118,9 +118,9 @@ is_geo <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' n_dims(tracks)
+#' n_dims(short_tracks)
 #'
 #' @export
 n_dims <- function(x) {
@@ -145,9 +145,9 @@ n_dims <- function(x) {
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
 #' @examples
-#' data(tracks)
+#' data(short_tracks)
 #'
-#' n_tracks(tracks)
+#' n_tracks(short_tracks)
 #'
 #' @export
 n_tracks <- function(x) {
