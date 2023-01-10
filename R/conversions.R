@@ -43,6 +43,7 @@
 #' @seealso \code{\link{track_df}}, \code{\link{track_tbl}}, \code{\link{track_dt}}
 #'
 #' @examples
+#' \dontrun{
 #' data(short_tracks)
 #'
 #' if (requireNamespace("moveVis", quietly = TRUE)) {
@@ -68,6 +69,7 @@
 #' if (requireNamespace("moveHMM", quietly = TRUE)) {
 #'   hhm <- as_moveHMM(short_tracks, type = "LL")
 #'   as_track(hhm)
+#' }
 #' }
 #'
 #' @rdname conversions

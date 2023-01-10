@@ -23,4 +23,7 @@ There are currently no downstream dependencies for this package.
 
 ## CRAN team comments
 
-N/A
+* Check: examples, Result: NOTE
+    Examples with CPU (user + system) or elapsed time > 10s
+
+Fixed.
