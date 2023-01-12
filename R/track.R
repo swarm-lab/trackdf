@@ -209,6 +209,7 @@ track_df <- function(x, y, z, t, id, ..., proj, origin, period, tz, format) {
   }
 
   attr(out, "proj") <- l$proj
+  attr(out, "type") <- "data.frame"
   class(out) <- c("track", class(out))
   out
 }
@@ -229,6 +230,7 @@ track_tbl <- function(x, y, z, t, id, ..., proj, origin, period, tz, format) {
   }
 
   attr(out, "proj") <- l$proj
+  attr(out, "type") <- "tbl"
   class(out) <- c("track", class(out))
   out
 }
@@ -249,6 +251,7 @@ track_dt <- function(x, y, z, t, id, ..., proj, origin, period, tz, format) {
   }
 
   attr(out, "proj") <- l$proj
+  attr(out, "type") <- "data.table"
   class(out) <- c("track", class(out))
   out
 }
@@ -275,7 +278,7 @@ track_dt <- function(x, y, z, t, id, ..., proj, origin, period, tz, format) {
 #'
 #' @export
 is_track <- function(x) {
-  any(class(x) == "track") &
+  inherits(x, "track") &
     all(c("id", "t", "x", "y") %in% names(x)) &
     !is.null(attr(x, "proj"))
 }
