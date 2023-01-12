@@ -14,7 +14,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">trackdf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,16 +105,95 @@ object representing the projection of the coordinates.
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">short_tracks</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">short_tracks</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=longlat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GEOGCRS["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     DATUM["World Geodetic System 1984",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ELLIPSOID["WGS 84",6378137,298.257223563,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",6326]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PRIMEM["Greenwich",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",8901]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CS[ellipsoidal,2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["longitude",east,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["latitude",north,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]]]</span>
 <span class="r-in"><span><span class="va">tracks_projected</span> <span class="op">&lt;-</span> <span class="fu">project</span><span class="op">(</span><span class="va">short_tracks</span>, <span class="st">"+proj=somerc"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>PROJ support is provided by the sf and terra packages among others</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in project(short_tracks, "+proj=somerc"):</span> xy not numeric</span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'projection': object 'tracks_projected' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=somerc </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PROJCRS["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     BASEGEOGCRS["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         DATUM["World Geodetic System 1984",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ELLIPSOID["WGS 84",6378137,298.257223563,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 LENGTHUNIT["metre",1]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",6326]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PRIMEM["Greenwich",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8901]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CONVERSION["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         METHOD["Hotine Oblique Mercator (variant B)",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",9815]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Latitude of projection centre",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8811]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Longitude of projection centre",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8812]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Azimuth of initial line",90,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8813]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Angle from Rectified to Skew Grid",90,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8814]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Scale factor on initial line",1,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             SCALEUNIT["unity",1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8815]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Easting at projection centre",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8816]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PARAMETER["Northing at projection centre",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ID["EPSG",8817]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CS[Cartesian,2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["(E)",east,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9001]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["(N)",north,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9001]]]]</span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=longlat"</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in projection(tracks_projected) &lt;- "+proj=longlat":</span> object 'tracks_projected' not found</span>
 <span class="r-in"><span><span class="fu">projection</span><span class="op">(</span><span class="va">tracks_projected</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'projection': object 'tracks_projected' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coordinate Reference System:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   User input: +proj=longlat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   wkt:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GEOGCRS["unknown",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     DATUM["World Geodetic System 1984",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ELLIPSOID["WGS 84",6378137,298.257223563,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             LENGTHUNIT["metre",1]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",6326]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PRIMEM["Greenwich",0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ANGLEUNIT["degree",0.0174532925199433],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ID["EPSG",8901]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     CS[ellipsoidal,2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["longitude",east,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         AXIS["latitude",north,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ORDER[2],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ANGLEUNIT["degree",0.0174532925199433,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 ID["EPSG",9122]]]]</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
