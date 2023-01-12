@@ -9,6 +9,7 @@ logo.*
 cran-comments.md
 ^CRAN-RELEASE$
 ^\.github$
+scripts
 deprecated
 ^_pkgdown\.yml$
 ^docs$
