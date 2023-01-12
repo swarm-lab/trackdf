@@ -132,13 +132,13 @@ classes.</p>
 <code class="sourceCode R"><span><span class="va">t_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">t</span>, id <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">id</span>,</span>
 <span>  proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span></span>
 <span><span class="va">t_tbl</span> </span></code></pre></div>
-<pre><code><span><span class="co">## Track table [7194 observations]</span></span>
+<pre><code><span><span class="co">## Track table [7195 observations]</span></span>
 <span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=longlat </span></span>
 <span><span class="co">## Table class:  tibble</span></span>
-<span><span class="co">## <span style="color: #949494;"># A tibble: 7,194 × 4</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># A tibble: 7,195 × 4</span></span></span>
 <span><span class="co">##    id    t                       x     y</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1     2015-09-10 <span style="color: #949494;">07:00:00</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
@@ -147,17 +147,17 @@ classes.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 1     2015-09-10 <span style="color: #949494;">07:00:05</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 1     2015-09-10 <span style="color: #949494;">07:00:08</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1     2015-09-10 <span style="color: #949494;">07:00:10</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1     2015-09-10 <span style="color: #949494;">07:00:11</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1     2015-09-10 <span style="color: #949494;">07:00:12</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1     2015-09-10 <span style="color: #949494;">07:00:13</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 7,184 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1     2015-09-10 <span style="color: #949494;">07:00:10</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1     2015-09-10 <span style="color: #949494;">07:00:11</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1     2015-09-10 <span style="color: #949494;">07:00:12</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 7,185 more rows</span></span></span></code></pre>
 <p>To create a track table based on <code>data.table</code>, do:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">t</span>, id <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">id</span>,</span>
 <span>  proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span></span>
 <span><span class="va">t_dt</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [7194 observations]</span></span>
+<pre><code><span><span class="co">## Track table [7195 observations]</span></span>
 <span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
@@ -170,11 +170,11 @@ classes.</p>
 <span><span class="co">##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
 <span><span class="co">##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
 <span><span class="co">##   ---                                          </span></span>
-<span><span class="co">## 7190:  2 2015-09-10 07:59:55 15.76246 -22.37763</span></span>
-<span><span class="co">## 7191:  2 2015-09-10 07:59:56 15.76245 -22.37763</span></span>
-<span><span class="co">## 7192:  2 2015-09-10 07:59:57 15.76244 -22.37762</span></span>
-<span><span class="co">## 7193:  2 2015-09-10 07:59:58 15.76243 -22.37762</span></span>
-<span><span class="co">## 7194:  2 2015-09-10 07:59:59 15.76243 -22.37761</span></span></code></pre>
+<span><span class="co">## 7191:  2 2015-09-10 07:59:55 15.76246 -22.37763</span></span>
+<span><span class="co">## 7192:  2 2015-09-10 07:59:56 15.76245 -22.37763</span></span>
+<span><span class="co">## 7193:  2 2015-09-10 07:59:57 15.76244 -22.37762</span></span>
+<span><span class="co">## 7194:  2 2015-09-10 07:59:58 15.76243 -22.37762</span></span>
+<span><span class="co">## 7195:  2 2015-09-10 07:59:59 15.76243 -22.37761</span></span></code></pre>
 <hr>
 </div>
 <div class="section level2">
@@ -243,7 +243,7 @@ track table as follows:</p>
 <span><span class="co">## 6  1</span></span></code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_tbl</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7,194 × 1</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7,195 × 1</span></span></span>
 <span><span class="co">##    id   </span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1    </span></span>
@@ -256,7 +256,7 @@ track table as follows:</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> 1    </span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 7,184 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># … with 7,185 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t_dt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## Track table [1 observations]</span></span>
