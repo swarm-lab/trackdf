@@ -91,6 +91,17 @@ Garnier</h4>
 
     
     
+<p>Under the hood, a track table is a data frame with a few extra bells
+and whistles. Therefore, you can manipulate a track table in the same
+way you would a <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">base::data.frame</a></code>,
+<code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble</a></code>, or <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table</a></code>
+(depending on the data frame class you used as a base for your track
+table). Anything that you can do with one of these three data frame
+classes can be done the same way with a track table.</p>
+<p>There are, however, a few additional things that are specific to
+track tables and we will review them in this vignette.</p>
+<p>But first, let’s load a track table that is provided with
+<code>trackdf</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://swarm-lab.github.io/trackdf/">trackdf</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -99,263 +110,105 @@ Garnier</h4>
 <span><span class="co">## </span></span>
 <span><span class="co">##     filter</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tracks"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="creating-track-tables">3.1 - Creating track tables<a class="anchor" aria-label="anchor" href="#creating-track-tables"></a>
-</h2>
-<p>Under the hood, a track table is just a simple data frame of class <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/data.frame.html" class="external-link"><code>data.frame</code></a>,
-<a href="https://CRAN.R-project.org/package=tibble" class="external-link"><code>tibble</code></a>
-or <a href="https://cran.r-project.org/package=data.table" class="external-link"><code>data.table</code></a>
-with a few extra bells and whistles. This means that you can manipulate
-a track table same way you would a data frame of any of these three
-classes.</p>
-<p>To create a track table based on <code>data.frame</code>, do:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">t</span>, id <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">id</span>,</span>
-<span>  proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"df"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
-<p>To create a track table based on <code>tibble</code>, do:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">t</span>, id <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">id</span>,</span>
-<span>  proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"tbl"</span><span class="op">)</span></span>
-<span><span class="va">t_tbl</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tracks"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Track table [7195 observations]</span></span>
 <span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  tibble</span></span>
-<span><span class="co">## <span style="color: #949494;"># A tibble: 7,195 × 4</span></span></span>
-<span><span class="co">##    id    t                       x     y</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1     2015-09-10 <span style="color: #949494;">07:00:00</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 1     2015-09-10 <span style="color: #949494;">07:00:01</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 1     2015-09-10 <span style="color: #949494;">07:00:04</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 1     2015-09-10 <span style="color: #949494;">07:00:05</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 1     2015-09-10 <span style="color: #949494;">07:00:08</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1     2015-09-10 <span style="color: #949494;">07:00:09</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1     2015-09-10 <span style="color: #949494;">07:00:10</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1     2015-09-10 <span style="color: #949494;">07:00:11</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1     2015-09-10 <span style="color: #949494;">07:00:12</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 7,185 more rows</span></span></span></code></pre>
-<p>To create a track table based on <code>data.table</code>, do:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">t</span>, id <span class="op">=</span> <span class="va">tracks</span><span class="op">$</span><span class="va">id</span>,</span>
-<span>  proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span>, table <span class="op">=</span> <span class="st">"dt"</span><span class="op">)</span></span>
-<span><span class="va">t_dt</span></span></code></pre></div>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t        x         y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:10 15.76467 -22.37959</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:11 15.76467 -22.37959</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:12 15.76467 -22.37959</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 7185 rows ]</span></span></code></pre>
+<p>This track table contains the GPS coordinates of two goats foraging
+through the Tsaobis Nature Park in Namibia, sometimes in 2015.</p>
+<hr>
+<div class="section level2">
+<h2 id="basic-information-about-the-track-table">3.1 - Basic information about the track table<a class="anchor" aria-label="anchor" href="#basic-information-about-the-track-table"></a>
+</h2>
+<p>In addition to the usual information that you can ask about a data
+frame (e.g., the number of rows and columns, the class of each column,
+etc), you can access additional information about the content of a track
+table.</p>
+<p>First, you can check whether an object is indeed a track table as
+follows:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_track.html">is_track</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
+<p>You can also check whether the track table contains geographic
+coordinates or not as follows:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_geo.html">is_geo</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
+<p>You can find out the number of different tracks included in the track
+table as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/n_tracks.html">n_tracks</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 2</span></span></code></pre>
+<p>Finally, you can retrieve the dimensionality (2D or 3D) of the track
+table as follows:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/n_dims.html">n_dims</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 2</span></span></code></pre>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="accessing-data">3.2 - Accessing data<a class="anchor" aria-label="anchor" href="#accessing-data"></a>
+</h2>
+<p>Accessing and modifying the different parts (rows, columns, elements)
+of a track table is similar to accessing and modifying the different
+parts of the underlying data frame. We will, therefore, not discuss this
+topic further as it is something that you should already be very familar
+with.</p>
+<p>Note, however, that different data frame classes may do thing
+slightly differently from each other. Make sure to know what class is
+used with the track tables you are working with. For instance, the track
+table that we loaded for this tutorial if of class
+<code>data.frame</code>, as indicated in the 6th line of the print out
+of the track table:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Track table [7195 observations]</span></span>
 <span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data table</span></span>
-<span><span class="co">##       id                   t        x         y</span></span>
-<span><span class="co">##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">##   ---                                          </span></span>
-<span><span class="co">## 7191:  2 2015-09-10 07:59:55 15.76246 -22.37763</span></span>
-<span><span class="co">## 7192:  2 2015-09-10 07:59:56 15.76245 -22.37763</span></span>
-<span><span class="co">## 7193:  2 2015-09-10 07:59:57 15.76244 -22.37762</span></span>
-<span><span class="co">## 7194:  2 2015-09-10 07:59:58 15.76243 -22.37762</span></span>
-<span><span class="co">## 7195:  2 2015-09-10 07:59:59 15.76243 -22.37761</span></span></code></pre>
-<hr>
-</div>
-<div class="section level2">
-<h2 id="basic-manipulations">3.2 - Basic manipulations<a class="anchor" aria-label="anchor" href="#basic-manipulations"></a>
-</h2>
-<p>You can check whether an object is a track table as follows:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_track.html">is_track</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_track.html">is_track</a></span><span class="op">(</span><span class="va">t_tbl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_track.html">is_track</a></span><span class="op">(</span><span class="va">t_dt</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<p>You can check whether a track table contains geographic coordinates
-or not as follows:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_geo.html">is_geo</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_geo.html">is_geo</a></span><span class="op">(</span><span class="va">t_tbl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/is_geo.html">is_geo</a></span><span class="op">(</span><span class="va">t_dt</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<hr>
-</div>
-<div class="section level2">
-<h2 id="accessing-data">3.3 - Accessing data<a class="anchor" aria-label="anchor" href="#accessing-data"></a>
-</h2>
-<p>You can access the different parts (rows, columns, elements) of a
-track table as follows:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "1" "1" "1" "1" "1" "1"</span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_tbl</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "1" "1" "1" "1" "1" "1"</span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_dt</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "1" "1" "1" "1" "1" "1"</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">[[</span><span class="st">"t"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "2015-09-10 07:00:00 CAT" "2015-09-10 07:00:01 CAT"</span></span>
-<span><span class="co">## [3] "2015-09-10 07:00:04 CAT" "2015-09-10 07:00:05 CAT"</span></span>
-<span><span class="co">## [5] "2015-09-10 07:00:08 CAT" "2015-09-10 07:00:09 CAT"</span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_tbl</span><span class="op">[[</span><span class="st">"t"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "2015-09-10 07:00:00 CAT" "2015-09-10 07:00:01 CAT"</span></span>
-<span><span class="co">## [3] "2015-09-10 07:00:04 CAT" "2015-09-10 07:00:05 CAT"</span></span>
-<span><span class="co">## [5] "2015-09-10 07:00:08 CAT" "2015-09-10 07:00:09 CAT"</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_dt</span><span class="op">[[</span><span class="st">"t"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "2015-09-10 07:00:00 CAT" "2015-09-10 07:00:01 CAT"</span></span>
-<span><span class="co">## [3] "2015-09-10 07:00:04 CAT" "2015-09-10 07:00:05 CAT"</span></span>
-<span><span class="co">## [5] "2015-09-10 07:00:08 CAT" "2015-09-10 07:00:09 CAT"</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   id</span></span>
-<span><span class="co">## 1  1</span></span>
-<span><span class="co">## 2  1</span></span>
-<span><span class="co">## 3  1</span></span>
-<span><span class="co">## 4  1</span></span>
-<span><span class="co">## 5  1</span></span>
-<span><span class="co">## 6  1</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_tbl</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7,195 × 1</span></span></span>
-<span><span class="co">##    id   </span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1    </span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 7,185 more rows</span></span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_dt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [1 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data table</span></span>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
 <span><span class="co">##    id                   t        x         y</span></span>
-<span><span class="co">## 1:  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span></code></pre>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [1 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_tbl</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [1 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  tibble</span></span>
-<span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">##   id    t                       x     y</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1     2015-09-10 <span style="color: #949494;">07:00:00</span>  15.8 -<span style="color: #BB0000;">22.4</span></span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_dt</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [1 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data table</span></span>
-<span><span class="co">##    id                   t        x         y</span></span>
-<span><span class="co">## 1:  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span></code></pre>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "1"</span></span></code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_tbl</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 1</span></span></span>
-<span><span class="co">##   id   </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1</span></span></code></pre>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_dt</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">##    id</span></span>
-<span><span class="co">## 1:  1</span></span></code></pre>
-<p>Note that the results varies depending on the underlying data frame
-class.</p>
-<p>By combining the commands above with the <code>&lt;-</code> operator,
-you can easily modify the content of a track table. For example:</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="va">t_df</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"0"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  0 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">## 2  0 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">## 3  0 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">## 4  0 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">## 5  0 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">## 6  0 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df</span><span class="op">[</span><span class="va">t_df</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="st">"0"</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"1"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
-<span><span class="co">## Dimensions:  2D </span></span>
-<span><span class="co">## Geographic:  TRUE </span></span>
-<span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:10 15.76467 -22.37959</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:11 15.76467 -22.37959</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:12 15.76467 -22.37959</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 7185 rows ]</span></span></code></pre>
 <hr>
 </div>
 <div class="section level2">
-<h2 id="accessing-and-modifying-the-coordinates-projection">3.4 - Accessing and modifying the coordinates’ projection<a class="anchor" aria-label="anchor" href="#accessing-and-modifying-the-coordinates-projection"></a>
+<h2 id="accessing-the-projection-information-of-a-track-table">3.3 - Accessing the projection information of a track table<a class="anchor" aria-label="anchor" href="#accessing-the-projection-information-of-a-track-table"></a>
 </h2>
-<p>You can access the projection of a track table as follows.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
+<p>One particularity of track tables over regular data frames is that
+they can store geographic data explicitly and perform projection
+operations to change their coordinate reference system if necessary.</p>
+<p>In order to access the coordinate reference system (or projection) of
+a track table containing geographic data, you simply need to execute the
+following command:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Coordinate Reference System:</span></span>
 <span><span class="co">##   User input: +proj=longlat </span></span>
 <span><span class="co">##   wkt:</span></span>
@@ -376,77 +229,162 @@ you can easily modify the content of a track table. For example:</p>
 <span><span class="co">##             ORDER[2],</span></span>
 <span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433,</span></span>
 <span><span class="co">##                 ID["EPSG",9122]]]]</span></span></code></pre>
+<p>This returns an object of class <code>crs</code> which is a list
+consisting of an <code>input</code> object (usually the character string
+that you have entered in <code>track</code> under the <code>proj</code>
+parameter), and a <code>wkt</code> object which is an automatically
+generated <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_coordinate_reference_systems" class="external-link">WKT
+2</a> representation of the coordinate reference system.</p>
 <p>You can modify in place the projection of a track table as follows.
-This will automatically convert the coordinates in the appropriate
-projection system.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
+This will automatically convert the x and y coordinates contained in the
+track table to the appropriate projection system:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [7195 observations]</span></span>
+<span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t       x        y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 4927487 -9217299</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 4927487 -9217299</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 4927487 -9217301</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 4927487 -9217302</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 4927486 -9217304</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 4927485 -9217305</span></span></code></pre>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=longlat"</span> </span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t       x        y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 4927487 -9217299</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 4927487 -9217299</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:04 4927487 -9217301</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:05 4927487 -9217302</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:08 4927486 -9217304</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:09 4927485 -9217305</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:09 4927485 -9217305</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:10 4927485 -9217306</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:11 4927485 -9217306</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:12 4927485 -9217306</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 7185 rows ]</span></span></code></pre>
+<p>And back to the original projection:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/projection.html">projection</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"+proj=longlat"</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [7195 observations]</span></span>
+<span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t        x         y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:09 15.76467 -22.37959</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:10 15.76466 -22.37959</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:11 15.76466 -22.37959</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:12 15.76466 -22.37959</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 7185 rows ]</span></span></code></pre>
 <p>If you prefer not to modify the original object, you can create a new
-one with the new projection as follows.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t_df_new_proj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/projection.html">project</a></span><span class="op">(</span><span class="va">t_df</span>, <span class="st">"+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t_df_new_proj</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
+one with the new projection using the<code>project</code> function as
+follows:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tracks_somerc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/projection.html">project</a></span><span class="op">(</span><span class="va">tracks</span>, <span class="st">"+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tracks_somerc</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [7195 observations]</span></span>
+<span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t       x        y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 4927487 -9217299</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 4927487 -9217299</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 4927487 -9217301</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 4927487 -9217302</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 4927486 -9217304</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 4927485 -9217305</span></span></code></pre>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t       x        y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 4927487 -9217299</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 4927487 -9217299</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:04 4927487 -9217301</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:05 4927487 -9217302</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:08 4927486 -9217304</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:09 4927485 -9217305</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:09 4927485 -9217305</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:10 4927485 -9217306</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:11 4927485 -9217306</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:12 4927485 -9217306</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 7185 rows ]</span></span></code></pre>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="combining-track-tables">3.4 - Combining track tables<a class="anchor" aria-label="anchor" href="#combining-track-tables"></a>
+</h2>
+<p>Combining track tables requires a bit of caution. Indeed, traditional
+methods to combine data frames (e.g., <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">base::rbind</a></code>,
+<code><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">data.table::rbindlist</a></code>, or <code><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">dplyr::bind_rows</a></code>)
+will successfully bind together multiple track tables but they will not
+check whether these track tables are compatible with each other. For
+instance, they will not check that the coordinates are using the same
+coordinate reference system or that the time stamps are all in the same
+time zone.</p>
+<p>In order to ensure that different track tables can be combined
+without creating problems down the analysis pipeline,
+<code>trackdf</code> provides its own method to bind multiple track
+tables together: <code>bind_tracks</code>.</p>
+<p>To demonstrate how <code>bind_tracks</code> works, let’s first create
+3 track tables, 2 that are compatible with each other, and 1 that is
+not.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">raw1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/02.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">raw2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/gps/03.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">raw3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">track1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw1</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw1</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">raw1</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw1</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, </span>
+<span>                id <span class="op">=</span> <span class="fl">1</span>, proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span><span class="op">)</span></span>
+<span><span class="va">track2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw2</span><span class="op">$</span><span class="va">lon</span>, y <span class="op">=</span> <span class="va">raw2</span><span class="op">$</span><span class="va">lat</span>, t <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">raw2</span><span class="op">$</span><span class="va">date</span>, <span class="va">raw2</span><span class="op">$</span><span class="va">time</span><span class="op">)</span>, </span>
+<span>                id <span class="op">=</span> <span class="fl">2</span>, proj <span class="op">=</span> <span class="st">"+proj=longlat"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span><span class="op">)</span></span>
+<span><span class="va">track3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_.html">track</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">raw3</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">raw3</span><span class="op">$</span><span class="va">y</span>, t <span class="op">=</span> <span class="va">raw3</span><span class="op">$</span><span class="va">frame</span>, id <span class="op">=</span> <span class="va">raw3</span><span class="op">$</span><span class="va">track_fixed</span>, </span>
+<span>                origin <span class="op">=</span> <span class="st">"2019-03-24 12:55:23"</span>, period <span class="op">=</span> <span class="st">"0.04S"</span>, </span>
+<span>                tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span></code></pre></div>
+<p>If you try to combine the 3 track tables using
+<code>bind_tracks</code>, an error will be thrown to let you know that
+they are not compatible with each other:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bounded_tracks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bind_tracks.html">bind_tracks</a></span><span class="op">(</span><span class="va">track1</span>, <span class="va">track2</span>, <span class="va">track3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in bind_tracks(track1, track2, track3): All track tables should have the same projection.</span></span></code></pre>
+<p>Compare this to what happens with one of the traditional binding
+methods:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bounded_tracks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">track1</span>, <span class="va">track2</span>, <span class="va">track3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bounded_tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">bounded_tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [29182 observations]</span></span>
+<span><span class="co">## Number of tracks:  81 </span></span>
+<span><span class="co">## Dimensions:  2D </span></span>
+<span><span class="co">## Geographic:  TRUE </span></span>
+<span><span class="co">## Projection:  +proj=longlat </span></span>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t        x         y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:00:00 15.76459 -22.37971</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:00:01 15.76459 -22.37971</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:00:02 15.76459 -22.37971</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:00:03 15.76459 -22.37971</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:00:04 15.76459 -22.37971</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:00:05 15.76459 -22.37971</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:00:06 15.76459 -22.37971</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:00:07 15.76459 -22.37971</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:00:08 15.76459 -22.37971</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:00:09 15.76459 -22.37971</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 29172 rows ]</span></span></code></pre>
+<p>Here, the tracks tables are combined with each other despite having
+different coordinate reference systems and time zones. Using
+<code>bind_tracks</code> instead ensures that this cannot happen.</p>
 <hr>
 </div>
 <div class="section level2">
 <h2 id="tidyverse">3.5 - Tidyverse<a class="anchor" aria-label="anchor" href="#tidyverse"></a>
 </h2>
-<p>Track tables are compatible with the functions from the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> (with one notable
-exception, see below). For instance, you can use all the <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> verbs to
-filter, mutate, group, etc., a track table, the same way you would do
-with a <code>tibble</code> or a <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">t_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">t</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2015-09-10 07:01:00"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<p>Track tables are compatible with (most) of the functions from the <a href="https://www.tidyverse.org/" class="external-link">“tidyverse”</a>. For instance, you can
+use all the <a href="https://dplyr.tidyverse.org/" class="external-link"><code>dplyr</code></a> verbs to
+filter, mutate, group, etc., a track table, in the same way you would do
+with a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble</a></code> or a <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">base::data.frame</a></code>.
+As long as the result of the operation that you are applying to a track
+table does not affect its fundamental structure (see vignette <a href="z2_build.html">“Building a track table”</a>), the output that you
+will get will remain a track table with its specific attributes.</p>
+<p>For instance, here is how to filter a track table to keep only the
+observations between 2 specific time stamps:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'dplyr'</span></span></code></pre>
 <pre><code><span><span class="co">## The following objects are masked from 'package:stats':</span></span>
@@ -455,97 +393,45 @@ with a <code>tibble</code> or a <code>data.frame</code>.</p>
 <pre><code><span><span class="co">## The following objects are masked from 'package:base':</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     intersect, setdiff, setequal, union</span></span></code></pre>
-<pre><code><span><span class="co">## Track table [6 observations]</span></span>
-<span><span class="co">## Number of tracks:  1 </span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">filtered_tracks</span> <span class="op">&lt;-</span> <span class="va">tracks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">t</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2015-09-10 07:01:00"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span><span class="op">)</span>,</span>
+<span>         <span class="va">t</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2015-09-10 07:11:00 CAT"</span>, tz <span class="op">=</span> <span class="st">"Africa/Windhoek"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">filtered_tracks</span>, max <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">filtered_tracks</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Track table [1202 observations]</span></span>
+<span><span class="co">## Number of tracks:  2 </span></span>
 <span><span class="co">## Dimensions:  2D </span></span>
 <span><span class="co">## Geographic:  TRUE </span></span>
 <span><span class="co">## Projection:  +proj=longlat </span></span>
-<span><span class="co">## Table class:  data frame</span></span>
-<span><span class="co">##   id                   t        x         y</span></span>
-<span><span class="co">## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</span></span>
-<span><span class="co">## 2  1 2015-09-10 07:00:01 15.76468 -22.37957</span></span>
-<span><span class="co">## 3  1 2015-09-10 07:00:04 15.76468 -22.37958</span></span>
-<span><span class="co">## 4  1 2015-09-10 07:00:05 15.76468 -22.37958</span></span>
-<span><span class="co">## 5  1 2015-09-10 07:00:08 15.76467 -22.37959</span></span>
-<span><span class="co">## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</span></span></code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="va">t_df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span><span class="va">.</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>              y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<pre><code><span><span class="co">##   id        x         y</span></span>
-<span><span class="co">## 1  1 15.76476 -22.37877</span></span>
-<span><span class="co">## 2  2 15.76485 -22.37881</span></span></code></pre>
-<p><code>bind_rows</code> is a notable exception to the rule above.
-Indeed, when combining two data frames, only the attributes of the first
-data frame passed to <code>bind_rows</code> are retained in the output
-data frame. As a result, combining with <code>bind_rows</code> two track
-tables with different projections will ignore the projection of the
-second track table and assume it is the same as the first one. To avoid
-this issue, <code>trackdf</code> provides a special version of
-<code>bind_rows</code> called <code>bind_tracks</code> that checks first
-that the dimensions, geographic status, and projections of the input
-track tables are compatible with each other.</p>
-<p>With <code>data.frame</code> based track tables:</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">t_df1</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_df</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span></span>
-<span>  <span class="va">t_df2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_df</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span><span class="op">)</span></span>
-<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="va">t_df1</span> <span class="op">&lt;-</span> <span class="va">t_df</span><span class="op">[</span><span class="va">t_df</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span>, <span class="op">]</span></span>
-<span>  <span class="va">t_df2</span> <span class="op">&lt;-</span> <span class="va">t_df</span><span class="op">[</span><span class="va">t_df</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span>, <span class="op">]</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/bind_tracks.html">bind_tracks</a></span><span class="op">(</span><span class="va">t_df1</span>, <span class="va">t_df2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>With <code>tibble</code> based track tables:</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">t_tbl1</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_tbl</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span></span>
-<span>  <span class="va">t_tbl2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_tbl</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span><span class="op">)</span></span>
-<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="va">t_tbl1</span> <span class="op">&lt;-</span> <span class="va">t_tbl</span><span class="op">[</span><span class="va">t_tbl</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span>, <span class="op">]</span></span>
-<span>  <span class="va">t_tbl2</span> <span class="op">&lt;-</span> <span class="va">t_tbl</span><span class="op">[</span><span class="va">t_tbl</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span>, <span class="op">]</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/bind_tracks.html">bind_tracks</a></span><span class="op">(</span><span class="va">t_tbl1</span>, <span class="va">t_tbl2</span><span class="op">)</span></span></code></pre></div>
-<p>With <code>data.table</code> based track tables:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"dplyr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">t_dt1</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_dt</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span></span>
-<span>  <span class="va">t_dt2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">t_dt</span>, <span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span><span class="op">)</span></span>
-<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="va">t_dt1</span> <span class="op">&lt;-</span> <span class="va">t_dt</span><span class="op">[</span><span class="va">t_dt</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span>, <span class="op">]</span></span>
-<span>  <span class="va">t_dt2</span> <span class="op">&lt;-</span> <span class="va">t_dt</span><span class="op">[</span><span class="va">t_dt</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span>, <span class="op">]</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/bind_tracks.html">bind_tracks</a></span><span class="op">(</span><span class="va">t_dt1</span>, <span class="va">t_dt2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">## Table class:  data frame ('data.frame')</span></span>
+<span><span class="co">##    id                   t        x         y</span></span>
+<span><span class="co">## 1   1 2015-09-10 07:01:00 15.76468 -22.37961</span></span>
+<span><span class="co">## 2   1 2015-09-10 07:01:01 15.76469 -22.37960</span></span>
+<span><span class="co">## 3   1 2015-09-10 07:01:02 15.76469 -22.37960</span></span>
+<span><span class="co">## 4   1 2015-09-10 07:01:03 15.76469 -22.37960</span></span>
+<span><span class="co">## 5   1 2015-09-10 07:01:04 15.76470 -22.37960</span></span>
+<span><span class="co">## 6   1 2015-09-10 07:01:05 15.76469 -22.37960</span></span>
+<span><span class="co">## 7   1 2015-09-10 07:01:06 15.76469 -22.37960</span></span>
+<span><span class="co">## 8   1 2015-09-10 07:01:07 15.76469 -22.37959</span></span>
+<span><span class="co">## 9   1 2015-09-10 07:01:08 15.76469 -22.37959</span></span>
+<span><span class="co">## 10  1 2015-09-10 07:01:09 15.76469 -22.37959</span></span>
+<span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 1192 rows ]</span></span></code></pre>
 <hr>
 </div>
 <div class="section level2">
-<h2 id="plotting">3.4 - Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
+<h2 id="plotting">3.6 - Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
 </h2>
-<p>You can use any plotting method accepting a <code>data.frame</code>,
-a <code>tibble</code> or a <code>data.table</code> to represent the data
-in a track table.</p>
-<p>With base R:</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">t_dt</span><span class="op">[</span><span class="va">t_dt</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
-<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">t_dt</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> , data <span class="op">=</span> <span class="va">t_dt</span><span class="op">[</span><span class="va">t_dt</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="st">"2"</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"blue"</span>,  lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="z3_manipulate_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<p>With [<code>ggplot2</code>]{<a href="https://ggplot2.tidyverse.org/" class="external-link uri">https://ggplot2.tidyverse.org/</a>}</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">t_dt</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">id</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html" class="external-link">coord_map</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span> </span></code></pre></div>
-<p><img src="z3_manipulate_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<p>You can use any plotting method accepting a data frame of any class
+to represent the data in a track table.</p>
+<p>Here is an example using [<code>ggplot2</code>]{<a href="https://ggplot2.tidyverse.org/" class="external-link uri">https://ggplot2.tidyverse.org/</a>}:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tracks</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">id</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html" class="external-link">coord_map</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="z3_manipulate_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

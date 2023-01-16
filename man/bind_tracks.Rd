@@ -7,18 +7,20 @@
 bind_tracks(...)
 }
 \arguments{
-\item{...}{Track tables to combine. Each argument can either be a track table
-or a list of track tables. The track tables must have the same projection.}
+\item{...}{A list containing track table objects, or the names of track table
+objects separated by commas. The track tables must have the same projection
+and time zone.}
 }
 \value{
 A track table.
 }
 \description{
 {bind_tracks} uses \code{\link[data.table:rbindlist]{data.table::rbindlist}}
- to combine track tables by rows, but makes sure that you cannot bind together
- two tables with different projections, that the projection attribute is
- inherited by the resulting track table, and that track tables based on
- different table classes are coerced to the same table class.
+ to combine track tables by rows, but makes sure that you cannot bind
+ together two tables with different projections or time zones, that the
+ projection attribute is inherited by the resulting track table, and that
+ track tables based on different table classes are coerced to the same table
+ class.
 }
 \examples{
 data(short_tracks)

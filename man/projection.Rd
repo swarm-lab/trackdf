@@ -41,6 +41,9 @@ projection(tracks_projected) <- "+proj=longlat"
 projection(tracks_projected)
 
 }
+\seealso{
+\code{\link[sf]{st_crs}}
+}
 \author{
 Simon Garnier, \email{garnier@njit.edu}
 }

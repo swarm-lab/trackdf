@@ -20,6 +20,8 @@
 #'
 #' @author Simon Garnier, \email{garnier@@njit.edu}
 #'
+#' @seealso \code{\link[sf]{st_crs}}
+#'
 #' @examples
 #' data(short_tracks)
 #'
