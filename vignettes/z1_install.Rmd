@@ -8,18 +8,27 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## 1.1 - Development version
+## 1.1 - From CRAN
+
+`trackdf` is available directly from 
+[CRAN](https://cran.r-project.org/package=trackdf) and can be installed as 
+follows: 
+
+```r
+install.packages("trackdf")
+```
+
+---
+
+## 1.2 - Development version
+
+If you're looking to install the 
+[latest development version](https://github.com/swarm-lab/trackdf) 
+of `trackdf` (with all the newest features but also potentially breaking changes), 
+you can do it as follows: 
 
 ```r
 if (requireNamespace("remotes", quietly = TRUE)) {
   remotes::install_github("swarm-lab/trackdf")
 }
-```
-
----
-
-## 1.2 - CRAN version
-
-```r
-install.packages("trackdf")
 ```

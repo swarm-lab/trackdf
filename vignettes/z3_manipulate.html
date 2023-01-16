@@ -342,236 +342,112 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
+<p>Under the hood, a track table is a data frame with a few extra bells
+and whistles. Therefore, you can manipulate a track table in the same
+way you would a <code>base::data.frame</code>,
+<code>tibble::tibble</code>, or <code>data.table::data.table</code>
+(depending on the data frame class you used as a base for your track
+table). Anything that you can do with one of these three data frame
+classes can be done the same way with a track table.</p>
+<p>There are, however, a few additional things that are specific to
+track tables and we will review them in this vignette.</p>
+<p>But first, let’s load a track table that is provided with
+<code>trackdf</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(trackdf)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tracks&quot;</span>)</span></code></pre></div>
-<div id="creating-track-tables" class="section level2">
-<h2>3.1 - Creating track tables</h2>
-<p>Under the hood, a track table is just a simple data frame of class <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/data.frame.html"><code>data.frame</code></a>,
-<a href="https://CRAN.R-project.org/package=tibble"><code>tibble</code></a>
-or <a href="https://cran.r-project.org/package=data.table"><code>data.table</code></a>
-with a few extra bells and whistles. This means that you can manipulate
-a track table same way you would a data frame of any of these three
-classes.</p>
-<p>To create a track table based on <code>data.frame</code>, do:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_df <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> tracks<span class="sc">$</span>x, <span class="at">y =</span> tracks<span class="sc">$</span>y, <span class="at">t =</span> tracks<span class="sc">$</span>t, <span class="at">id =</span> tracks<span class="sc">$</span>id,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;df&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37957
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<p>To create a track table based on <code>tibble</code>, do:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t_tbl <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> tracks<span class="sc">$</span>x, <span class="at">y =</span> tracks<span class="sc">$</span>y, <span class="at">t =</span> tracks<span class="sc">$</span>t, <span class="at">id =</span> tracks<span class="sc">$</span>id,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;tbl&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>t_tbl </span></code></pre></div>
-<pre><code>## Track table [7194 observations]
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;tracks&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(tracks))</span></code></pre></div>
+<pre><code>## Track table [7195 observations]
 ## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  tibble
-## # A tibble: 7,194 × 4
-##    id    t                       x     y
-##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
-##  1 1     2015-09-10 07:00:00  15.8 -22.4
-##  2 1     2015-09-10 07:00:01  15.8 -22.4
-##  3 1     2015-09-10 07:00:04  15.8 -22.4
-##  4 1     2015-09-10 07:00:05  15.8 -22.4
-##  5 1     2015-09-10 07:00:08  15.8 -22.4
-##  6 1     2015-09-10 07:00:09  15.8 -22.4
-##  7 1     2015-09-10 07:00:10  15.8 -22.4
-##  8 1     2015-09-10 07:00:11  15.8 -22.4
-##  9 1     2015-09-10 07:00:12  15.8 -22.4
-## 10 1     2015-09-10 07:00:13  15.8 -22.4
-## # … with 7,184 more rows</code></pre>
-<p>To create a track table based on <code>data.table</code>, do:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t_dt <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> tracks<span class="sc">$</span>x, <span class="at">y =</span> tracks<span class="sc">$</span>y, <span class="at">t =</span> tracks<span class="sc">$</span>t, <span class="at">id =</span> tracks<span class="sc">$</span>id,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>, <span class="at">table =</span> <span class="st">&quot;dt&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>t_dt</span></code></pre></div>
-<pre><code>## Track table [7194 observations]
-## Number of tracks:  2 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data table
-##       id                   t        x         y
-##    1:  1 2015-09-10 07:00:00 15.76468 -22.37957
-##    2:  1 2015-09-10 07:00:01 15.76468 -22.37957
-##    3:  1 2015-09-10 07:00:04 15.76468 -22.37958
-##    4:  1 2015-09-10 07:00:05 15.76468 -22.37958
-##    5:  1 2015-09-10 07:00:08 15.76467 -22.37959
-##   ---                                          
-## 7190:  2 2015-09-10 07:59:55 15.76246 -22.37763
-## 7191:  2 2015-09-10 07:59:56 15.76245 -22.37763
-## 7192:  2 2015-09-10 07:59:57 15.76244 -22.37762
-## 7193:  2 2015-09-10 07:59:58 15.76243 -22.37762
-## 7194:  2 2015-09-10 07:59:59 15.76243 -22.37761</code></pre>
+## Projection:  +proj=longlat 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t        x         y
+## 1   1 2015-09-10 07:00:00 15.76468 -22.37957
+## 2   1 2015-09-10 07:00:01 15.76468 -22.37957
+## 3   1 2015-09-10 07:00:04 15.76468 -22.37958
+## 4   1 2015-09-10 07:00:05 15.76468 -22.37958
+## 5   1 2015-09-10 07:00:08 15.76467 -22.37959
+## 6   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 7   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 8   1 2015-09-10 07:00:10 15.76467 -22.37959
+## 9   1 2015-09-10 07:00:11 15.76467 -22.37959
+## 10  1 2015-09-10 07:00:12 15.76467 -22.37959
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7185 rows ]</code></pre>
+<p>This track table contains the GPS coordinates of two goats foraging
+through the Tsaobis Nature Park in Namibia, sometimes in 2015.</p>
 <hr />
-</div>
-<div id="basic-manipulations" class="section level2">
-<h2>3.2 - Basic manipulations</h2>
-<p>You can check whether an object is a track table as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_track</span>(t_df)</span></code></pre></div>
+<div id="basic-information-about-the-track-table" class="section level2">
+<h2>3.1 - Basic information about the track table</h2>
+<p>In addition to the usual information that you can ask about a data
+frame (e.g., the number of rows and columns, the class of each column,
+etc), you can access additional information about the content of a track
+table.</p>
+<p>First, you can check whether an object is indeed a track table as
+follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_track</span>(tracks)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_track</span>(t_tbl)</span></code></pre></div>
+<p>You can also check whether the track table contains geographic
+coordinates or not as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_geo</span>(tracks)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_track</span>(t_dt)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<p>You can check whether a track table contains geographic coordinates
-or not as follows:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_geo</span>(t_df)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_geo</span>(t_tbl)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_geo</span>(t_dt)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<p>You can find out the number of different tracks included in the track
+table as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_tracks</span>(tracks)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Finally, you can retrieve the dimensionality (2D or 3D) of the track
+table as follows:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_dims</span>(tracks)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
 <hr />
 </div>
 <div id="accessing-data" class="section level2">
-<h2>3.3 - Accessing data</h2>
-<p>You can access the different parts (rows, columns, elements) of a
-track table as follows:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df<span class="sc">$</span>id)</span></code></pre></div>
-<pre><code>## [1] &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot;</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_tbl<span class="sc">$</span>id)</span></code></pre></div>
-<pre><code>## [1] &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot;</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_dt<span class="sc">$</span>id)</span></code></pre></div>
-<pre><code>## [1] &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot;</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df[[<span class="st">&quot;t&quot;</span>]])</span></code></pre></div>
-<pre><code>## [1] &quot;2015-09-10 07:00:00 CAT&quot; &quot;2015-09-10 07:00:01 CAT&quot;
-## [3] &quot;2015-09-10 07:00:04 CAT&quot; &quot;2015-09-10 07:00:05 CAT&quot;
-## [5] &quot;2015-09-10 07:00:08 CAT&quot; &quot;2015-09-10 07:00:09 CAT&quot;</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_tbl[[<span class="st">&quot;t&quot;</span>]])</span></code></pre></div>
-<pre><code>## [1] &quot;2015-09-10 07:00:00 CAT&quot; &quot;2015-09-10 07:00:01 CAT&quot;
-## [3] &quot;2015-09-10 07:00:04 CAT&quot; &quot;2015-09-10 07:00:05 CAT&quot;
-## [5] &quot;2015-09-10 07:00:08 CAT&quot; &quot;2015-09-10 07:00:09 CAT&quot;</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_dt[[<span class="st">&quot;t&quot;</span>]])</span></code></pre></div>
-<pre><code>## [1] &quot;2015-09-10 07:00:00 CAT&quot; &quot;2015-09-10 07:00:01 CAT&quot;
-## [3] &quot;2015-09-10 07:00:04 CAT&quot; &quot;2015-09-10 07:00:05 CAT&quot;
-## [5] &quot;2015-09-10 07:00:08 CAT&quot; &quot;2015-09-10 07:00:09 CAT&quot;</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df[<span class="dv">1</span>])</span></code></pre></div>
-<pre><code>##   id
-## 1  1
-## 2  1
-## 3  1
-## 4  1
-## 5  1
-## 6  1</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>t_tbl[<span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## # A tibble: 7,194 × 1
-##    id   
-##    &lt;chr&gt;
-##  1 1    
-##  2 1    
-##  3 1    
-##  4 1    
-##  5 1    
-##  6 1    
-##  7 1    
-##  8 1    
-##  9 1    
-## 10 1    
-## # … with 7,184 more rows</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>t_dt[<span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## Track table [1 observations]
-## Number of tracks:  1 
+<h2>3.2 - Accessing data</h2>
+<p>Accessing and modifying the different parts (rows, columns, elements)
+of a track table is similar to accessing and modifying the different
+parts of the underlying data frame. We will, therefore, not discuss this
+topic further as it is something that you should already be very familar
+with.</p>
+<p>Note, however, that different data frame classes may do thing
+slightly differently from each other. Make sure to know what class is
+used with the track tables you are working with. For instance, the track
+table that we loaded for this tutorial if of class
+<code>data.frame</code>, as indicated in the 6th line of the print out
+of the track table:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(tracks))</span></code></pre></div>
+<pre><code>## Track table [7195 observations]
+## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data table
+## Projection:  +proj=longlat 
+## Table class:  data frame (&#39;data.frame&#39;)
 ##    id                   t        x         y
-## 1:  1 2015-09-10 07:00:00 15.76468 -22.37957</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>t_df[<span class="dv">1</span>, ]</span></code></pre></div>
-<pre><code>## Track table [1 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>t_tbl[<span class="dv">1</span>, ]</span></code></pre></div>
-<pre><code>## Track table [1 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  tibble
-## # A tibble: 1 × 4
-##   id    t                       x     y
-##   &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt;
-## 1 1     2015-09-10 07:00:00  15.8 -22.4</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>t_dt[<span class="dv">1</span>, ]</span></code></pre></div>
-<pre><code>## Track table [1 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data table
-##    id                   t        x         y
-## 1:  1 2015-09-10 07:00:00 15.76468 -22.37957</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>t_df[<span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## [1] &quot;1&quot;</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>t_tbl[<span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 1
-##   id   
-##   &lt;chr&gt;
-## 1 1</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>t_dt[<span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
-<pre><code>##    id
-## 1:  1</code></pre>
-<p>Note that the results varies depending on the underlying data frame
-class.</p>
-<p>By combining the commands above with the <code>&lt;-</code> operator,
-you can easily modify the content of a track table. For example:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>t_df<span class="sc">$</span>id[t_df<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;0&quot;</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  0 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  0 2015-09-10 07:00:01 15.76468 -22.37957
-## 3  0 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  0 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  0 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  0 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>t_df[t_df[, <span class="dv">1</span>] <span class="sc">==</span> <span class="st">&quot;0&quot;</span>, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;1&quot;</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
-## Dimensions:  2D 
-## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37957
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
+## 1   1 2015-09-10 07:00:00 15.76468 -22.37957
+## 2   1 2015-09-10 07:00:01 15.76468 -22.37957
+## 3   1 2015-09-10 07:00:04 15.76468 -22.37958
+## 4   1 2015-09-10 07:00:05 15.76468 -22.37958
+## 5   1 2015-09-10 07:00:08 15.76467 -22.37959
+## 6   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 7   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 8   1 2015-09-10 07:00:10 15.76467 -22.37959
+## 9   1 2015-09-10 07:00:11 15.76467 -22.37959
+## 10  1 2015-09-10 07:00:12 15.76467 -22.37959
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7185 rows ]</code></pre>
 <hr />
 </div>
-<div id="accessing-and-modifying-the-coordinates-projection" class="section level2">
-<h2>3.4 - Accessing and modifying the coordinates’ projection</h2>
-<p>You can access the projection of a track table as follows.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(t_df)</span></code></pre></div>
+<div id="accessing-the-projection-information-of-a-track-table" class="section level2">
+<h2>3.3 - Accessing the projection information of a track table</h2>
+<p>One particularity of track tables over regular data frames is that
+they can store geographic data explicitly and perform projection
+operations to change their coordinate reference system if necessary.</p>
+<p>In order to access the coordinate reference system (or projection) of
+a track table containing geographic data, you simply need to execute the
+following command:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(tracks)</span></code></pre></div>
 <pre><code>## Coordinate Reference System:
-## Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
-## WKT2 2019 representation:
+##   User input: +proj=longlat 
+##   wkt:
 ## GEOGCRS[&quot;unknown&quot;,
 ##     DATUM[&quot;World Geodetic System 1984&quot;,
 ##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
@@ -589,73 +465,153 @@ you can easily modify the content of a track table. For example:</p>
 ##             ORDER[2],
 ##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
 ##                 ID[&quot;EPSG&quot;,9122]]]]</code></pre>
+<p>This returns an object of class <code>crs</code> which is a list
+consisting of an <code>input</code> object (usually the character string
+that you have entered in <code>track</code> under the <code>proj</code>
+parameter), and a <code>wkt</code> object which is an automatically
+generated <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_coordinate_reference_systems">WKT
+2</a> representation of the coordinate reference system.</p>
 <p>You can modify in place the projection of a track table as follows.
-This will automatically convert the coordinates in the appropriate
-projection system.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(t_df) <span class="ot">&lt;-</span> <span class="st">&quot;+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs&quot;</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
+This will automatically convert the x and y coordinates contained in the
+track table to the appropriate projection system:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(tracks) <span class="ot">&lt;-</span> <span class="st">&quot;+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(tracks))</span></code></pre></div>
+<pre><code>## Track table [7195 observations]
+## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +units=m +no_defs 
-## Table class:  data frame
-##   id                   t       x        y
-## 1  1 2015-09-10 07:00:00 4926624 -9215951
-## 2  1 2015-09-10 07:00:01 4926624 -9215951
-## 3  1 2015-09-10 07:00:04 4926624 -9215953
-## 4  1 2015-09-10 07:00:05 4926624 -9215954
-## 5  1 2015-09-10 07:00:08 4926623 -9215956
-## 6  1 2015-09-10 07:00:09 4926622 -9215957</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(t_df) <span class="ot">&lt;-</span> <span class="st">&quot;+proj=longlat&quot;</span> </span></code></pre></div>
-<pre><code>## Warning: PROJ support is provided by the sf and terra packages among others</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
+## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t       x        y
+## 1   1 2015-09-10 07:00:00 4927487 -9217299
+## 2   1 2015-09-10 07:00:01 4927487 -9217299
+## 3   1 2015-09-10 07:00:04 4927487 -9217301
+## 4   1 2015-09-10 07:00:05 4927487 -9217302
+## 5   1 2015-09-10 07:00:08 4927486 -9217304
+## 6   1 2015-09-10 07:00:09 4927485 -9217305
+## 7   1 2015-09-10 07:00:09 4927485 -9217305
+## 8   1 2015-09-10 07:00:10 4927485 -9217306
+## 9   1 2015-09-10 07:00:11 4927485 -9217306
+## 10  1 2015-09-10 07:00:12 4927485 -9217306
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7185 rows ]</code></pre>
+<p>And back to the original projection:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">projection</span>(tracks) <span class="ot">&lt;-</span> <span class="st">&quot;+proj=longlat&quot;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(tracks))</span></code></pre></div>
+<pre><code>## Track table [7195 observations]
+## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37958
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
+## Projection:  +proj=longlat 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t        x         y
+## 1   1 2015-09-10 07:00:00 15.76468 -22.37957
+## 2   1 2015-09-10 07:00:01 15.76468 -22.37957
+## 3   1 2015-09-10 07:00:04 15.76468 -22.37958
+## 4   1 2015-09-10 07:00:05 15.76468 -22.37958
+## 5   1 2015-09-10 07:00:08 15.76467 -22.37959
+## 6   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 7   1 2015-09-10 07:00:09 15.76467 -22.37959
+## 8   1 2015-09-10 07:00:10 15.76466 -22.37959
+## 9   1 2015-09-10 07:00:11 15.76466 -22.37959
+## 10  1 2015-09-10 07:00:12 15.76466 -22.37959
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7185 rows ]</code></pre>
 <p>If you prefer not to modify the original object, you can create a new
-one with the new projection as follows.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>t_df_new_proj <span class="ot">&lt;-</span> <span class="fu">project</span>(t_df, <span class="st">&quot;+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs&quot;</span>)</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t_df_new_proj)</span></code></pre></div>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
+one with the new projection using the<code>project</code> function as
+follows:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tracks_somerc <span class="ot">&lt;-</span> <span class="fu">project</span>(tracks, <span class="st">&quot;+proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs&quot;</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tracks_somerc, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(tracks))</span></code></pre></div>
+<pre><code>## Track table [7195 observations]
+## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +units=m +no_defs 
-## Table class:  data frame
-##   id                   t       x        y
-## 1  1 2015-09-10 07:00:00 4926624 -9215951
-## 2  1 2015-09-10 07:00:01 4926624 -9215951
-## 3  1 2015-09-10 07:00:04 4926624 -9215953
-## 4  1 2015-09-10 07:00:05 4926624 -9215954
-## 5  1 2015-09-10 07:00:08 4926623 -9215956
-## 6  1 2015-09-10 07:00:09 4926622 -9215957</code></pre>
+## Projection:  +proj=somerc +lat_0=46.9524056 +lon_0=7.43958333 +ellps=bessel +x_0=2600000 +y_0=1200000 +towgs84=674.374,15.056,405.346 +units=m +k_0=1 +no_defs 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t       x        y
+## 1   1 2015-09-10 07:00:00 4927487 -9217299
+## 2   1 2015-09-10 07:00:01 4927487 -9217299
+## 3   1 2015-09-10 07:00:04 4927487 -9217301
+## 4   1 2015-09-10 07:00:05 4927487 -9217302
+## 5   1 2015-09-10 07:00:08 4927486 -9217304
+## 6   1 2015-09-10 07:00:09 4927485 -9217305
+## 7   1 2015-09-10 07:00:09 4927485 -9217305
+## 8   1 2015-09-10 07:00:10 4927485 -9217306
+## 9   1 2015-09-10 07:00:11 4927485 -9217306
+## 10  1 2015-09-10 07:00:12 4927485 -9217306
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7185 rows ]</code></pre>
+<hr />
+</div>
+<div id="combining-track-tables" class="section level2">
+<h2>3.4 - Combining track tables</h2>
+<p>Combining track tables requires a bit of caution. Indeed, traditional
+methods to combine data frames (e.g., <code>base::rbind</code>,
+<code>data.table::rbindlist</code>, or <code>dplyr::bind_rows</code>)
+will successfully bind together multiple track tables but they will not
+check whether these track tables are compatible with each other. For
+instance, they will not check that the coordinates are using the same
+coordinate reference system or that the time stamps are all in the same
+time zone.</p>
+<p>In order to ensure that different track tables can be combined
+without creating problems down the analysis pipeline,
+<code>trackdf</code> provides its own method to bind multiple track
+tables together: <code>bind_tracks</code>.</p>
+<p>To demonstrate how <code>bind_tracks</code> works, let’s first create
+3 track tables, 2 that are compatible with each other, and 1 that is
+not.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>raw1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/gps/02.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>raw2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/gps/03.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>raw3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>track1 <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw1<span class="sc">$</span>lon, <span class="at">y =</span> raw1<span class="sc">$</span>lat, <span class="at">t =</span> <span class="fu">paste</span>(raw1<span class="sc">$</span>date, raw1<span class="sc">$</span>time), </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">id =</span> <span class="dv">1</span>, <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>track2 <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw2<span class="sc">$</span>lon, <span class="at">y =</span> raw2<span class="sc">$</span>lat, <span class="at">t =</span> <span class="fu">paste</span>(raw2<span class="sc">$</span>date, raw2<span class="sc">$</span>time), </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">id =</span> <span class="dv">2</span>, <span class="at">proj =</span> <span class="st">&quot;+proj=longlat&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>track3 <span class="ot">&lt;-</span> <span class="fu">track</span>(<span class="at">x =</span> raw3<span class="sc">$</span>x, <span class="at">y =</span> raw3<span class="sc">$</span>y, <span class="at">t =</span> raw3<span class="sc">$</span>frame, <span class="at">id =</span> raw3<span class="sc">$</span>track_fixed, </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">origin =</span> <span class="st">&quot;2019-03-24 12:55:23&quot;</span>, <span class="at">period =</span> <span class="st">&quot;0.04S&quot;</span>, </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">tz =</span> <span class="st">&quot;America/New_York&quot;</span>)</span></code></pre></div>
+<p>If you try to combine the 3 track tables using
+<code>bind_tracks</code>, an error will be thrown to let you know that
+they are not compatible with each other:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bounded_tracks <span class="ot">&lt;-</span> <span class="fu">bind_tracks</span>(track1, track2, track3)</span></code></pre></div>
+<pre><code>## Error in bind_tracks(track1, track2, track3): All track tables should have the same projection.</code></pre>
+<p>Compare this to what happens with one of the traditional binding
+methods:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bounded_tracks <span class="ot">&lt;-</span> <span class="fu">rbind</span>(track1, track2, track3)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bounded_tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(bounded_tracks))</span></code></pre></div>
+<pre><code>## Track table [29182 observations]
+## Number of tracks:  81 
+## Dimensions:  2D 
+## Geographic:  TRUE 
+## Projection:  +proj=longlat 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t        x         y
+## 1   1 2015-09-10 07:00:00 15.76459 -22.37971
+## 2   1 2015-09-10 07:00:01 15.76459 -22.37971
+## 3   1 2015-09-10 07:00:02 15.76459 -22.37971
+## 4   1 2015-09-10 07:00:03 15.76459 -22.37971
+## 5   1 2015-09-10 07:00:04 15.76459 -22.37971
+## 6   1 2015-09-10 07:00:05 15.76459 -22.37971
+## 7   1 2015-09-10 07:00:06 15.76459 -22.37971
+## 8   1 2015-09-10 07:00:07 15.76459 -22.37971
+## 9   1 2015-09-10 07:00:08 15.76459 -22.37971
+## 10  1 2015-09-10 07:00:09 15.76459 -22.37971
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 29172 rows ]</code></pre>
+<p>Here, the tracks tables are combined with each other despite having
+different coordinate reference systems and time zones. Using
+<code>bind_tracks</code> instead ensures that this cannot happen.</p>
 <hr />
 </div>
 <div id="tidyverse" class="section level2">
 <h2>3.5 - Tidyverse</h2>
-<p>Track tables are compatible with the functions from the <a href="https://www.tidyverse.org/">tidyverse</a> (with one notable
-exception, see below). For instance, you can use all the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> verbs to
-filter, mutate, group, etc., a track table, the same way you would do
-with a <code>tibble</code> or a <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  t_df <span class="sc">%&gt;%</span></span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(., t <span class="sc">&lt;</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2015-09-10 07:01:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(.)</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Track tables are compatible with (most) of the functions from the <a href="https://www.tidyverse.org/">“tidyverse”</a>. For instance, you can
+use all the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> verbs to
+filter, mutate, group, etc., a track table, in the same way you would do
+with a <code>tibble::tibble</code> or a <code>base::data.frame</code>.
+As long as the result of the operation that you are applying to a track
+table does not affect its fundamental structure (see vignette <a href="z2_build.html">“Building a track table”</a>), the output that you
+will get will remain a track table with its specific attributes.</p>
+<p>For instance, here is how to filter a track table to keep only the
+observations between 2 specific time stamps:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -664,92 +620,42 @@ with a <code>tibble</code> or a <code>data.frame</code>.</p>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre><code>## Track table [6 observations]
-## Number of tracks:  1 
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>filtered_tracks <span class="ot">&lt;-</span> tracks <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(., t <span class="sc">&gt;=</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2015-09-10 07:01:00&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>         t <span class="sc">&lt;=</span> <span class="fu">as.POSIXct</span>(<span class="st">&quot;2015-09-10 07:11:00 CAT&quot;</span>, <span class="at">tz =</span> <span class="st">&quot;Africa/Windhoek&quot;</span>))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_tracks, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(filtered_tracks))</span></code></pre></div>
+<pre><code>## Track table [1202 observations]
+## Number of tracks:  2 
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
-## Projection:  +proj=longlat +datum=WGS84 +no_defs 
-## Table class:  data frame
-##   id                   t        x         y
-## 1  1 2015-09-10 07:00:00 15.76468 -22.37957
-## 2  1 2015-09-10 07:00:01 15.76468 -22.37958
-## 3  1 2015-09-10 07:00:04 15.76468 -22.37958
-## 4  1 2015-09-10 07:00:05 15.76468 -22.37958
-## 5  1 2015-09-10 07:00:08 15.76467 -22.37959
-## 6  1 2015-09-10 07:00:09 15.76467 -22.37959</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  t_df <span class="sc">%&gt;%</span></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(., id) <span class="sc">%&gt;%</span></span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(., <span class="at">x =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> <span class="fu">mean</span>(y))</span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 3
-##   id        x     y
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 1      15.8 -22.4
-## 2 2      15.8 -22.4</code></pre>
-<p><code>bind_rows</code> is a notable exception to the rule above.
-Indeed, when combining two data frames, only the attributes of the first
-data frame passed to <code>bind_rows</code> are retained in the output
-data frame. As a result, combining with <code>bind_rows</code> two track
-tables with different projections will ignore the projection of the
-second track table and assume it is the same as the first one. To avoid
-this issue, <code>trackdf</code> provides a special version of
-<code>bind_rows</code> called <code>bind_tracks</code> that checks first
-that the dimensions, geographic status, and projections of the input
-track tables are compatible with each other.</p>
-<p>With <code>data.frame</code> based track tables:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  t_df1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_df, id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  t_df2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_df, id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>)</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  t_df1 <span class="ot">&lt;-</span> t_df[t_df<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, ]</span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>  t_df2 <span class="ot">&lt;-</span> t_df[t_df<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>, ]</span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">bind_tracks</span>(t_df1, t_df2))</span></code></pre></div>
-<p>With <code>tibble</code> based track tables:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  t_tbl1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_tbl, id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>)</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  t_tbl2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_tbl, id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>)</span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  t_tbl1 <span class="ot">&lt;-</span> t_tbl[t_tbl<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, ]</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  t_tbl2 <span class="ot">&lt;-</span> t_tbl[t_tbl<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>, ]</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_tracks</span>(t_tbl1, t_tbl2)</span></code></pre></div>
-<p>With <code>data.table</code> based track tables:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  t_dt1 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_dt, id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>)</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  t_dt2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(t_dt, id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>)</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  t_dt1 <span class="ot">&lt;-</span> t_dt[t_dt<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, ]</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  t_dt2 <span class="ot">&lt;-</span> t_dt[t_dt<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>, ]</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_tracks</span>(t_dt1, t_dt2)</span></code></pre></div>
+## Projection:  +proj=longlat 
+## Table class:  data frame (&#39;data.frame&#39;)
+##    id                   t        x         y
+## 1   1 2015-09-10 07:01:00 15.76468 -22.37961
+## 2   1 2015-09-10 07:01:01 15.76469 -22.37960
+## 3   1 2015-09-10 07:01:02 15.76469 -22.37960
+## 4   1 2015-09-10 07:01:03 15.76469 -22.37960
+## 5   1 2015-09-10 07:01:04 15.76470 -22.37960
+## 6   1 2015-09-10 07:01:05 15.76469 -22.37960
+## 7   1 2015-09-10 07:01:06 15.76469 -22.37960
+## 8   1 2015-09-10 07:01:07 15.76469 -22.37959
+## 9   1 2015-09-10 07:01:08 15.76469 -22.37959
+## 10  1 2015-09-10 07:01:09 15.76469 -22.37959
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 1192 rows ]</code></pre>
 <hr />
 </div>
 <div id="plotting" class="section level2">
-<h2>3.4 - Plotting</h2>
-<p>You can use any plotting method accepting a <code>data.frame</code>,
-a <code>tibble</code> or a <code>data.table</code> to represent the data
-in a track table.</p>
-<p>With base R:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> t_dt[t_dt<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;1&quot;</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(t_dt<span class="sc">$</span>x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">asp =</span> <span class="dv">1</span>)</span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(y <span class="sc">~</span> x , <span class="at">data =</span> t_dt[t_dt<span class="sc">$</span>id <span class="sc">==</span> <span class="st">&quot;2&quot;</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,  <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAYAAAAUg66AAAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAAEgoAMABAAAAAEAAAEgAAAAAKtAJY0AADUnSURBVHgB7Z0HmBRFE4a/2QPJIHDknAXJSTIoCAgqiKACIogEs7+IgpKjCIgkUZEgKEkFBBVUQLKSRUAkSwbJQeLdbv9Vs+zd7t1egjtmeq76eZad0Dvd/fZQ111dXWUoSpAkBISAELCAgMuCMqVIISAEhIBJQASQvAhCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIAREAMk7IASEgGUERABZhl4KFgJCQASQvANCQAhYRkAEkGXopWAhIARE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" /><!-- --></p>
-<p>With [<code>ggplot2</code>]{<a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a>}</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> t_dt) <span class="sc">+</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> id) <span class="sc">+</span> </span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">geom_path</span>() <span class="sc">+</span></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">coord_map</span>()</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<h2>3.6 - Plotting</h2>
+<p>You can use any plotting method accepting a data frame of any class
+to represent the data in a track table.</p>
+<p>Here is an example using [<code>ggplot2</code>]{<a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a>}:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tracks) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> id) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_map</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 
 
