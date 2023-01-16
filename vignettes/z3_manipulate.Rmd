@@ -212,7 +212,7 @@ print(filtered_tracks, max = 10 * ncol(filtered_tracks))
 You can use any plotting method accepting a data frame of any class to represent 
 the data in a track table.
 
-Here is an example using [`ggplot2`]{https://ggplot2.tidyverse.org/}:
+Here is an example using [`ggplot2`](https://ggplot2.tidyverse.org/):
 
 ```{r}
 library(ggplot2)
