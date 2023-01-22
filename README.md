@@ -9,18 +9,17 @@
 
 ## Description
 
-[`trackdf`](https://swarm-lab.github.io/trackdf/) is a R package that aims to 
-standardize and accelerate the processing of data describing animal trajectories 
-captured in the lab (e.g., video tracking) or in the field (e.g., GPS trackers). 
-`trackdf` provides a data frame-like class based on the popular 
+`trackdf` is a R package that aims to standardize and accelerate the processing 
+of data describing animal trajectories captured in the lab (e.g., video 
+tracking) or in the field (e.g., GPS trackers). `trackdf` provides a data 
+frame-like class based on the popular 
 [tibble](https://cran.r-project.org/web/packages/tibble/) class and is 
 compatible with both base R and most of the functions from the 
 [tidyverse](https://www.tidyverse.org/) (e.g., [dplyr](https://dplyr.tidyverse.org/), 
 [ggplot2](https://ggplot2.tidyverse.org/)). 
 
-[`trackdf`](https://github.com/swarm-lab/swaRm) is a work in progress. Functions 
-are not yet in a stable state and are likely to change as the package gets 
-developed. 
+`trackdf` is a work in progress. Functions are not yet in a stable state and are 
+likely to change as the package gets developed. 
 
 ---
 

@@ -30,8 +30,8 @@ origin and period of the time points can be set using \code{origin} and
 \code{period} below.}
 
 \item{id}{A vector that can be coerced to a character vector by
-\code{\link{as.character}} representing the identity of the animal to which
-each location belong.}
+\code{\link{as.character}} representing the identity of the individual to
+which each location belong.}
 
 \item{...}{A set of name-value pairs. Arguments are evaluated sequentially,
 so you can refer to previously created elements. These arguments are
