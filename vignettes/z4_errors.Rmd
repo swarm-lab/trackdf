@@ -1,0 +1,88 @@
+---
+author: "Simon Garnier"
+title: "4 - Detecting errors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{4 - Detecting errors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Missing observations and recording errors are fairly common in tracking data. 
+They can be caused by hardware failures, object occultation, faulty data writing,
+etc. `trackdf` provides a few functions to help detect this missing or erroneous 
+data so that you can fix them or omit them altogether from your analysis. 
+
+But first, let's load some "flawed" data provided with `trackdf`: 
+
+```{r}
+library(trackdf)
+raw <- read.csv(system.file("extdata/gps/01.csv", package = "trackdf"))
+tt <- track(x = raw$lon, y = raw$lat, t = paste(raw$date, raw$time), id = 1,  
+            proj = "+proj=longlat", tz = "Africa/Windhoek")
+print(tt, max = 10 * ncol(tt))
+```
+
+---
+
+## 4.1 - Missing observations
+
+These are observations that have not been recorded at all. If the data is 
+recorded at regular intervals, then these missing observations can be easily 
+detected using the `missing_data` function as follows: 
+
+```{r}
+missing <- missing_data(tt)
+missing
+```
+
+The output is a track table with each row corresponding to a time stamp at which
+at least one coordinate is missing. 
+
+Note that you can specify the beginning (`begin`) and end (`end`) of the 
+observation window in which you want to detect missing data, as well as the time
+difference (`step`) between successive observations. 
+
+---
+
+## 4.2 - Duplicated observations
+
+These are observations that are repeated multiple times throughout the data set
+(e.g., two observations with identical time stamps for a given individual). 
+These duplicated observations can be detected using the `duplicated_data` 
+function as follows:
+
+```{r}
+dups <- duplicated_data(tt, type = "t")
+dups
+```
+
+The output is a track table with each row corresponding to an observation that 
+was partially or completely duplicated, depending on the `type` argument. This 
+argument is a character string or a vector of character strings indicating the 
+type of duplications to look for. The strings can be any combination of "t" (for 
+time duplications) and "x", "y", "z" (for coordinate duplications). For instance, 
+the string "txy" will return data with duplicated time stamps and duplicated x 
+and y coordinates. 
+
+---
+
+## 4.3 - Inconsistent observations
+
+These are observations whose coordinates are too different from the surrounding 
+(timewise) observations, for instance, because of sporadic errors in GPS 
+recordings. These inconsistent observations can be detected using the 
+`duplicated_data` function as follows:
+
+```{r}
+inconsistent <- inconsistent_data(tt, s = 15)
+inconsistent
+```
+
+The output is a track table with each row corresponding to an inconsistent 
+observation. 
+
+Note that the detection of inconsistencies requires specifying a threshold (`s`)
+for distinguishing between consistent and inconsistent observations. Higher 
+threshold values will result in a lower number of detected inconsistencies, and
+reciprocally for lower threshold values. 

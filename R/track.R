@@ -120,8 +120,8 @@
 #'  \code{period} below.
 #'
 #' @param id A vector that can be coerced to a character vector by
-#'  \code{\link{as.character}} representing the identity of the animal to which
-#'  each location belong.
+#'  \code{\link{as.character}} representing the identity of the individual to
+#'  which each location belong.
 #'
 #' @param ... A set of name-value pairs. Arguments are evaluated sequentially,
 #'  so you can refer to previously created elements. These arguments are

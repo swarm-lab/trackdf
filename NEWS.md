@@ -1,3 +1,15 @@
+# trackdf 0.3.1
+
+## New features
+
+* Reworked error detection functions for consistent outputs across the board.
+
+## Minor improvements and fixes
+
+* Cleans up functions and improves documentation. 
+
+---
+
 # trackdf 0.3.0
 
 ## New features

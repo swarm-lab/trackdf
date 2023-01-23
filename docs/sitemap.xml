@@ -19,6 +19,9 @@
     <loc>https://swarm-lab.github.io/trackdf/articles/z3_manipulate.html</loc>
   </url>
   <url>
+    <loc>https://swarm-lab.github.io/trackdf/articles/z4_errors.html</loc>
+  </url>
+  <url>
     <loc>https://swarm-lab.github.io/trackdf/authors.html</loc>
   </url>
   <url>
@@ -43,16 +46,13 @@
     <loc>https://swarm-lab.github.io/trackdf/reference/dplyr_track.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_t.html</loc>
-  </url>
-  <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_xyt.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf/reference/duplicated_data.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/filter.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/inconsistent_xy.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf/reference/inconsistent_data.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/index.html</loc>
@@ -64,10 +64,7 @@
     <loc>https://swarm-lab.github.io/trackdf/reference/is_track.html</loc>
   </url>
   <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/missing_t.html</loc>
-  </url>
-  <url>
-    <loc>https://swarm-lab.github.io/trackdf/reference/missing_xy.html</loc>
+    <loc>https://swarm-lab.github.io/trackdf/reference/missing_data.html</loc>
   </url>
   <url>
     <loc>https://swarm-lab.github.io/trackdf/reference/n_dims.html</loc>
