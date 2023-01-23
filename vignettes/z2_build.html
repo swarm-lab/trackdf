@@ -420,7 +420,7 @@ dimensions of the experimental setup), and the time of each observation
 (e.g., the frame number in a video). They can also contain other forms
 of information relevant to the work and we will also see here how to
 import them into a track table.</p>
-<p>First, let’s load some data that was generated using the <a href="(https://github.com/swarm-lab/trackdf)"><code>trackR</code></a>
+<p>First, let’s load some data that was generated using the <a href="https://github.com/swarm-lab/trackdf"><code>trackR</code></a>
 video-tracking software:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata/video/01.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;trackdf&quot;</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(raw, <span class="at">max =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">ncol</span>(raw))</span></code></pre></div>
@@ -456,18 +456,18 @@ contains the identities before manual inspection and correction;
 ## Number of tracks:  81 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  data frame (&#39;data.frame&#39;
+## Table class:  data frame (&#39;data.frame&#39;)
 ##    id                   t         x        y
-## 1   1 2023-01-13 14:41:48  629.3839 882.4783
-## 2   2 2023-01-13 14:41:48 1056.1692 656.5207
-## 3   3 2023-01-13 14:41:48  508.0092 375.2451
-## 4   4 2023-01-13 14:41:48 1277.6466 373.7491
-## 5   5 2023-01-13 14:41:48 1379.2844 343.0853
-## 6   6 2023-01-13 14:41:48 1137.1378 174.5110
-## 7   7 2023-01-13 14:41:48  737.1931 115.9394
-## 8   8 2023-01-13 14:41:48  921.8634 103.3508
-## 9   1 2023-01-13 14:41:49  629.4024 882.4129
-## 10  2 2023-01-13 14:41:49 1056.1704 656.4691
+## 1   1 2023-01-23 00:09:53  629.3839 882.4783
+## 2   2 2023-01-23 00:09:53 1056.1692 656.5207
+## 3   3 2023-01-23 00:09:53  508.0092 375.2451
+## 4   4 2023-01-23 00:09:53 1277.6466 373.7491
+## 5   5 2023-01-23 00:09:53 1379.2844 343.0853
+## 6   6 2023-01-23 00:09:53 1137.1378 174.5110
+## 7   7 2023-01-23 00:09:53  737.1931 115.9394
+## 8   8 2023-01-23 00:09:53  921.8634 103.3508
+## 9   1 2023-01-23 00:09:54  629.4024 882.4129
+## 10  2 2023-01-23 00:09:54 1056.1704 656.4691
 ##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 21972 rows ]</code></pre>
 <p><code>track</code> outputs a few warnings, all related to the time
 component that we provided it. Indeed, we provided it with frame numbers
@@ -488,7 +488,7 @@ observations) parameter of the function:</p>
 ## Number of tracks:  81 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  data frame (&#39;data.frame&#39;
+## Table class:  data frame (&#39;data.frame&#39;)
 ##    id                   t         x        y
 ## 1   1 2019-03-24 12:55:23  629.3839 882.4783
 ## 2   2 2019-03-24 12:55:23 1056.1692 656.5207
@@ -515,7 +515,7 @@ extra columns when creating data frames. For instance, let’s include the
 ## Number of tracks:  81 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  data frame (&#39;data.frame&#39;
+## Table class:  data frame (&#39;data.frame&#39;)
 ##    id                   t         x        y ignore
 ## 1   1 2019-03-24 12:55:23  629.3839 882.4783  FALSE
 ## 2   2 2019-03-24 12:55:23 1056.1692 656.5207  FALSE
@@ -545,7 +545,7 @@ data. If you prefer to work with <code>tibble::tibble</code> or
 ## Number of tracks:  81 
 ## Dimensions:  2D 
 ## Geographic:  FALSE 
-## Table class:  tibble (&#39;tbl_df&#39;
+## Table class:  tibble (&#39;tbl_df&#39;)
 ## # A tibble: 21,982 × 5
 ##    id    t                       x     y ignore
 ##    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; 
@@ -624,7 +624,7 @@ that’s needed.</p>
 ## Dimensions:  2D 
 ## Geographic:  TRUE 
 ## Projection:  +proj=longlat 
-## Table class:  data frame (&#39;data.frame&#39;
+## Table class:  data frame (&#39;data.frame&#39;)
 ##    id                   t        x         y
 ## 1   1 2015-09-10 07:00:00 15.76459 -22.37971
 ## 2   1 2015-09-10 07:00:01 15.76459 -22.37971

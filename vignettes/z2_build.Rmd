@@ -79,7 +79,7 @@ a video). They can also contain other forms of information relevant to the work
 and we will also see here how to import them into a track table.
 
 First, let's load some data that was generated using the 
-[`trackR`]((https://github.com/swarm-lab/trackdf)) video-tracking software: 
+[`trackR`](https://github.com/swarm-lab/trackdf) video-tracking software: 
 
 ```{r message=FALSE, warning=FALSE}
 raw <- read.csv(system.file("extdata/video/01.csv", package = "trackdf"))

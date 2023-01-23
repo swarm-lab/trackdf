@@ -178,7 +178,7 @@ dimensions of the experimental setup), and the time of each observation
 (e.g., the frame number in a video). They can also contain other forms
 of information relevant to the work and we will also see here how to
 import them into a track table.</p>
-<p>First, let’s load some data that was generated using the <a href="(https://github.com/swarm-lab/trackdf)" class="external-link"><code>trackR</code></a>
+<p>First, let’s load some data that was generated using the <a href="https://github.com/swarm-lab/trackdf" class="external-link"><code>trackR</code></a>
 video-tracking software:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/video/01.csv"</span>, package <span class="op">=</span> <span class="st">"trackdf"</span><span class="op">)</span><span class="op">)</span></span>
@@ -224,16 +224,16 @@ contains the identities before manual inspection and correction;
 <span><span class="co">## Geographic:  FALSE </span></span>
 <span><span class="co">## Table class:  data frame ('data.frame')</span></span>
 <span><span class="co">##    id                   t         x        y</span></span>
-<span><span class="co">## 1   1 2023-01-22 22:14:25  629.3839 882.4783</span></span>
-<span><span class="co">## 2   2 2023-01-22 22:14:25 1056.1692 656.5207</span></span>
-<span><span class="co">## 3   3 2023-01-22 22:14:25  508.0092 375.2451</span></span>
-<span><span class="co">## 4   4 2023-01-22 22:14:25 1277.6466 373.7491</span></span>
-<span><span class="co">## 5   5 2023-01-22 22:14:25 1379.2844 343.0853</span></span>
-<span><span class="co">## 6   6 2023-01-22 22:14:25 1137.1378 174.5110</span></span>
-<span><span class="co">## 7   7 2023-01-22 22:14:25  737.1931 115.9394</span></span>
-<span><span class="co">## 8   8 2023-01-22 22:14:25  921.8634 103.3508</span></span>
-<span><span class="co">## 9   1 2023-01-22 22:14:26  629.4024 882.4129</span></span>
-<span><span class="co">## 10  2 2023-01-22 22:14:26 1056.1704 656.4691</span></span>
+<span><span class="co">## 1   1 2023-01-23 00:10:25  629.3839 882.4783</span></span>
+<span><span class="co">## 2   2 2023-01-23 00:10:25 1056.1692 656.5207</span></span>
+<span><span class="co">## 3   3 2023-01-23 00:10:25  508.0092 375.2451</span></span>
+<span><span class="co">## 4   4 2023-01-23 00:10:25 1277.6466 373.7491</span></span>
+<span><span class="co">## 5   5 2023-01-23 00:10:25 1379.2844 343.0853</span></span>
+<span><span class="co">## 6   6 2023-01-23 00:10:25 1137.1378 174.5110</span></span>
+<span><span class="co">## 7   7 2023-01-23 00:10:25  737.1931 115.9394</span></span>
+<span><span class="co">## 8   8 2023-01-23 00:10:25  921.8634 103.3508</span></span>
+<span><span class="co">## 9   1 2023-01-23 00:10:26  629.4024 882.4129</span></span>
+<span><span class="co">## 10  2 2023-01-23 00:10:26 1056.1704 656.4691</span></span>
 <span><span class="co">##  [ reached 'max' / getOption("max.print") -- omitted 21972 rows ]</span></span></code></pre>
 <p><code>track</code> outputs a few warnings, all related to the time
 component that we provided it. Indeed, we provided it with frame numbers
