@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">trackdf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -313,7 +313,7 @@ follows:</p>
 </h2>
 <p>Combining track tables requires a bit of caution. Indeed, traditional
 methods to combine data frames (e.g., <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">base::rbind</a></code>,
-<code><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">data.table::rbindlist</a></code>, or <code><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">dplyr::bind_rows</a></code>)
+<code><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">data.table::rbindlist</a></code>, or <code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">dplyr::bind_rows</a></code>)
 will successfully bind together multiple track tables but they will not
 check whether these track tables are compatible with each other. For
 instance, they will not check that the coordinates are using the same

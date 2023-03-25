@@ -1,8 +1,8 @@
 Package: trackdf
 Type: Package
 Title: Data Frame Class for Tracking Data
-Version: 0.3.1
-Date: 2023-01-22
+Version: 0.3.2
+Date: 2023-03-25
 Authors@R: c(
     person("Simon", "Garnier", email = "garnier@njit.edu", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0002-3886-3974"))
