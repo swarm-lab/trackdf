@@ -1,3 +1,15 @@
+# trackdf 0.3.2
+
+## New features
+
+* N/A.
+
+## Minor improvements and fixes
+
+* Fixes CRAN check warnings with R-devel. 
+
+---
+
 # trackdf 0.3.1
 
 ## New features

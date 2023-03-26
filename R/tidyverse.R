@@ -49,7 +49,7 @@
 #'
 #' @description \code{\link[dplyr]{dplyr}} methods for track tables objects.
 #'
-#' @param .data A track table.
+#' @param data,.data,x A track table.
 #'
 #' @param ... Additional arguments to be passed to the corresponding
 #'  \code{\link[dplyr]{dplyr}} method.
@@ -125,19 +125,13 @@ group_by.track <- function(.data, ...) .reclass(.data, NextMethod())
 #' @rdname dplyr_track
 #'
 #' @export
-ungroup.track <- function(.data, ...) .reclass(.data, NextMethod())
+ungroup.track <- function(x, ...) .reclass(x, NextMethod())
 
-#' @importFrom dplyr sample_n
+#' @importFrom dplyr slice_sample
 #' @rdname dplyr_track
 #'
 #' @export
-sample_n.track <- function(.data, ...) .reclass(.data, NextMethod())
-
-#' @importFrom dplyr sample_frac
-#' @rdname dplyr_track
-#'
-#' @export
-sample_frac.track <- function(.data, ...) .reclass(.data, NextMethod())
+slice_sample.track <- function(.data, ...) .reclass(.data, NextMethod())
 
 #' @importFrom dplyr do
 #' @rdname dplyr_track
@@ -155,43 +149,43 @@ slice.track <- function(.data, ...) .reclass(.data, NextMethod())
 #' @rdname dplyr_track
 #'
 #' @export
-semi_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+semi_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr anti_join
 #' @rdname dplyr_track
 #'
 #' @export
-anti_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+anti_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr inner_join
 #' @rdname dplyr_track
 #'
 #' @export
-inner_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+inner_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr left_join
 #' @rdname dplyr_track
 #'
 #' @export
-left_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+left_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr right_join
 #' @rdname dplyr_track
 #'
 #' @export
-right_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+right_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr full_join
 #' @rdname dplyr_track
 #'
 #' @export
-full_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+full_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr nest_join
 #' @rdname dplyr_track
 #'
 #' @export
-nest_join.track <- function(.data, ...) .reclass(.data, NextMethod())
+nest_join.track <- function(x, ...) .reclass(x, NextMethod())
 
 #' @importFrom dplyr distinct
 #' @rdname dplyr_track
@@ -203,4 +197,4 @@ distinct.track <- function(.data, ...) .reclass(.data, NextMethod())
 #' @rdname dplyr_track
 #'
 #' @export
-rowwise.track <- function(.data, ...) .reclass(.data, NextMethod())
+rowwise.track <- function(data, ...) .reclass(data, NextMethod())

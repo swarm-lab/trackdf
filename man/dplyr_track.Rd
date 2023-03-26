@@ -12,8 +12,7 @@
 \alias{summarize.track}
 \alias{group_by.track}
 \alias{ungroup.track}
-\alias{sample_n.track}
-\alias{sample_frac.track}
+\alias{slice_sample.track}
 \alias{do.track}
 \alias{slice.track}
 \alias{semi_join.track}
@@ -45,39 +44,37 @@
 
 \method{group_by}{track}(.data, ...)
 
-\method{ungroup}{track}(.data, ...)
+\method{ungroup}{track}(x, ...)
 
-\method{sample_n}{track}(.data, ...)
-
-\method{sample_frac}{track}(.data, ...)
+\method{slice_sample}{track}(.data, ...)
 
 \method{do}{track}(.data, ...)
 
 \method{slice}{track}(.data, ...)
 
-\method{semi_join}{track}(.data, ...)
+\method{semi_join}{track}(x, ...)
 
-\method{anti_join}{track}(.data, ...)
+\method{anti_join}{track}(x, ...)
 
-\method{inner_join}{track}(.data, ...)
+\method{inner_join}{track}(x, ...)
 
-\method{left_join}{track}(.data, ...)
+\method{left_join}{track}(x, ...)
 
-\method{right_join}{track}(.data, ...)
+\method{right_join}{track}(x, ...)
 
-\method{full_join}{track}(.data, ...)
+\method{full_join}{track}(x, ...)
 
-\method{nest_join}{track}(.data, ...)
+\method{nest_join}{track}(x, ...)
 
 \method{distinct}{track}(.data, ...)
 
-\method{rowwise}{track}(.data, ...)
+\method{rowwise}{track}(data, ...)
 }
 \arguments{
-\item{.data}{A track table.}
-
 \item{...}{Additional arguments to be passed to the corresponding
 \code{\link[dplyr]{dplyr}} method.}
+
+\item{data, .data, x}{A track table.}
 }
 \description{
 \code{\link[dplyr]{dplyr}} methods for track tables objects.
