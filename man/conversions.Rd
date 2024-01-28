@@ -6,7 +6,6 @@
 \alias{as_track.MoveStack}
 \alias{as_track.Move}
 \alias{as_move}
-\alias{as_move.track}
 \alias{as_track.SpatialPointsDataFrame}
 \alias{as_sp}
 \alias{as_sp.track}
@@ -29,8 +28,6 @@ as_track(x, table = "df", ...)
 \method{as_track}{Move}(x, table = "df", ...)
 
 as_move(x, ...)
-
-\method{as_move}{track}(x, ...)
 
 \method{as_track}{SpatialPointsDataFrame}(x, table = "df", ...)
 
@@ -70,8 +67,6 @@ a \code{\link[tibble]{tibble}} ("tbl"), or a \code{\link[data.table]{data.table}
 \itemize{
   \item{\code{\link{track_df}}, \code{\link{track_tbl}} or \code{\link{track_dt}}
     if \code{as_track} is used.}
-  \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
-    used.}
   \item{\code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame}}
     if \code{as_sp} is used.}
   \item{\code{\link[adehabitatLT:as.ltraj]{adehabitatLT::as.ltraj}} if
@@ -97,11 +92,6 @@ The following methods will convert track tables to and from other
 \examples{
 \dontrun{
 data(short_tracks)
-
-if (requireNamespace("moveVis", quietly = TRUE)) {
-  mv <- as_move(short_tracks)
-  as_track(mv)
-}
 
 if (requireNamespace("sp", quietly = TRUE)) {
   sp <- as_sp(short_tracks)

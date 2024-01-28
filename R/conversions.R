@@ -24,8 +24,8 @@
 #' \itemize{
 #'   \item{\code{\link{track_df}}, \code{\link{track_tbl}} or \code{\link{track_dt}}
 #'     if \code{as_track} is used.}
-#'   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
-#'     used.}
+#   \item{\code{\link[moveVis:df2move]{moveVis::df2move}} if \code{as_move} is
+#     used.}
 #'   \item{\code{\link[sp:SpatialPointsDataFrame]{sp::SpatialPointsDataFrame}}
 #'     if \code{as_sp} is used.}
 #'   \item{\code{\link[adehabitatLT:as.ltraj]{adehabitatLT::as.ltraj}} if
@@ -45,11 +45,11 @@
 #' @examples
 #' \dontrun{
 #' data(short_tracks)
-#'
-#' if (requireNamespace("moveVis", quietly = TRUE)) {
-#'   mv <- as_move(short_tracks)
-#'   as_track(mv)
-#' }
+#
+# if (requireNamespace("moveVis", quietly = TRUE)) {
+#   mv <- as_move(short_tracks)
+#   as_track(mv)
+# }
 #'
 #' if (requireNamespace("sp", quietly = TRUE)) {
 #'   sp <- as_sp(short_tracks)
@@ -129,16 +129,16 @@ as_move <- function(x, ...) {
   UseMethod("as_move", x)
 }
 
-#' @rdname conversions
-#'
-#' @export
-as_move.track <- function(x, ...) {
-  if (n_dims(x) > 2)
-    warning("move objects are 2D only. The 3rd dimension will be stripped away.")
-
-  moveVis::df2move(x, proj = projection(x)$proj4string, x = "x", y = "y",
-                   time = "t", track_id = "id", ...)
-}
+# #' @rdname conversions
+# #'
+# #' @export
+# as_move.track <- function(x, ...) {
+#   if (n_dims(x) > 2)
+#     warning("move objects are 2D only. The 3rd dimension will be stripped away.")
+# 
+#   moveVis::df2move(x, proj = projection(x)$proj4string, x = "x", y = "y",
+#                    time = "t", track_id = "id", ...)
+# }
 
 
 ### SPATIALPOINTSDATAFRAME

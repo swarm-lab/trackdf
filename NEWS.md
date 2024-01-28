@@ -1,3 +1,15 @@
+# trackdf 0.3.3
+
+## New features
+
+* N/A.
+
+## Minor improvements and fixes
+
+* Removes moveVis conversion since package appears deprecated on CRAN. 
+
+---
+
 # trackdf 0.3.2
 
 ## New features

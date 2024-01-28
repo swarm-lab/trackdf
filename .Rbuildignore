@@ -16,3 +16,4 @@ deprecated
 ^pkgdown$
 ^codecov\.yml$
 ^CRAN-SUBMISSION$
+.vscode
